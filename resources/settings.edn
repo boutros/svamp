@@ -1,0 +1,14 @@
+{:rdf-store {:title "RDF-store"
+             :schema s
+             :elements {:endpoint :username :password}}
+ :ns { :title "Namespaces"
+       :schema s/Str
+       :elements {:foaf "http://..."
+                  :dc "htpp:///" } }
+ :api {:title "API credentials"
+       :schema {(s/required-key :name) s/Str
+                  (s/required-key :description) s/Str
+                  (s/maybe :username) s/Str
+                  (s/maybe :password) s/Str
+                  (s/maybe :token) s/Str}
+       :elements {:hei 1 :jo 2}} }

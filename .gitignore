@@ -1,0 +1,12 @@
+/target
+/lib
+/classes
+/checkouts
+/resources/public/out
+doc/notes.txt
+pom.xml*
+*.jar
+*.class
+.lein*
+.nrepl*
+*.js
