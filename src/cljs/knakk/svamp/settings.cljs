@@ -16,19 +16,29 @@
                                 :username {:type :text :value "noe1" :desc "username for basic/digest authentication"}
                                 :password {:type :text :value "hemli" :desc "password for basic/digest authentication"}
                                 :open-timeout {:type :number :value 1500 :desc "in milliseconds"}
-                                :read-timeout {:type :number :value 3000 :desc "in milliseconds"}
-                                }}
+                                :read-timeout {:type :number :value 3000 :desc "in milliseconds"}}}
          :ns {:type :multi
               :title "RDF Namespaces"
               :desc "Namespace prefixes must be defined here and are accessible to all SPARQL queries. The ID must be the same as the namespace prefix."
-              :elements {:foaf {:prefix "foaf" :uri "http://xmlns.com/foaf/0.1/"}
-                         :dc {:prefix "dc" :uri "http://purl.org/dc/terms/"}
-                         :skos {:prefix "skos" :uri "http://www.w3.org/2004/02/skos/core#"}}}
+              :elements {:foaf {:prefix {:type :text :value "foaf"}
+                                :uri {:type :text :value "http://xmlns.com/foaf/0.1/"}}
+                         :dc {:prefix {:type :text :value "dc"}
+                              :uri {:type :text :value "http://purl.org/dc/terms/"}}
+                         :skos {:prefix {:type :text :value "skos"}
+                                :uri {:type :text :value "http://www.w3.org/2004/02/skos/core#"}}}}
          :api {:type :multi
                :title "External APIs"
                :desc "URLs and credentials for external HTTP APIs."
-               :elements {:ol {:url "https://openlibrary.org/api/books" :name "Open Library" :username "bob" :password "bob" :token nil}
-                          :mb {:url "http://musicbrainz.org/ws/2/" :name "Musizcbrainz" :username nil :password nil :token "b8s1adnZf"}}}}))
+               :elements {:ol {:url {:type :text, :value "https://openlibrary.org/api/books"}
+                               :name {:type :text, :value "Open Library"}
+                               :username {:type :text, :value "bob"}
+                               :password {:type :text, :value "bob"}
+                               :token {:type :text, :value "" }}
+                          :mb {:url {:type :text, :value "http://musicbrainz.org/ws/2/"}
+                               :name {:type :text, :value "Musizcbrainz"}
+                               :username {:type :text, :value ""}
+                               :password {:type :text, :value ""}
+                               :token {:type :text, :value "b8s1adnZf"}}}}}))
 
 (defn handle-text [e element owner]
   (om/transact! element :value (fn [_] (.. e -target -value))))
@@ -101,7 +111,7 @@
           (map (fn [[k v] pair]
                  (dom/div #js {:className "multiElement column half"}
                    (dom/label nil (name k))
-                   (dom/input #js {:value v :type "text"})))
+                   (om/build input-type v)))
                (seq kvpairs)))))))
 
 (defn multi-view [group owner]
