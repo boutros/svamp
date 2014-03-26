@@ -124,16 +124,20 @@
                (seq kvpairs)))))))
 
 (defn add-multi-element [group owner template]
-  (let [id (-> (om/get-node owner "new-element")
-               .-value symbol)]
-    (when id
-      (om/transact! group :elements #(assoc % id @template)))))
+  (om/transact! group :elements #(assoc % (om/get-state owner :new-id) @template)))
+
+(defn handle-change-id [e owner current-id]
+  (let [new-id (.. e -target -value)]
+    (if-not (or (= "" new-id) (re-find #"^[\w\d-]+$" new-id))
+      (om/set-state! owner :ned-id current-id)
+      (om/set-state! owner :new-id new-id))))
+
 
 (defn multi-view [group owner]
   (reify
     om/IInitState
     (init-state [_]
-      {:delete (chan) :template (:template group)})
+      {:delete (chan) :template (:template group) :new-id ""})
     om/IWillMount
     (will-mount [_]
       (let [delete (om/get-state owner :delete)]
@@ -142,7 +146,7 @@
                 (om/transact! group :elements #(dissoc % id))
                 (recur))))))
     om/IRenderState
-    (render-state [_ {:keys [template delete]}]
+    (render-state [_ {:keys [template delete new-id]}]
       (dom/div nil
         (apply dom/div nil
           (om/build-all multi-row
@@ -150,8 +154,10 @@
                         {:init-state {:delete delete}}))
         (dom/div #js {:className "addID"}
           (dom/strong nil "ID: ")
-          (dom/input #js {:type "text" :ref "new-element"})
-          (dom/button #js {:onClick #(add-multi-element group owner template)} "add new element"))))))
+          (dom/input #js {:type "text" :value new-id
+                          :onChange #(handle-change-id % owner new-id)})
+          (dom/button #js {:onClick #(add-multi-element group owner template)
+                           :disabled (= new-id "")} "add new element"))))))
 
 (defmulti group-view (fn [group _] (:type group)))
 (defmethod group-view :single [group owner] (single-view group owner))
