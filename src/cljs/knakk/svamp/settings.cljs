@@ -124,7 +124,7 @@
                (seq kvpairs)))))))
 
 (defn add-multi-element [group owner template]
-  (om/transact! group :elements #(assoc % (om/get-state owner :new-id) @template)))
+  (om/transact! group :elements #(assoc % (keyword (om/get-state owner :new-id)) @template)))
 
 (defn handle-change-id [e owner current-id]
   (let [new-id (.. e -target -value)]
@@ -132,6 +132,9 @@
       (om/set-state! owner :ned-id current-id)
       (om/set-state! owner :new-id new-id))))
 
+(defn add-disabled? [group id]
+  (or (= id "")
+      (some #(= % (keyword id)) (keys (:elements group)))))
 
 (defn multi-view [group owner]
   (reify
@@ -157,7 +160,7 @@
           (dom/input #js {:type "text" :value new-id
                           :onChange #(handle-change-id % owner new-id)})
           (dom/button #js {:onClick #(add-multi-element group owner template)
-                           :disabled (= new-id "")} "add new element"))))))
+                           :disabled (add-disabled? group new-id)} "add new element"))))))
 
 (defmulti group-view (fn [group _] (:type group)))
 (defmethod group-view :single [group owner] (single-view group owner))
