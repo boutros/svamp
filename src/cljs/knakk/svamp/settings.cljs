@@ -124,7 +124,9 @@
                (seq kvpairs)))))))
 
 (defn add-multi-element [group owner template]
-  (om/transact! group :elements #(assoc % (keyword (om/get-state owner :new-id)) @template)))
+  (when-let [id (keyword (om/get-state owner :new-id))]
+    (om/transact! group :elements #(assoc % id @template))
+    (om/set-state! owner :new-id "")))
 
 (defn handle-change-id [e owner current-id]
   (let [new-id (.. e -target -value)]
