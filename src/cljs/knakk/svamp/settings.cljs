@@ -1,7 +1,8 @@
 (ns knakk.svamp.settings
+  (:require-macros [cljs.core.async.macros :refer [go]])
   (:require [om.core :as om :include-macros true]
             [om.dom :as dom :include-macros true]
-            [clojure.string :as string]))
+            [cljs.core.async :refer [put! chan alts! <!]]))
 
 (enable-console-print!)
 
@@ -20,6 +21,8 @@
          :ns {:type :multi
               :title "RDF Namespaces"
               :desc "Namespace prefixes must be defined here and are accessible to all SPARQL queries. The ID must be the same as the namespace prefix."
+              :template {:prefix {:type :text :value ""}
+                         :uri {:type :text :value ""}}
               :elements {:foaf {:prefix {:type :text :value "foaf"}
                                 :uri {:type :text :value "http://xmlns.com/foaf/0.1/"}}
                          :dc {:prefix {:type :text :value "dc"}
@@ -29,6 +32,11 @@
          :api {:type :multi
                :title "External APIs"
                :desc "URLs and credentials for external HTTP APIs."
+               :template {:url {:type :text, :value ""}
+                          :name {:type :text, :value ""}
+                          :username {:type :text, :value ""}
+                          :password {:type :text, :value ""}
+                          :token {:type :text, :value "" }}
                :elements {:ol {:url {:type :text, :value "https://openlibrary.org/api/books"}
                                :name {:type :text, :value "Open Library"}
                                :username {:type :text, :value "bob"}
@@ -100,13 +108,14 @@
 
 (defn multi-row [[id kvpairs] owner]
   (reify
-    om/IRender
-    (render [this]
+    om/IRenderState
+    (render-state [_ {:keys [delete]}]
       (dom/div nil
         (dom/div #js {:className "multiID"}
           (dom/strong nil "ID: ")
           (dom/span nil (name id))
-          (dom/span #js {:className "multiDelete"} "x"))
+          (dom/span #js {:className "multiDelete"
+                         :onClick (fn [e] (put! delete id))} "x"))
         (apply dom/div #js {:className "row"}
           (map (fn [[k v] pair]
                  (dom/div #js {:className "multiElement column half"}
@@ -114,17 +123,35 @@
                    (om/build input-type v)))
                (seq kvpairs)))))))
 
+(defn add-multi-element [group owner template]
+  (let [id (-> (om/get-node owner "new-element")
+               .-value symbol)]
+    (when id
+      (om/transact! group :elements #(assoc % id @template)))))
+
 (defn multi-view [group owner]
   (reify
-    om/IRender
-    (render [this]
+    om/IInitState
+    (init-state [_]
+      {:delete (chan) :template (:template group)})
+    om/IWillMount
+    (will-mount [_]
+      (let [delete (om/get-state owner :delete)]
+        (go (loop []
+              (let [id (<! delete)]
+                (om/transact! group :elements #(dissoc % id))
+                (recur))))))
+    om/IRenderState
+    (render-state [_ {:keys [template delete]}]
       (dom/div nil
         (apply dom/div nil
-          (om/build-all multi-row (seq (:elements group))))
+          (om/build-all multi-row
+                        (seq (:elements group))
+                        {:init-state {:delete delete}}))
         (dom/div #js {:className "addID"}
           (dom/strong nil "ID: ")
-          (dom/input {:type "text"})
-          (dom/button nil "add new element"))))))
+          (dom/input #js {:type "text" :ref "new-element"})
+          (dom/button #js {:onClick #(add-multi-element group owner template)} "add new element"))))))
 
 (defmulti group-view (fn [group _] (:type group)))
 (defmethod group-view :single [group owner] (single-view group owner))
