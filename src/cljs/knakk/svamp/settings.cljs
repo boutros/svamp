@@ -2,51 +2,10 @@
   (:require-macros [cljs.core.async.macros :refer [go]])
   (:require [om.core :as om :include-macros true]
             [om.dom :as dom :include-macros true]
-            [cljs.core.async :refer [put! chan alts! <!]]))
+            [cljs.core.async :refer [put! chan alts! <!]]
+            [knakk.svamp.utils :refer [edn-xhr]]))
 
 (enable-console-print!)
-
-; TODO types: :no-space-string in attition to :text?
-(def data
-  (atom {:rdf-store {:type :single
-                     :title "RDF store"
-                     :desc "RDF (quad-store) where all metadata is stored. The endpoint must have support for SPARQL 1.1. Openlink's Virtuoso is the recommended option."
-                     :elements {:endpoint {:type :text :value "http://localhost:8890/sparql" :desc "SPARQL endpoint"}
-                                :default-graph {:type :text :value "http://data.svamp.no"}
-                                :auth-method {:type :options :selected :digest :options {:none "none" :basic "basic" :digest "digest"} :desc "authentication method for the SPARQL endpoint"}
-                                :username {:type :text :value "noe1" :desc "username for basic/digest authentication"}
-                                :password {:type :text :value "hemli" :desc "password for basic/digest authentication"}
-                                :open-timeout {:type :number :value 1500 :desc "in milliseconds"}
-                                :read-timeout {:type :number :value 3000 :desc "in milliseconds"}}}
-         :ns {:type :multi
-              :title "RDF Namespaces"
-              :desc "Namespace prefixes must be defined here and are accessible to all SPARQL queries. The ID must be the same as the namespace prefix."
-              :template {:prefix {:type :text :value ""}
-                         :uri {:type :text :value ""}}
-              :elements {:foaf {:prefix {:type :text :value "foaf"}
-                                :uri {:type :text :value "http://xmlns.com/foaf/0.1/"}}
-                         :dc {:prefix {:type :text :value "dc"}
-                              :uri {:type :text :value "http://purl.org/dc/terms/"}}
-                         :skos {:prefix {:type :text :value "skos"}
-                                :uri {:type :text :value "http://www.w3.org/2004/02/skos/core#"}}}}
-         :api {:type :multi
-               :title "External APIs"
-               :desc "URLs and credentials for external HTTP APIs."
-               :template {:url {:type :text, :value ""}
-                          :name {:type :text, :value ""}
-                          :username {:type :text, :value ""}
-                          :password {:type :text, :value ""}
-                          :token {:type :text, :value "" }}
-               :elements {:ol {:url {:type :text, :value "https://openlibrary.org/api/books"}
-                               :name {:type :text, :value "Open Library"}
-                               :username {:type :text, :value "bob"}
-                               :password {:type :text, :value "bob"}
-                               :token {:type :text, :value "" }}
-                          :mb {:url {:type :text, :value "http://musicbrainz.org/ws/2/"}
-                               :name {:type :text, :value "Musizcbrainz"}
-                               :username {:type :text, :value ""}
-                               :password {:type :text, :value ""}
-                               :token {:type :text, :value "b8s1adnZf"}}}}}))
 
 (defn handle-text
   "Update state for text-input."
@@ -215,9 +174,18 @@
         (dom/div #js {:className "settingsElements" :style (display open)}
           (om/build group-view group))))))
 
-(om/root
-  (fn [settings owner]
-    (apply dom/div #js {:className "settings"}
-      (om/build-all groups (vals settings))))
-  data
-  {:target (. js/document (getElementById "page-app"))})
+(defn settings
+  [settings owner]
+  (reify
+    om/IWillMount
+    (will-mount [_]
+      (edn-xhr
+        {:method :get
+         :url "api/settings"
+         :on-complete #(om/update! settings %)}))
+    om/IRender
+    (render [_]
+      (apply dom/div #js {:className "settings"}
+             (om/build-all groups (vals settings))))))
+
+(om/root settings {} {:target (. js/document (getElementById "page-app"))})
