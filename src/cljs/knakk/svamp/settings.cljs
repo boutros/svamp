@@ -142,7 +142,9 @@
         (dom/div #js {:className "addID"}
           (dom/strong nil "ID: ")
           (dom/input #js {:type "text" :value new-id
-                          :onChange #(handle-change-id % owner new-id)})
+                          :onChange #(handle-change-id % owner new-id)
+                          :onKeyPress #(when (== (.-keyCode %) 13)
+                                         (add-multi-element group owner template))})
           (dom/button #js {:onClick #(add-multi-element group owner template)
                            :disabled (add-disabled? group new-id)} "add new element"))))))
 
