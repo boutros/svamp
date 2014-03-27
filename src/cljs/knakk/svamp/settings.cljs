@@ -6,7 +6,7 @@
 
 (enable-console-print!)
 
-; TODO types: :no-space-string in attition to :text
+; TODO types: :no-space-string in attition to :text?
 (def data
   (atom {:rdf-store {:type :single
                      :title "RDF store"
@@ -48,11 +48,15 @@
                                :password {:type :text, :value ""}
                                :token {:type :text, :value "b8s1adnZf"}}}}}))
 
-(defn handle-text [e element owner]
+(defn handle-text
+  "Update state for text-input."
+  [e element owner]
   (om/transact! element :value (fn [_] (.. e -target -value))))
 
 ; TODO make regex customizable for all types?
-(defn handle-number [e element owner old-value]
+(defn handle-number
+  "Change-handler for numbers."
+  [e element owner old-value]
   (let [new-value (.. e -target -value)]
    (if (re-find #"^[0-9]*$" new-value)
      (do
@@ -60,7 +64,9 @@
        (om/set-state! owner :old-value new-value))
      (om/set-state! owner :old-value old-value))))
 
-(defn text-input [element owner]
+(defn text-input
+  "Component: text input."
+  [element owner]
   (reify
     om/IRender
     (render [this]
@@ -68,7 +74,9 @@
                       :type "text"
                       :onChange #(handle-text % element owner)}))))
 
-(defn number-input [element owner]
+(defn number-input
+  "Component: numbers-only input."
+  [element owner]
   (reify
     om/IInitState
     (init-state [_]
@@ -79,7 +87,9 @@
                       :type "text"
                       :onChange #(handle-number % element owner old-value)}))))
 
-(defn options-input [element owner]
+(defn options-input
+  "Component: dropdown input."
+  [element owner]
   (reify
     om/IRender
     (render [this]
@@ -88,12 +98,15 @@
           (dom/option #js {:value k} v))
         (seq (:options element)))))))
 
+;; Dispatch on input type:
 (defmulti input-type (fn [element _] (:type element)))
 (defmethod input-type :number [element owner] (number-input element owner))
 (defmethod input-type :text [element owner] (text-input element owner))
 (defmethod input-type :options [element owner] (options-input element owner))
 
-(defn single-view [group owner]
+(defn single-view
+  "Component: view for non-repeatable settings."
+  [group owner]
   (reify
     om/IRender
     (render [this]
@@ -105,8 +118,9 @@
             (dom/span #js {:className "elementDesc"} (:desc v))))
         (seq (:elements group)))))))
 
-
-(defn multi-row [[id kvpairs] owner]
+(defn multi-row ; TODO row is a wrong name here, rename repeatable?
+  "Component: repeatable elements to an id."
+  [[id kvpairs] owner]
   (reify
     om/IRenderState
     (render-state [_ {:keys [delete]}]
@@ -123,22 +137,31 @@
                    (om/build input-type v)))
                (seq kvpairs)))))))
 
-(defn add-multi-element [group owner template]
+(defn add-multi-element
+  "Update state: add new repeatable element."
+  [group owner template]
   (when-let [id (keyword (om/get-state owner :new-id))]
     (om/transact! group :elements #(assoc % id @template))
     (om/set-state! owner :new-id "")))
 
-(defn handle-change-id [e owner current-id]
+(defn handle-change-id
+  "Change-handler: id for new element."
+  [e owner current-id]
   (let [new-id (.. e -target -value)]
     (if-not (or (= "" new-id) (re-find #"^[\w\d-]+$" new-id))
       (om/set-state! owner :ned-id current-id)
       (om/set-state! owner :new-id new-id))))
 
-(defn add-disabled? [group id]
+(defn add-disabled?
+  "Helper: disable add-element button if the input form is empty or if
+   the id is allready in use in that settings-group."
+  [group id]
   (or (= id "")
       (some #(= % (keyword id)) (keys (:elements group)))))
 
-(defn multi-view [group owner]
+(defn multi-view
+  "Component: view for repeatable settings."
+  [group owner]
   (reify
     om/IInitState
     (init-state [_]
@@ -164,16 +187,20 @@
           (dom/button #js {:onClick #(add-multi-element group owner template)
                            :disabled (add-disabled? group new-id)} "add new element"))))))
 
+;; Dispatch on :type of group, repeatable or non-repeatable
 (defmulti group-view (fn [group _] (:type group)))
 (defmethod group-view :single [group owner] (single-view group owner))
 (defmethod group-view :multi [group owner] (multi-view group owner))
 
 (defn display [show]
+  "Helper: hide a dom element when show is true."
   (if show
     #js {}
     #js {:display "none"}))
 
-(defn groups [group owner]
+(defn groups
+  "Component: Group of settings."
+  [group owner]
   (reify
     om/IInitState
     (init-state [_]
