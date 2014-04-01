@@ -140,6 +140,8 @@ code { font-size: 0.8em;}
 .main-menu li { margin-left:1em; float: left;}
 .page-search { float: right; width: 150px; margin-right: 0.5em;}
 .main-menu a { display: block; }
+.monospace { font-family: monospace;}
+.dark-gray { color: #444;}
 
 @media screen and (min-width: 640px) {
  nav { position:fixed; top:0; width: 640px;}
@@ -159,6 +161,7 @@ code { font-size: 0.8em;}
 
 .page-header { margin-top: 45px;}
 
+/* settings */
 .settingsGroup { position: relative;}
 .settingsElements { font-family: monospace; }
 .settings h2 { border-bottom: 2px solid #bbb;}
@@ -177,3 +180,10 @@ code { font-size: 0.8em;}
 .triangle { position: absolute; right: 0; top:0; color: #888; }
 .close:after { content: '▲';}
 .open:after { content: '▼';}
+
+
+/* resources */
+h2.resources { border-bottom: 2px solid #bbb; }
+ul.resources { padding: 0; margin: 0; list-style: none;}
+.resources strong:after { content: ': ';}
+.resources li { height: 3.5em; padding: 0.3em; background-color: #eee; border: 2px solid #fff;}

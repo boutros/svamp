@@ -1,0 +1,91 @@
+{
+ :rdf-type "http://data.deichman.no/format/Book"
+ :label "Book"
+ :desc "a physical or digital manifestation of a literary work."
+ :groups [
+          {:title "Identificators and relations"
+           :elements [
+                      {:required false
+                       :repeatable false
+                       :rdf-type :string
+                       :input-type :single
+                       :property {:name "ISBN"
+                                  :desc "ISBN-number"
+                                  :predicate "bibo:isbn"}}
+                      {:required false
+                       :repeatable true
+                       :rdf-type :uri
+                       :input-type :single
+                       :property {:name "SameAs"
+                                  :desc "URI describing the same book."
+                                  :predicate "owl:sameAs"}}
+                      {:required true
+                       :repeatable false
+                       :rdf-type :uri
+                       :input-type :single
+                       :property {:name "work"
+                                  :desc "The work which this book is a manifestation of. Must be created if it doesn't exist."
+                                  :predicate "fabio:isManifestationOf"}}]}
+          {:title "Creator(s)"
+           :elements [
+                      {:required false
+                       :repeatable true
+                       :input-type :multi
+                       :rdf-type :uri
+                       :properties [
+                                    {:name "author"
+                                     :prediacte "dc:creator"
+                                     :desc "Author of the book or a substantial parts of it."}
+                                    {:name "Translator"
+                                     :predicate "dc:translator"
+                                     :desc "Translator"}
+                                    {:name "illustrator"
+                                     :predicate "dc:illustrator"
+                                     :desc "Illustrator"}
+                                    {:name "editor"
+                                     :predicate "dc:editor"
+                                     :desc "Editor"}
+                                    {:name "contributor"
+                                     :predicate "dc:contributor"
+                                     :desc "Contributor"}]}]}
+          {:title "Classification"
+           :elements [
+                      {:required false
+                       :repeatable true
+                       :input-type :single
+                       :rdf-type :uri
+                       :property {:name "Dewey"
+                                  :desc "Call number in the Dewey decimal system."
+                                  :predicate "deich:dewey"}}
+                      {:required false
+                       :repeatable true
+                       :rdf-type :uri
+                       :input-type :single
+                       :property {:name "Subject"
+                                  :desc "A subject describing the book"
+                                  :predicate "dc:subject"}}]}
+          {:title "Contents"
+           :elements [
+                      {:required false
+                       :repeatable true
+                       :input-type :single
+                       :rdf-type :string
+                       :property {:name "Description"
+                                  :desc "bla bla about the book"
+                                  :predicate "dc:description"}}
+                      {:required false
+                       :repeatable true
+                       :input-type :single
+                       :rdf-type :string
+                       :property {:name "Abstract"
+                                  :desc "Short summary of the book"
+                                  :predicate "dc:abstract"}}
+                      {:required false
+                       :repeatable true
+                       :input-type :single
+                       :rdf-type :string
+                       :property {:name "Quote"
+                                  :desc "Quotation from the book"
+                                  :predicate "svamp:quote"}}]}
+          ]
+ }
