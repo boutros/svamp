@@ -30,7 +30,7 @@
                  data)))
         (dom/div nil
           (dom/h3 nil "Modify an existing resource")
-          (dom/div #js {:className "monospace"}
+          (dom/div #js {:className "monospace beigebg lineBar"}
             (dom/input #js {:type "text" :placeholder "Search for resources"})
             (dom/span nil " of type ")
             (apply dom/select nil

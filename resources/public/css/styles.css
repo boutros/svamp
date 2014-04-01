@@ -140,8 +140,10 @@ code { font-size: 0.8em;}
 .main-menu li { margin-left:1em; float: left;}
 .page-search { float: right; width: 150px; margin-right: 0.5em;}
 .main-menu a { display: block; }
+.lineBar { margin: 1em 0; border-radius: 2px; padding: 4px;}
 .monospace { font-family: monospace;}
 .dark-gray { color: #444;}
+.beigebg { background: #eed; }
 
 @media screen and (min-width: 640px) {
  nav { position:fixed; top:0; width: 640px;}
@@ -175,7 +177,6 @@ code { font-size: 0.8em;}
 .multiElement { margin: 0.3em 0;}
 .multiDelete { float: right; font-weight: bold; color: #888;}
 .multiDelete:hover { cursor: pointer; }
-.addID { margin: 1em 0; background: #eed; border-radius: 2px; padding: 4px;}
 .addID input { width: 100px; margin: 0 1em;}
 .triangle { position: absolute; right: 0; top:0; color: #888; }
 .close:after { content: '▲';}

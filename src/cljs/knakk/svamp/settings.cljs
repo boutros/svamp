@@ -140,7 +140,7 @@
           (om/build-all multi-row
                         (seq (:elements group))
                         {:init-state {:delete delete}}))
-        (dom/div #js {:className "addID"}
+        (dom/div #js {:className "addID beigebg lineBar"}
           (dom/strong nil "ID: ")
           (dom/input #js {:type "text" :value new-id
                           :onChange #(handle-change-id % owner new-id)
