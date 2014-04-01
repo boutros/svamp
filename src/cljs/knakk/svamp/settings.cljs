@@ -70,37 +70,37 @@
     om/IRender
     (render [this]
       (apply dom/ul nil
-        (map (fn [[k v]]
+        (map (fn [e]
           (dom/li nil
-            (dom/label nil (name k))
-            (om/build input-type v)
-            (dom/span #js {:className "elementDesc"} (:desc v))))
-        (seq (:elements group)))))))
+            (dom/label nil (name (:id e)))
+            (om/build input-type e)
+            (dom/span #js {:className "elementDesc"} (:desc e))))
+        (:elements group))))))
 
 (defn multi-row ; TODO row is a wrong name here, rename repeatable?
   "Component: repeatable elements to an id."
-  [[id kvpairs] owner]
+  [multirow owner]
   (reify
     om/IRenderState
     (render-state [_ {:keys [delete]}]
       (dom/div nil
         (dom/div #js {:className "multiID"}
           (dom/strong nil "ID: ")
-          (dom/span nil (name id))
+          (dom/span nil (name (:id multirow)))
           (dom/span #js {:className "multiDelete"
-                         :onClick (fn [e] (put! delete id))} "x"))
+                         :onClick (fn [e] (put! delete @multirow))} "x"))
         (apply dom/div #js {:className "row"}
           (map (fn [[k v] pair]
                  (dom/div #js {:className "multiElement column half"}
                    (dom/label nil (name k))
                    (om/build input-type v)))
-               (seq kvpairs)))))))
+               (:content multirow)))))))
 
 (defn add-multi-element
   "Update state: add new repeatable element."
   [group owner template]
   (when-let [id (keyword (om/get-state owner :new-id))]
-    (om/transact! group :elements #(assoc % id @template))
+    (om/transact! group :elements #(conj % (assoc @template :id id)))
     (om/set-state! owner :new-id "")))
 
 (defn handle-change-id
@@ -116,7 +116,7 @@
    the id is allready in use in that settings-group."
   [group id]
   (or (= id "")
-      (some #(= % (keyword id)) (keys (:elements group)))))
+      (some #(= % (keyword id)) (map :id (group :elements)))))
 
 (defn multi-view
   "Component: view for repeatable settings."
@@ -129,8 +129,9 @@
     (will-mount [_]
       (let [delete (om/get-state owner :delete)]
         (go (loop []
-              (let [id (<! delete)]
-                (om/transact! group :elements #(dissoc % id))
+              (let [el (<! delete)]
+                (om/transact! group :elements
+                  (fn [xs] (vec (remove #(= el %) xs))))
                 (recur))))))
     om/IRenderState
     (render-state [_ {:keys [template delete new-id]}]
@@ -188,6 +189,6 @@
     om/IRender
     (render [_]
       (apply dom/div #js {:className "settings"}
-             (om/build-all groups (vals settings))))))
+             (om/build-all groups settings)))))
 
 (om/root settings {} {:target (. js/document (getElementById "page-app"))})
