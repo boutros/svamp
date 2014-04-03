@@ -154,6 +154,7 @@
 (defmethod group-view :single [group owner] (single-view group owner))
 (defmethod group-view :multi [group owner] (multi-view group owner))
 
+;; TODO move to utisl
 (defn display [show]
   "Helper: hide a dom element when show is true."
   (if show

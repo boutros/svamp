@@ -9,23 +9,53 @@
                        :repeatable false
                        :rdf-type :string
                        :input-type :single
-                       :property {:name "ISBN"
+                       :property {:label "ISBN"
                                   :desc "ISBN-number"
                                   :predicate "bibo:isbn"}}
                       {:required false
                        :repeatable true
                        :rdf-type :uri
                        :input-type :single
-                       :property {:name "SameAs"
+                       :property {:label "SameAs"
                                   :desc "URI describing the same book."
                                   :predicate "owl:sameAs"}}
                       {:required true
                        :repeatable false
                        :rdf-type :uri
                        :input-type :single
-                       :property {:name "work"
+                       :property {:label "Work"
                                   :desc "The work which this book is a manifestation of. Must be created if it doesn't exist."
                                   :predicate "fabio:isManifestationOf"}}]}
+          {:title "Publication data"
+           :elements [
+                      {:required true
+                       :repeatable false
+                       :rdf-type :string
+                       :input-type :single
+                       :property {:label "Title"
+                                  :desc "Title of the book"
+                                  :predicate "dc:title"}}
+                      {:required false
+                       :repeatable false
+                       :rdf-type :string
+                       :input-type :single
+                       :property {:label "SubTitle"
+                                  :desc "Subtitle"
+                                  :predicate "svamp:subtitle"}}
+                      {:required false
+                       :repeatable false
+                       :rdf-type :uri
+                       :input-type :single
+                       :property {:label "Publisher"
+                                  :desc "The publisher of the book"
+                                  :predicate "dc:publisher"}}
+                      {:required false
+                       :repeatable false
+                       :rdf-type :integer
+                       :input-type :single
+                       :property {:label "Publication year"
+                                  :desc "Publichation year"
+                                  :predicate "dc:date"}}]}
           {:title "Creator(s)"
            :elements [
                       {:required false
@@ -33,19 +63,19 @@
                        :input-type :multi
                        :rdf-type :uri
                        :properties [
-                                    {:name "author"
+                                    {:label "author"
                                      :prediacte "dc:creator"
                                      :desc "Author of the book or a substantial parts of it."}
-                                    {:name "Translator"
+                                    {:label "Translator"
                                      :predicate "dc:translator"
                                      :desc "Translator"}
-                                    {:name "illustrator"
+                                    {:label "illustrator"
                                      :predicate "dc:illustrator"
                                      :desc "Illustrator"}
-                                    {:name "editor"
+                                    {:label "editor"
                                      :predicate "dc:editor"
                                      :desc "Editor"}
-                                    {:name "contributor"
+                                    {:label "contributor"
                                      :predicate "dc:contributor"
                                      :desc "Contributor"}]}]}
           {:title "Classification"
@@ -54,37 +84,37 @@
                        :repeatable true
                        :input-type :single
                        :rdf-type :uri
-                       :property {:name "Dewey"
+                       :property {:label "Dewey"
                                   :desc "Call number in the Dewey decimal system."
                                   :predicate "deich:dewey"}}
                       {:required false
                        :repeatable true
                        :rdf-type :uri
                        :input-type :single
-                       :property {:name "Subject"
+                       :property {:label "Subject"
                                   :desc "A subject describing the book"
                                   :predicate "dc:subject"}}]}
-          {:title "Contents"
+          {:title "Content"
            :elements [
                       {:required false
                        :repeatable true
                        :input-type :single
                        :rdf-type :string
-                       :property {:name "Description"
+                       :property {:label "Description"
                                   :desc "bla bla about the book"
                                   :predicate "dc:description"}}
                       {:required false
                        :repeatable true
                        :input-type :single
                        :rdf-type :string
-                       :property {:name "Abstract"
+                       :property {:label "Abstract"
                                   :desc "Short summary of the book"
                                   :predicate "dc:abstract"}}
                       {:required false
                        :repeatable true
                        :input-type :single
                        :rdf-type :string
-                       :property {:name "Quote"
+                       :property {:label "Quote"
                                   :desc "Quotation from the book"
                                   :predicate "svamp:quote"}}]}
           ]

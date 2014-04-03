@@ -23,7 +23,7 @@
           (dom/h3 nil "Create a new resource")
           (apply dom/ul #js {:className "monospace row resources"}
             (map (fn [e]
-                  (dom/a #js {:href (str "resource-new?rdf-type=" (:rdf-type e))}
+                  (dom/a #js {:href (str "resource-new?template=" (:file e))}
                      (dom/li #js {:className "column one-third"}
                              (dom/strong nil (:label e))
                              (dom/span #js {:className "dark-gray"} (:desc e)))))

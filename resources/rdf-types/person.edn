@@ -2,5 +2,42 @@
  :rdf-type "http://data.deichman.no/format/Person"
  :label "Person"
  :desc "a human being, living or dead."
- :groups []
+ :groups [
+          {:title "Personalia"
+           :elements [
+                      {:required true
+                       :repeatable false
+                       :rdf-type :string
+                       :input-type :single
+                       :property {:label "Name"
+                                  :desc "The person's real name"
+                                  :predicate "foaf:name"}}
+                      {:required false
+                       :repeatable true
+                       :rdf-type :string
+                       :input-type :single
+                       :property {:label "Nickname"
+                                  :desc "Also known as.."
+                                  :predicate "svamp:nick"}}
+                      {:required false
+                       :repeatable true
+                       :rdf-type :uri
+                       :input-type :single
+                       :property {:label "Birthplace"
+                                  :desc "Place of birth"
+                                  :predicate "svamp:place"}}
+                      {:required false
+                       :repeatable false
+                       :rdf-type :integer
+                       :input-type :single
+                       :property {:label "BirthYear"
+                                  :desc "Year of birth"
+                                  :predicate "svamp:birthYear"}}
+                      {:required false
+                       :repeatable false
+                       :rdf-type :integer
+                       :input-type :single
+                       :property {:label "DeathYear"
+                                  :desc "Year of death"
+                                  :predicate "svamp:birthYear"}}]}]
  }

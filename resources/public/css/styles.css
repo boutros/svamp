@@ -134,6 +134,7 @@ body { color: #191919; font-family: 'Crimson Text', serif; }
 p { font-size: 18px; }
 img { width: auto; max-width: 100%; height: auto; }
 h1, h2, h3, h4, h4 { font-family: "Source Sans Pro", "Helvetica", "Arial", sans-serif; }
+h2 { border-bottom: 2px solid #bbb; }
 .clearfix { clear: both;}
 code { font-size: 0.8em;}
 .main-menu { list-style-type: none; padding: 0; margin:0;}
@@ -144,6 +145,7 @@ code { font-size: 0.8em;}
 .monospace { font-family: monospace;}
 .dark-gray { color: #444;}
 .beigebg { background: #eed; }
+.error { font-size: 18px; font-weight: bold; background: yellow; padding: 4px; border: 2px dashed black;}
 
 @media screen and (min-width: 640px) {
  nav { position:fixed; top:0; width: 640px;}
@@ -166,7 +168,6 @@ code { font-size: 0.8em;}
 /* settings */
 .settingsGroup { position: relative;}
 .settingsElements { font-family: monospace; }
-.settings h2 { border-bottom: 2px solid #bbb;}
 .settings h2:hover { cursor: pointer;}
 .settings label { padding-right: 1em; display:inline-block; min-width: 150px; font-weight: bold; margin-bottom: 0.5em;}
 .settings select, .settings input { width: 230px;}
@@ -184,7 +185,24 @@ code { font-size: 0.8em;}
 
 
 /* resources */
-h2.resources { border-bottom: 2px solid #bbb; }
 ul.resources { padding: 0; margin: 0; list-style: none;}
 .resources strong:after { content: ': ';}
 .resources li { height: 3.5em; padding: 0.3em; background-color: #eee; border: 2px solid #fff;}
+
+.rdfType { padding: 4px; background: #ccc; font-size: 18px;}
+.rdfType:before { content: '<'; }
+.rdfType:after { content: '>'; }
+
+.resource { position: relative;}
+.resource label { border-bottom: 1px dashed #bbb; display:block; font-weight: bold; margin: 0.5em 0;}
+.resource select, .resource input { width: 230px; }
+.resourceDesc { clear:both; color: #444; font-size:15px; margin: 0.5em 0;}
+input.uriSearch { width: 150px !important; float: left;}
+.uriSearchBar { padding: 4px; height:30px; width: 500px;
+                background: #eee; position: absolute; right: 0; top: 16px;}
+.uriSearchResults { padding: 4px; z-index:100; width: 500px;
+                    background: #eee; position: absolute; right: 0; top: 30px;}
+.uriSearchResults ul { list-style: none; padding:0; margin: 0;}
+.uriSearchResults li:hover { background: #fff; text-decoration:underline; cursor: pointer;}
+.uriSearchResults button { margin: 1em 0;}
+.uriChosen { margin: 0 0.5em;}

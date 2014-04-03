@@ -20,3 +20,9 @@
     (. xhr
        (send url (meths method) (when data (pr-str data))
              #js {"Content-Type" "application/edn"}))))
+
+(defn display [show]
+  "Helper: hide a dom element when show is true."
+  (if show
+    #js {}
+    #js {:display "none"}))
