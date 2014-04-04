@@ -5,6 +5,7 @@
   :desc "RDF (quad-store) where all metadata is stored. The endpoint must have support for SPARQL 1.1. Openlink's Virtuoso is the recommended option."
   :elements [{:id :endpoint :type :text :value "http://localhost:8890/sparql" :desc "SPARQL endpoint"}
              {:id :default-graph :type :text :value "http://data.svamp.no"}
+             {:id :drafts-graph :type :text :value "http://data.svamp.no/drafts"}
              {:id :auth-method :type :options :selected :digest :options {:none "none" :basic "basic" :digest "digest"} :desc "authentication method for the SPARQL endpoint"}
              {:id :username :type :text :value "noe1" :desc "username for basic/digest authentication"}
              {:id :password :type :text :value "hemli" :desc "password for basic/digest authentication"}

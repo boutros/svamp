@@ -87,7 +87,7 @@
         (dom/div #js {:className "multiID"}
           (dom/strong nil "ID: ")
           (dom/span nil (name (:id multirow)))
-          (dom/span #js {:className "multiDelete"
+          (dom/span #js {:className "delete right"
                          :onClick (fn [e] (put! delete @multirow))} "x"))
         (apply dom/div #js {:className "row"}
           (map (fn [[k v] pair]

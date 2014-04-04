@@ -36,6 +36,8 @@
             (apply dom/select nil
               (map (fn [e]
                      (dom/option #js {:value (:rdf-type e)} (:label e)))
-                   (into [{:label "Any" :rdf-type "any"}] data)))))))))
+                   (into [{:label "Any" :rdf-type "any"}] data)))
+            (dom/input #js {:type "checkbox" :checked true :className "chk"})
+            (dom/label nil "including drafts")))))))
 
 (om/root metadata {} {:target (. js/document (getElementById "page-app-1"))})

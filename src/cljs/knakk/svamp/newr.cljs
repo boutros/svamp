@@ -36,7 +36,7 @@
   (reify
     om/IRender
     (render [this]
-      (dom/div #js {:className "column one-third"}
+      (dom/div nil
         (dom/input #js {:value (:value element)
                        :type "text"
                        :onChange #(handle-text % element owner)})))))
@@ -59,10 +59,11 @@
     (render-state [_ {:keys [searching results query chosen]}]
       (dom/div nil
         (dom/div nil
-          (dom/input #js {:value (:value element) :disabled true :type "text"})
-          (dom/span #js {:className "monospace chosen"} chosen))
+          (dom/input #js {:value (:value element) :disabled true :type "text" :title chosen})
+          (when (seq (:value element))
+            (dom/span #js {:className "delete mrgh" :onClick #(om/update! element :value nil)} "x")))
         (dom/div nil
-          (dom/div #js {:className "uriSearchBar monospace"}
+          (dom/div #js {:className "uriSearchBar"}
            (dom/input #js {:className "monospace" :placeholder "search" :value query
                            :onChange #(uri-search % element owner)
                            ;; delay with 100ms as not to hide before the onClick of the results:
@@ -76,7 +77,7 @@
                                          (om/set-state! owner :searching false)
                                          (om/set-state! owner :query "")))
                            :onFocus #(uri-search % element owner)})
-           (dom/div #js {:className "uriSearchResults monospace" :style (display searching)}
+           (dom/div #js {:className "uriSearchResults" :style (display searching)}
             (apply dom/ul nil
               (om/build-all (fn [r]
                               (dom/li #js {:onClick (fn [e]
@@ -98,13 +99,14 @@
     om/IRender
     (render [_]
       (let [property (:property element)]
-        (dom/div #js {:className "resource"}
-          (dom/label #js {:className "monospace"} (:label property))
+        (dom/div #js {:className "resource monospace"}
+          (dom/div #js {:className "elementTitle"}
+            (dom/label nil (:label property))
+            (when (:required element)
+              (dom/span #js {:className "red"} "*")))
           (om/build input-type element)
-          (dom/div #js {:className "resourceDesc"} (:desc property)))))))
-          ; (dom/div #js {:className "column one-third"}
-          ;   (dom/input #js {:className "monospace" :type "text" :disabled (= (:rdf-type element) :uri)})
-          ;   (dom/span #js {:className "resourceDesc"} (:desc property))
+          (dom/div #js {:className "relementDesc"} (:desc property)))))))
+
 
 (defn multi-view
   [element owner]
@@ -141,6 +143,11 @@
       (if (:error data)
         (dom/div #js {:className "error"} (:error data))
         (dom/div nil
+          (dom/div #js {:className "page-fixed-header monospace"}
+            (dom/button nil "Save draft")
+            (dom/button #js {:disabled true} "Preview RDF")
+            (dom/button #js {:disabled true :title "You must fill in the required fields to publish."}
+              (dom/strong nil "Publish")))
           (dom/h1 nil (:label data))
           (dom/p nil (:desc data))
           (dom/div #js {:className "rdfType monospace"} (:rdf-type data))
