@@ -50,36 +50,30 @@
     (om/set-state! owner :searching (not= "" query))
     (om/set-state! owner :query query)))
 
-(defn uri-input [element owner]
+(defn uri-search-bar
+  "Component: Search for URIs. Rolldown resultlist of URI labels."
+  [element owner]
   (reify
     om/IInitState
     (init-state [_]
-      {:searching false
-       :query ""
-       :chosen ""
-       :results temp-results})
+      {:searching false  :query "" :results temp-results})
     om/IRenderState
-    (render-state [_ {:keys [searching results query chosen]}]
+    (render-state [_ {:keys [searching results query chosen-chan]}]
       (dom/div nil
-        (dom/div nil
-          (dom/input #js {:value (:value element) :disabled true :type "text" :title chosen})
-          (when (seq (:value element))
-            (dom/span #js {:className "delete mrgh" :onClick #(om/update! element :value nil)} "x")))
-        (dom/div nil
-          (dom/div #js {:className "uriSearchBar"}
-           (dom/input #js {:className "monospace" :placeholder "search" :value query
-                           :onChange #(uri-search % element owner)
-                           ;; delay with 100ms as not to hide before the onClick of the results:
-                           :onBlur (fn [e] (js/setTimeout
-                                             #(do
-                                                (om/set-state! owner :searching false)
-                                                (om/set-state! owner :query ""))
-                                             100))
-                           :onKeyUp #(when (== (.-keyCode %) 27)
-                                       (do
-                                         (om/set-state! owner :searching false)
-                                         (om/set-state! owner :query "")))
-                           :onFocus #(uri-search % element owner)})
+        (dom/div #js {:className "uriSearchBar"}
+          (dom/input #js {:className "monospace" :placeholder "search" :value query
+                          :onChange #(uri-search % element owner)
+                          ;; delay with 100ms as not to hide before the onClick of the results:
+                          :onBlur (fn [e] (js/setTimeout
+                                            #(do
+                                               (om/set-state! owner :searching false)
+                                               (om/set-state! owner :query ""))
+                                            100))
+                          :onKeyUp #(when (== (.-keyCode %) 27)
+                                      (do
+                                        (om/set-state! owner :searching false)
+                                        (om/set-state! owner :query "")))
+                          :onFocus #(uri-search % element owner)})
            (dom/div #js {:className "uriSearchResults" :style (display searching)}
             (apply dom/ul nil
               (om/build-all (fn [r]
@@ -89,7 +83,21 @@
                                                         (om/set-state! owner :chosen (:label r))))}
                                                         (:label r))) results))
             (dom/button nil
-              (str "Create a new instance of " (get-in element [:property :predicate]))))))))))
+              (str "Create a new " (get-in element [:property :predicate])))))))))
+
+(defn uri-input [element owner]
+  (reify
+    om/IInitState
+    (init-state [_]
+      {:chosen ""})
+    om/IRenderState
+    (render-state [_ {:keys [chosen chosen-chan]}]
+      (dom/div nil
+        (dom/div nil
+          (dom/input #js {:value (:value element) :disabled true :type "text" :title chosen})
+          (when (seq (:value element))
+            (dom/span #js {:className "delete mrgh" :onClick #(om/update! element :value nil)} "x")))
+        (om/build uri-search-bar element)))))
 
 (defmulti input-type (fn [element _] (:rdf-type element)))
 (defmethod input-type :integer [element owner] (text-input element owner))

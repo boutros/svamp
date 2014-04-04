@@ -14,7 +14,7 @@
                                   :predicate "bibo:isbn"}}
                       {:required false
                        :repeatable true
-                       :rdf-type :uri
+                       :rdf-type :string
                        :input-type :single
                        :property {:label "SameAs"
                                   :desc "URI describing the same book."
