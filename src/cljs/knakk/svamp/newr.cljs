@@ -19,19 +19,22 @@
    {:label "Knut Holtman (1920-1921)" :uri "<bla8>"}
    {:label "Knut Haakonsen" :uri "<bla9>"}
    ])
+
 ;; TODO move to utils.cljs
 (defn query-params
-  "Creates a hash of the key-values in query string.
-  It assumes first character is ?, therfore the subs 1."
+  "Creates a hash of key-values from the query string.
+  It assumes first character is '?', therfore the subs 1."
   []
   (let [query-data (goog.Uri.QueryData. (subs js/window.location.search 1))]
     (zipmap (map keyword (.getKeys query-data)) (.getValues query-data))))
 
+;; TODO common handler, should be shared
 (defn handle-text
   "Update state for text-input."
   [e element owner]
   (om/transact! element :value (fn [_] (.. e -target -value))))
 
+;; TODO common componant, should be shared
 (defn text-input [element owner]
   (reify
     om/IRender
