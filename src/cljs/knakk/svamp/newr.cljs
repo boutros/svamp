@@ -105,7 +105,8 @@
             (when (:required element)
               (dom/span #js {:className "red"} "*")))
           (om/build input-type element)
-          (dom/div #js {:className "relementDesc"} (:desc property)))))))
+          ;(dom/div #js {:className "relementDesc"} (:desc property))
+          )))))
 
 
 (defn multi-view
