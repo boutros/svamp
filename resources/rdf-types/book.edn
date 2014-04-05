@@ -55,8 +55,8 @@
           {:title "Creator(s)"
            :elements [
                       {:id :creator
-                       :label "Creator or contributor"
-                       :desc "Author or contributor of the book or parts of the book."
+                       :label "Creator"
+                       :desc "The author and other people who contributed to the book."
                        :required false
                        :repeatable true
                        :multi-predicates true
@@ -70,7 +70,7 @@
                                      :predicate "dc:editor"}
                                     {:label "contributor"
                                      :predicate "dc:contributor"}]
-                       :value-template {:value "" :type :uri :predicate "dc:creator"}}]}
+                       :value-template {:value "" :type :multi-uri :predicate "dc:creator"}}]}
           {:title "Classification"
            :elements [
                       {:id :dewey
