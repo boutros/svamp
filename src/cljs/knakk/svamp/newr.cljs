@@ -217,7 +217,6 @@
               (dom/strong nil "Publish")))
           (dom/h1 nil (:label data))
           (dom/p nil (:desc data))
-          (dom/div #js {:className "rdfType monospace"} (:rdf-type data))
           (apply dom/div nil
             (om/build-all input-group (:groups data))))))))
 
