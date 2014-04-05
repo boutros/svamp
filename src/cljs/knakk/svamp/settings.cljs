@@ -62,6 +62,7 @@
 (defmethod input-type :number [element owner] (number-input element owner))
 (defmethod input-type :text [element owner] (text-input element owner))
 (defmethod input-type :options [element owner] (options-input element owner))
+;;TODO (defmethod input-type :checkbox [element owner] (checkbox-input element owner))
 
 (defn single-view
   "Component: view for non-repeatable settings."

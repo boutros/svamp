@@ -197,6 +197,7 @@ code { font-size: 0.8em;}
 
 /* resources */
 ul.resources { padding: 0; margin: 0; list-style: none;}
+.resources a { text-decoration: none;}
 .resources strong:after { content: ': ';}
 .resources li { height: 3.5em; padding: 0.3em; background-color: #eee; border: 2px solid #fff;}
 
