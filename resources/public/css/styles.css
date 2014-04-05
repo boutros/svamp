@@ -138,6 +138,7 @@ h2 { border-bottom: 2px solid #bbb; }
 .clearfix { clear: both;}
 .right { float: right; }
 .left { float: left; }
+.relative { position: relative;}
 code { font-size: 0.8em;}
 .main-menu { list-style-type: none; padding: 0; margin:0;}
 .main-menu li { margin-left:1em; float: left;}
@@ -203,20 +204,18 @@ ul.resources { padding: 0; margin: 0; list-style: none;}
 .rdfType:before { content: '<'; }
 .rdfType:after { content: '>'; }
 
-.resource { position: relative;}
-.relementDesc { margin: 1em 0;}
 .elementTitle { border-bottom: 1px dashed #bbb; margin: 0.5em 0;}
 .resource label { font-weight: bold;}
-.resource input { width: 230px; }
+.resource input { width: 230px; margin-bottom: 1em;}
 .resource select { width: 150px; float:right; margin: 0 1em;}
 input.uriSearch { width: 150px !important; float: left;}
 .uriSearchBar { padding: 4px; height:30px; width: 500px;
-                background: #eee; position: absolute; right: 0; top: 16px;}
+                 position: absolute; right: 0; top: -6px;}
 .uriSearchResults { padding: 4px; z-index:100; width: 500px;
-                    background: #eee; position: absolute; right: 0; top: 30px;}
+                    background: #eee; position: absolute; right: 0; top: 26px;}
 .uriSearchResults ul { list-style: none; padding:0; margin: 0;}
 .uriSearchResults li:hover { background: #fff; text-decoration:underline; cursor: pointer;}
 .uriSearchResults button { margin: 1em 0;}
 .uriChosen { margin: 0 0.5em;}
 
-.addElement { margin: 1em 0; font-weight: bold; cursor: pointer;}
+.addElement { margin-bottom: 1em; font-weight: bold; cursor: pointer;}

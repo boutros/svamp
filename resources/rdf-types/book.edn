@@ -5,131 +5,106 @@
  :groups [
           {:title "Identificators and relations"
            :elements [
-                      {:required false
+                      {:id :isbn
+                       :label "ISBN"
+                       :required false
                        :repeatable false
-                       :rdf-type :string
-                       :input-type :single
-                       :value-template ""
-                       :property {:label "ISBN"
-                                  :desc "ISBN-number"
-                                  :predicate "bibo:isbn"}}
-                      {:required false
+                       :multi-predicates false
+                       :value-template {:value "" :predicate "bibo:isbn" :type :string}}
+                      {:id :sameas
+                       :label "Same as"
+                       :desc "URI describing the same book."
+                       :required false
                        :repeatable true
-                       :rdf-type :string
-                       :input-type :single
-                       :value-template ""
-                       :property {:label "SameAs"
-                                  :desc "URI describing the same book."
-                                  :predicate "owl:sameAs"}}
-                      {:required true
+                       :multi-predicates false
+                       :value-template {:value "" :type :string :predicate "owl:sameAs"}}
+                      {:id :work
+                       :label "Work"
+                       :desc "The work which this book is a manifestation of."
+                       :required true
                        :repeatable false
-                       :rdf-type :uri
-                       :input-type :single
-                       :value-template ""
-                       :property {:label "Work"
-                                  :desc "The work which this book is a manifestation of. Must be created if it doesn't exist."
-                                  :predicate "fabio:isManifestationOf"}}]}
+                       :multi-predicates false
+                       :value-template {:value "" :type :uri :predicate "fabio:isManifestationOf"}
+                       :create-new {:label "Work" :template "work.edn"}}]}
           {:title "Publication data"
            :elements [
-                      {:required true
+                      {:id :title
+                       :label "Title"
+                       :required true
                        :repeatable false
-                       :rdf-type :string
-                       :input-type :single
-                       :value-template ""
-                       :property {:label "Title"
-                                  :desc "Title of the book"
-                                  :predicate "dc:title"}}
-                      {:required false
+                       :multi-predicates false
+                       :value-template {:value "" :type :string :predicate "dc:title"}}
+                      {:id :sub-title
+                       :label "Subtitle"
+                       :required false
                        :repeatable false
-                       :rdf-type :string
-                       :input-type :single
-                       :value-template ""
-                       :property {:label "SubTitle"
-                                  :desc "Subtitle"
-                                  :predicate "svamp:subtitle"}}
-                      {:required false
+                       :multi-predicates false
+                       :value-template {:value "" :type :string :predicate "svamp:subtitle"}}
+                      {:id :publisher
+                       :label "Publisher"
+                       :required false
                        :repeatable false
-                       :rdf-type :uri
-                       :input-type :single
-                       :value-template ""
-                       :property {:label "Publisher"
-                                  :desc "The publisher of the book"
-                                  :predicate "dc:publisher"}}
-                      {:required false
+                       :multi-predicates false
+                       :value-template {:value "" :type :uri :predicate "dc:publisher"}}
+                      {:id :pub-year
+                       :label "Publication year"
+                       :required false
                        :repeatable false
-                       :rdf-type :integer
-                       :input-type :single
-                       :value-template ""
-                       :property {:label "Publication year"
-                                  :desc "Publichation year"
-                                  :predicate "dc:date"}}]}
+                       :multi-predicates false
+                       :value-template {:value "" :type :integer :predicate "dc:date"}}]}
           {:title "Creator(s)"
            :elements [
-                      {:required false
+                      {:id :creator
+                       :label "Creator or contributor"
+                       :desc "Author or contributor of the book or parts of the book."
+                       :required false
                        :repeatable true
-                       :input-type :multi
-                       :rdf-type :uri
-                       :value-template {:value "" :predicate ""}
-                       :property-label "Creator or contributor to the book"
-                       :properties [
-                                    {:label "author"
-                                     :prediacte "dc:creator"
-                                     :desc "Author of the book or a substantial parts of it."}
+                       :multi-predicates true
+                       :predicates [{:label "author"
+                                     :prediacte "dc:creator"}
                                     {:label "translator"
-                                     :predicate "dc:translator"
-                                     :desc "translator"}
+                                     :predicate "dc:translator"}
                                     {:label "illustrator"
-                                     :predicate "dc:illustrator"
-                                     :desc "Illustrator"}
+                                     :predicate "dc:illustrator"}
                                     {:label "editor"
-                                     :predicate "dc:editor"
-                                     :desc "Editor"}
+                                     :predicate "dc:editor"}
                                     {:label "contributor"
-                                     :predicate "dc:contributor"
-                                     :desc "Contributor"}]}]}
+                                     :predicate "dc:contributor"}]
+                       :value-template {:value "" :type :uri :predicate "dc:creator"}}]}
           {:title "Classification"
            :elements [
-                      {:required false
+                      {:id :dewey
+                       :label "Dewey"
+                       :desc "Call number in the Dewey decimal system."
+                       :required false
                        :repeatable true
-                       :input-type :single
-                       :rdf-type :uri
-                       :value-template ""
-                       :property {:label "Dewey"
-                                  :desc "Call number in the Dewey decimal system."
-                                  :predicate "deich:dewey"}}
-                      {:required false
+                       :multi-predicates false
+                       :value-template {:value "" :type :uri :predicate "deich:dewey"}}
+                      {:id :subject
+                       :label "Subject"
+                       :required false
                        :repeatable true
-                       :rdf-type :uri
-                       :input-type :single
-                       :value-template ""
-                       :property {:label "Subject"
-                                  :desc "A subject describing the book"
-                                  :predicate "dc:subject"}}]}
+                       :multi-predicates false
+                       :value-template {:value "" :type :uri :predicate "dc:subject"}}]}
           {:title "Content"
            :elements [
-                      {:required false
+                      {:id :desc
+                       :label "Description"
+                       :required false
                        :repeatable true
-                       :input-type :single
-                       :rdf-type :string
-                       :value-template ""
-                       :property {:label "Description"
-                                  :desc "bla bla about the book"
-                                  :predicate "dc:description"}}
-                      {:required false
+                       :multi-predicates false
+                       :value-template {:value "" :type :string :predicate "dc:description"}}
+                      {:id :abstract
+                       :label "Abstract"
+                       :required false
                        :repeatable true
-                       :input-type :single
-                       :rdf-type :string
-                       :value-template ""
-                       :property {:label "Abstract"
-                                  :desc "Short summary of the book"
-                                  :predicate "dc:abstract"}}
-                      {:required false
+                       :multi-predicates false
+                       :value-template {:value "" :type :string :predicate "dc:abstract"}}
+                      {:id :quote
+                       :label "Quotation"
+                       :required false
                        :repeatable true
-                       :input-type :single
-                       :rdf-type :string
-                       :value-template ""
-                       :property {:label "Quote"
-                                  :desc "Quotation from the book"
-                                  :predicate "svamp:quote"}}]}
+                       :multi-predicates false
+                       :value-template {:value "" :type :string :predicate "svamp:quote"}}]}
           ]
  }

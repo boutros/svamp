@@ -28,21 +28,10 @@
   (let [query-data (goog.Uri.QueryData. (subs js/window.location.search 1))]
     (zipmap (map keyword (.getKeys query-data)) (.getValues query-data))))
 
-;; TODO common handler, should be shared
 (defn handle-text
   "Update state for text-input."
   [e element owner]
   (om/transact! element :value (fn [_] (.. e -target -value))))
-
-;; TODO common componant, should be shared
-(defn text-input [element owner]
-  (reify
-    om/IRender
-    (render [this]
-      (dom/div nil
-        (dom/input #js {:value (:value element)
-                       :type "text"
-                       :onChange #(handle-text % element owner)})))))
 
 (defn uri-search
   [e element owner]
@@ -87,7 +76,23 @@
             (dom/button nil
               (str "Create a new " (get-in element [:property :predicate])))))))))
 
-(defn uri-input [element owner]
+;; TODO common handler?
+(defn literal-input
+  "Component: String literal input."
+  [value owner]
+  (reify
+    om/IRender
+    (render [this]
+      (dom/div nil
+        (dom/input #js
+          {:value (:value value)
+           :type "text"
+           :onChange #(handle-text % value owner)})))))
+
+
+(defn uri-input
+  "Component: Input element where value must be an URI. Includes search-bar."
+  [value owner]
   (reify
     om/IInitState
     (init-state [_]
@@ -95,42 +100,46 @@
     om/IWillMount
     (will-mount [_]
       (let [chosen-chan (om/get-state owner :chosen-chan)]
-        (go (loop []
-              (let [c (<! chosen-chan)]
-                (om/set-state! owner :chosen c))
-                (recur)))))
+        (go
+          (loop []
+            (let [c (<! chosen-chan)]
+              (om/set-state! owner :chosen c))
+            (recur)))))
     om/IRenderState
     (render-state [_ {:keys [chosen chosen-chan]}]
-      (dom/div nil
+      (dom/div #js {:className "relative"}
         (dom/div nil
-          (dom/input #js {:value (:value element) :disabled true :type "text" :title chosen})
-          (when (seq (:value element))
-            (dom/span #js {:className "delete mrgh" :onClick #(om/update! element :value nil)} "x")))
-        (om/build uri-search-bar element {:init-state {:chosen-chan chosen-chan}})))))
+          (dom/input #js {:value (:value value) :disabled true :type "text" :title chosen})
+          (when (seq (:value value))
+            (dom/span #js {:className "delete mrgh" :onClick #(om/update! value :value nil)} "x")))
+        (om/build uri-search-bar value {:init-state {:chosen-chan chosen-chan}})))))
 
-(defmulti input-type (fn [element _] (:rdf-type element)))
-(defmethod input-type :integer [element owner] (text-input element owner))
-(defmethod input-type :string [element owner] (text-input element owner))
-(defmethod input-type :uri [element owner] (uri-input element owner))
+;; Dispatch on input type
+(defmulti input-type (fn [value _] (:type value)))
+(defmethod input-type :integer [value owner] (literal-input value owner)) ;; TODO make number-input, and also textarea-input
+(defmethod input-type :string [value owner] (literal-input value owner))
+(defmethod input-type :uri [value owner] (uri-input value owner))
 
 (defn single-view
   [element owner]
   (reify
     om/IRender
     (render [_]
-      (let [property (:property element)]
-        (dom/div #js {:className "resource monospace"}
-          (dom/div #js {:className "elementTitle"}
-            (dom/label nil (:label property))
-            (when (:required element)
-              (dom/span #js {:className "red bold"} "*")))
-          (om/build input-type element)
-          (when (:repeatable element)
-            (dom/button #js {:className "addElement"
-                             :title (str "add another " (:label property))} "+"))
-          ;(dom/div #js {:className "relementDesc"} (:desc property))
-          )))))
-
+      (dom/div #js {:className "resource monospace"}
+        (dom/div #js {:className "elementTitle"}
+          (dom/label nil (:label element))
+          (when (:required element)
+            (dom/span #js {:className "red bold"} "*")))
+        (apply dom/div nil
+          (om/build-all input-type
+                        (:values element)
+                        {:init-state {:create-new (:create-new element)}}))
+        (when (:repeatable element)
+          (dom/button #js {:className "addElement"
+                           :onClick (fn [e]
+                                      (om/transact! element :values
+                                                    #(conj % (:value-template @element))))}
+                      "+"))))))
 
 (defn multi-view
   [element owner]
@@ -143,7 +152,7 @@
       (dom/div #js {:className "resource monospace row"}
         (dom/div nil
           (dom/div #js {:className "elementTitle"}
-            (dom/label nil (:property-label element))
+            (dom/label nil (:label element))
             (when (:required element)
               (dom/span #js {:className "red"} "*")))
           (dom/div #js {:className "column half"}
@@ -151,12 +160,13 @@
             (when (seq (:value element))
               (dom/span #js {:className "delete mrgh" :onClick #(om/update! element :value nil)} "x"))
             (apply dom/select nil
-              (map (fn [p] (dom/option #js {:value (:predicate p)} (:label p))) (:properties element)))))
-        (om/build uri-search-bar element)))))
+              (map (fn [p] (dom/option #js {:value (:predicate p)} (:label p))) (:predicates element))))
+          (om/build uri-search-bar element))))))
 
-(defmulti element-view (fn [element _] (:input-type element)))
-(defmethod element-view :single [element owner] (single-view element owner))
-(defmethod element-view :multi [element owner] (multi-view element owner))
+;; Dispatch on variable predicate or not
+(defmulti element-view (fn [element _] (:multi-predicates element)))
+(defmethod element-view false [element owner] (single-view element owner))
+(defmethod element-view true [element owner] (multi-view element owner))
 
 (defn input-group
   [group owner]
@@ -168,16 +178,17 @@
         (apply dom/div nil
           (om/build-all element-view (:elements group)))))))
 
-; (defn assoc-value [data]
-;   (assoc data :groups
-;     (map
-;       (fn [group]
-;         (assoc group :elements
-;           (map
-;             (fn [element]
-;               (assoc element :value [(:value-template element)]))
-;             (:elements group))))
-;       (data :groups))))
+(defn assoc-value [data]
+  ;; TODO refactor this, unreadable.
+  (assoc data :groups
+    (vec (map
+           (fn [group]
+             (assoc group :elements
+               (vec (map
+                      (fn [element]
+                        (assoc element :values [(:value-template element)]))
+                      (:elements group)))))
+           (data :groups)))))
 
 (defn resource
   [data owner]
@@ -187,7 +198,7 @@
       (edn-xhr
         {:method :get
          :url (str "api/template?template=" (:template (query-params)))
-         :on-complete #(om/update! data %)}))
+         :on-complete #(om/update! data (assoc-value %))}))
     om/IRender
     (render [_]
       (if (:error data)

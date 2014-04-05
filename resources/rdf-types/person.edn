@@ -5,44 +5,35 @@
  :groups [
           {:title "Personalia"
            :elements [
-                      {:required true
+                      {:id :name
+                       :label "Real name"
+                       :required true
                        :repeatable false
-                       :rdf-type :string
-                       :input-type :single
-                       :value-template ""
-                       :property {:label "Name"
-                                  :desc "The person's real name"
-                                  :predicate "foaf:name"}}
-                      {:required false
+                       :multi-predicates false
+                       :value-template {:value "" :predicate "foaf:name" :type :string}}
+                      {:id :nickname
+                       :label "Nickname/Also known as"
+                       :required false
                        :repeatable true
-                       :rdf-type :string
-                       :input-type :single
-                       :value-template ""
-                       :property {:label "Nickname"
-                                  :desc "Also known as.."
-                                  :predicate "svamp:nick"}}
-                      {:required false
+                       :multi-predicates false
+                       :value-template {:value "" :predicate "svamp:nick" :type :string}}
+                      {:id :birth-place
+                       :label "Birthplace"
+                       :required false
+                       :repeatable true
+                       :multi-predicates false
+                       :value-template {:value "" :predicate "svamp:place" :type :uri}
+                       :create-new {:label "Place" :template "place.edn"}}
+                      {:id :birth-year
+                       :label "Year of birth"
+                       :required false
                        :repeatable false
-                       :rdf-type :uri
-                       :input-type :single
-                       :value-template ""
-                       :property {:label "Birthplace"
-                                  :desc "Place of birth"
-                                  :predicate "svamp:place"}}
-                      {:required false
+                       :multi-predicates false
+                       :value-template {:value "" :predicate "svamp:birthYear" :type :integer}}
+                      {:id :death-year
+                       :label "Year of Death"
+                       :required false
                        :repeatable false
-                       :rdf-type :integer
-                       :input-type :single
-                       :value-template ""
-                       :property {:label "BirthYear"
-                                  :desc "Year of birth"
-                                  :predicate "svamp:birthYear"}}
-                      {:required false
-                       :repeatable false
-                       :rdf-type :integer
-                       :input-type :single
-                       :value-template ""
-                       :property {:label "DeathYear"
-                                  :desc "Year of death"
-                                  :predicate "svamp:birthYear"}}]}]
+                       :multi-predicates false
+                       :value-template {:value "" :predicate "svamp:birthYear" :type :integer}}]}]
  }
