@@ -31,6 +31,7 @@
 (defn handle-text
   "Update state for text-input."
   [e element owner]
+  ;; TODO regex refuse whitespace as first charcter?
   (om/transact! element :value (fn [_] (.. e -target -value))))
 
 (defn uri-search
@@ -106,7 +107,7 @@
               (om/set-state! owner :chosen c))
             (recur)))))
     om/IRenderState
-    (render-state [_ {:keys [chosen chosen-chan]}]
+    (render-state [_ {:keys [chosen chosen-chan delete-chan]}] ;; TODO delete-chan
       (dom/div #js {:className "relative"}
         (dom/div nil
           (dom/input #js {:value (:value value) :disabled true :type "text" :title chosen})
@@ -136,6 +137,7 @@
                         {:init-state {:create-new (:create-new element)}}))
         (when (:repeatable element)
           (dom/button #js {:className "addElement"
+                           :disabled (not-every? #(seq (:value %)) (:values element))
                            :onClick (fn [e]
                                       (om/transact! element :values
                                                     #(conj % (:value-template @element))))}
