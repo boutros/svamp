@@ -145,6 +145,7 @@ code { font-size: 0.8em;}
 .main-menu a { display: block; }
 .lineBar { margin: 1em 0; border-radius: 2px; padding: 4px;}
 .monospace { font-family: monospace;}
+.bold { font-weight: bold; }
 .dark-gray { color: #444;}
 .red { color: red;}
 .beigebg { background: #eed; }
@@ -217,3 +218,5 @@ input.uriSearch { width: 150px !important; float: left;}
 .uriSearchResults li:hover { background: #fff; text-decoration:underline; cursor: pointer;}
 .uriSearchResults button { margin: 1em 0;}
 .uriChosen { margin: 0 0.5em;}
+
+.addElement { position: absolute; top:26px; left: -18px; font-weight: bold; cursor: pointer;}

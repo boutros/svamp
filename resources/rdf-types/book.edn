@@ -9,6 +9,7 @@
                        :repeatable false
                        :rdf-type :string
                        :input-type :single
+                       :value-template ""
                        :property {:label "ISBN"
                                   :desc "ISBN-number"
                                   :predicate "bibo:isbn"}}
@@ -16,6 +17,7 @@
                        :repeatable true
                        :rdf-type :string
                        :input-type :single
+                       :value-template ""
                        :property {:label "SameAs"
                                   :desc "URI describing the same book."
                                   :predicate "owl:sameAs"}}
@@ -23,6 +25,7 @@
                        :repeatable false
                        :rdf-type :uri
                        :input-type :single
+                       :value-template ""
                        :property {:label "Work"
                                   :desc "The work which this book is a manifestation of. Must be created if it doesn't exist."
                                   :predicate "fabio:isManifestationOf"}}]}
@@ -32,6 +35,7 @@
                        :repeatable false
                        :rdf-type :string
                        :input-type :single
+                       :value-template ""
                        :property {:label "Title"
                                   :desc "Title of the book"
                                   :predicate "dc:title"}}
@@ -39,6 +43,7 @@
                        :repeatable false
                        :rdf-type :string
                        :input-type :single
+                       :value-template ""
                        :property {:label "SubTitle"
                                   :desc "Subtitle"
                                   :predicate "svamp:subtitle"}}
@@ -46,6 +51,7 @@
                        :repeatable false
                        :rdf-type :uri
                        :input-type :single
+                       :value-template ""
                        :property {:label "Publisher"
                                   :desc "The publisher of the book"
                                   :predicate "dc:publisher"}}
@@ -53,6 +59,7 @@
                        :repeatable false
                        :rdf-type :integer
                        :input-type :single
+                       :value-template ""
                        :property {:label "Publication year"
                                   :desc "Publichation year"
                                   :predicate "dc:date"}}]}
@@ -62,6 +69,7 @@
                        :repeatable true
                        :input-type :multi
                        :rdf-type :uri
+                       :value-template {:value "" :predicate ""}
                        :property-label "Creator or contributor to the book"
                        :properties [
                                     {:label "author"
@@ -85,6 +93,7 @@
                        :repeatable true
                        :input-type :single
                        :rdf-type :uri
+                       :value-template ""
                        :property {:label "Dewey"
                                   :desc "Call number in the Dewey decimal system."
                                   :predicate "deich:dewey"}}
@@ -92,6 +101,7 @@
                        :repeatable true
                        :rdf-type :uri
                        :input-type :single
+                       :value-template ""
                        :property {:label "Subject"
                                   :desc "A subject describing the book"
                                   :predicate "dc:subject"}}]}
@@ -101,6 +111,7 @@
                        :repeatable true
                        :input-type :single
                        :rdf-type :string
+                       :value-template ""
                        :property {:label "Description"
                                   :desc "bla bla about the book"
                                   :predicate "dc:description"}}
@@ -108,6 +119,7 @@
                        :repeatable true
                        :input-type :single
                        :rdf-type :string
+                       :value-template ""
                        :property {:label "Abstract"
                                   :desc "Short summary of the book"
                                   :predicate "dc:abstract"}}
@@ -115,6 +127,7 @@
                        :repeatable true
                        :input-type :single
                        :rdf-type :string
+                       :value-template ""
                        :property {:label "Quote"
                                   :desc "Quotation from the book"
                                   :predicate "svamp:quote"}}]}

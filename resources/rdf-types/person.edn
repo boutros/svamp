@@ -9,6 +9,7 @@
                        :repeatable false
                        :rdf-type :string
                        :input-type :single
+                       :value-template ""
                        :property {:label "Name"
                                   :desc "The person's real name"
                                   :predicate "foaf:name"}}
@@ -16,13 +17,15 @@
                        :repeatable true
                        :rdf-type :string
                        :input-type :single
+                       :value-template ""
                        :property {:label "Nickname"
                                   :desc "Also known as.."
                                   :predicate "svamp:nick"}}
                       {:required false
-                       :repeatable true
+                       :repeatable false
                        :rdf-type :uri
                        :input-type :single
+                       :value-template ""
                        :property {:label "Birthplace"
                                   :desc "Place of birth"
                                   :predicate "svamp:place"}}
@@ -30,6 +33,7 @@
                        :repeatable false
                        :rdf-type :integer
                        :input-type :single
+                       :value-template ""
                        :property {:label "BirthYear"
                                   :desc "Year of birth"
                                   :predicate "svamp:birthYear"}}
@@ -37,6 +41,7 @@
                        :repeatable false
                        :rdf-type :integer
                        :input-type :single
+                       :value-template ""
                        :property {:label "DeathYear"
                                   :desc "Year of death"
                                   :predicate "svamp:birthYear"}}]}]

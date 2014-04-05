@@ -80,6 +80,8 @@
                               (dom/li #js {:onClick (fn [e]
                                                       (do
                                                         (om/update! element :value (:uri r))
+                                                        ;; TODO this doesnt work, move to channel approach:
+                                                        ;; chosen-chan
                                                         (om/set-state! owner :chosen (:label r))))}
                                                         (:label r))) results))
             (dom/button nil
@@ -114,8 +116,11 @@
           (dom/div #js {:className "elementTitle"}
             (dom/label nil (:label property))
             (when (:required element)
-              (dom/span #js {:className "red"} "*")))
+              (dom/span #js {:className "red bold"} "*")))
           (om/build input-type element)
+          (when (:repeatable element)
+            (dom/a #js {:className "addElement" :disabled true
+                        :title (str "add another " (:label property))} "+"))
           ;(dom/div #js {:className "relementDesc"} (:desc property))
           )))))
 
@@ -156,6 +161,17 @@
         (apply dom/div nil
           (om/build-all element-view (:elements group)))))))
 
+; (defn assoc-value [data]
+;   (assoc data :groups
+;     (map
+;       (fn [group]
+;         (assoc group :elements
+;           (map
+;             (fn [element]
+;               (assoc element :value [(:value-template element)]))
+;             (:elements group))))
+;       (data :groups))))
+
 (defn resource
   [data owner]
   (reify
@@ -164,7 +180,7 @@
       (edn-xhr
         {:method :get
          :url (str "api/template?template=" (:template (query-params)))
-         :on-complete #(om/update! data %)})) ;; TODO map assoc :value [""]
+         :on-complete #(om/update! data %)}))
     om/IRender
     (render [_]
       (if (:error data)
