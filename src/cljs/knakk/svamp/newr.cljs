@@ -119,8 +119,8 @@
               (dom/span #js {:className "red bold"} "*")))
           (om/build input-type element)
           (when (:repeatable element)
-            (dom/a #js {:className "addElement" :disabled true
-                        :title (str "add another " (:label property))} "+"))
+            (dom/button #js {:className "addElement"
+                             :title (str "add another " (:label property))} "+"))
           ;(dom/div #js {:className "relementDesc"} (:desc property))
           )))))
 

@@ -219,4 +219,4 @@ input.uriSearch { width: 150px !important; float: left;}
 .uriSearchResults button { margin: 1em 0;}
 .uriChosen { margin: 0 0.5em;}
 
-.addElement { position: absolute; top:26px; left: -18px; font-weight: bold; cursor: pointer;}
+.addElement { margin: 1em 0; font-weight: bold; cursor: pointer;}
