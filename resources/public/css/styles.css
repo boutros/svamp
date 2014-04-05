@@ -208,6 +208,8 @@ ul.resources { padding: 0; margin: 0; list-style: none;}
 .resource label { font-weight: bold;}
 .resource input { width: 230px; margin-bottom: 1em;}
 .resource select { width: 150px; float:right; margin: 0 1em;}
+.helpDesc { color: #888;}
+.helpDesc:before { content: '/ ';}
 input.uriSearch { width: 150px !important; float: left;}
 .uriSearchBar { padding: 4px; height:30px; width: 500px;
                  position: absolute; right: 0; top: -6px;}

@@ -96,6 +96,7 @@
                        :value-template {:value "" :type :string :predicate "dc:description"}}
                       {:id :abstract
                        :label "Abstract"
+                       :desc "Short summary of the contents."
                        :required false
                        :repeatable true
                        :multi-predicates false

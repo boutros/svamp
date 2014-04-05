@@ -12,7 +12,8 @@
                        :multi-predicates false
                        :value-template {:value "" :predicate "foaf:name" :type :string}}
                       {:id :nickname
-                       :label "Nickname/Also known as"
+                       :label "Nickname"
+                       :desc "Also known as..."
                        :required false
                        :repeatable true
                        :multi-predicates false
@@ -20,7 +21,7 @@
                       {:id :birth-place
                        :label "Birthplace"
                        :required false
-                       :repeatable true
+                       :repeatable false
                        :multi-predicates false
                        :value-template {:value "" :predicate "svamp:place" :type :uri}
                        :create-new {:label "Place" :template "place.edn"}}

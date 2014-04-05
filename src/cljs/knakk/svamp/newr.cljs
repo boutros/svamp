@@ -130,7 +130,9 @@
         (dom/div #js {:className "elementTitle"}
           (dom/label nil (:label element))
           (when (:required element)
-            (dom/span #js {:className "red bold"} "*")))
+            (dom/span #js {:className "red bold"} "*"))
+          (when (:desc element)
+            (dom/span #js {:className "helpDesc mrgh"} (:desc element))))
         (apply dom/div nil
           (om/build-all input-type
                         (:values element)
