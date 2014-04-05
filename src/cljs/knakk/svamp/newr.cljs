@@ -127,7 +127,7 @@
     (init-state [_]
       {:chosen ""})
     om/IRenderState
-    (render-state [_ {:keys [chosen chosen-chan]}]
+    (render-state [_ {:keys [chosen]}]
       (dom/div #js {:className "resource monospace row"}
         (dom/div nil
           (dom/div #js {:className "elementTitle"}
