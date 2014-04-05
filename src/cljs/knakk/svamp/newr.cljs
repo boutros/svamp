@@ -123,9 +123,24 @@
 (defn multi-view
   [element owner]
   (reify
-    om/IRender
-    (render [_]
-      (dom/p nil "multi"))))
+    om/IInitState
+    (init-state [_]
+      {:chosen ""})
+    om/IRenderState
+    (render-state [_ {:keys [chosen chosen-chan]}]
+      (dom/div #js {:className "resource monospace row"}
+        (dom/div nil
+          (dom/div #js {:className "elementTitle"}
+            (dom/label nil (:property-label element))
+            (when (:required element)
+              (dom/span #js {:className "red"} "*")))
+          (dom/div #js {:className "column half"}
+            (dom/input #js {:value (:value element) :disabled true :type "text" :title chosen})
+            (when (seq (:value element))
+              (dom/span #js {:className "delete mrgh" :onClick #(om/update! element :value nil)} "x"))
+            (apply dom/select nil
+              (map (fn [p] (dom/option #js {:value (:predicate p)} (:label p))) (:properties element)))))
+        (om/build uri-search-bar element)))))
 
 (defmulti element-view (fn [element _] (:input-type element)))
 (defmethod element-view :single [element owner] (single-view element owner))
@@ -149,7 +164,7 @@
       (edn-xhr
         {:method :get
          :url (str "api/template?template=" (:template (query-params)))
-         :on-complete #(om/update! data %)}))
+         :on-complete #(om/update! data %)})) ;; TODO map assoc :value [""]
     om/IRender
     (render [_]
       (if (:error data)

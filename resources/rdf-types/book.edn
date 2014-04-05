@@ -62,13 +62,14 @@
                        :repeatable true
                        :input-type :multi
                        :rdf-type :uri
+                       :property-label "Creator or contributor to the book"
                        :properties [
                                     {:label "author"
                                      :prediacte "dc:creator"
                                      :desc "Author of the book or a substantial parts of it."}
-                                    {:label "Translator"
+                                    {:label "translator"
                                      :predicate "dc:translator"
-                                     :desc "Translator"}
+                                     :desc "translator"}
                                     {:label "illustrator"
                                      :predicate "dc:illustrator"
                                      :desc "Illustrator"}

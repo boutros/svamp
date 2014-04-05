@@ -203,7 +203,8 @@ ul.resources { padding: 0; margin: 0; list-style: none;}
 .relementDesc { margin: 1em 0;}
 .elementTitle { border-bottom: 1px dashed #bbb; margin: 0.5em 0;}
 .resource label { font-weight: bold;}
-.resource select, .resource input { width: 230px; }
+.resource input { width: 230px; }
+.resource select { width: 150px; float:right; margin: 0 1em;}
 input.uriSearch { width: 150px !important; float: left;}
 .uriSearchBar { padding: 4px; height:30px; width: 500px;
                 background: #eee; position: absolute; right: 0; top: 16px;}
