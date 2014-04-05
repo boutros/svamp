@@ -80,9 +80,9 @@
                               (dom/li #js {:onClick (fn [e]
                                                       (do
                                                         (om/update! element :value (:uri r))
-                                                        ;; TODO this doesnt work, move to channel approach:
-                                                        ;; chosen-chan
-                                                        (om/set-state! owner :chosen (:label r))))}
+                                                        ;; TODO send uri as well via channel:
+                                                        ;; {:label (:label r) :uri (:uri r)}
+                                                        (put! chosen-chan (:label r))))}
                                                         (:label r))) results))
             (dom/button nil
               (str "Create a new " (get-in element [:property :predicate])))))))))
@@ -91,7 +91,14 @@
   (reify
     om/IInitState
     (init-state [_]
-      {:chosen ""})
+      {:chosen "" :chosen-chan (chan)})
+    om/IWillMount
+    (will-mount [_]
+      (let [chosen-chan (om/get-state owner :chosen-chan)]
+        (go (loop []
+              (let [c (<! chosen-chan)]
+                (om/set-state! owner :chosen c))
+                (recur)))))
     om/IRenderState
     (render-state [_ {:keys [chosen chosen-chan]}]
       (dom/div nil
@@ -99,7 +106,7 @@
           (dom/input #js {:value (:value element) :disabled true :type "text" :title chosen})
           (when (seq (:value element))
             (dom/span #js {:className "delete mrgh" :onClick #(om/update! element :value nil)} "x")))
-        (om/build uri-search-bar element)))))
+        (om/build uri-search-bar element {:init-state {:chosen-chan chosen-chan}})))))
 
 (defmulti input-type (fn [element _] (:rdf-type element)))
 (defmethod input-type :integer [element owner] (text-input element owner))
