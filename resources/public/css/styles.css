@@ -135,6 +135,7 @@ p { font-size: 18px; }
 img { width: auto; max-width: 100%; height: auto; }
 h1, h2, h3, h4, h4 { font-family: "Source Sans Pro", "Helvetica", "Arial", sans-serif; }
 h2 { border-bottom: 2px solid #bbb; }
+input[type=checkbox] { vertical-align: middle;}
 .clearfix { clear: both;}
 .right { float: right; }
 .left { float: left; }

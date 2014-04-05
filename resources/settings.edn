@@ -5,6 +5,14 @@
   :desc "This is supert important, bla bla"
   :elements [{:id :sys-admin :type :text :value "" :desc "Email adress of your system administrator"}]}
 
+ {:id :languages
+  :type :single
+  :title "Languages"
+  :desc "Choose from the supported lanuages. You can also add your own translations, ask your sysadmin."
+  :elements [{:id :intranet-lang :type :options :selected :en :desc "Language used on the staff interface " :options {:en "english" :no "norsk" }}
+             {:id :public-lang :type :options :selected :en :desc "Language used on the public web interface " :options {:en "english" :no "norsk" }}
+             {:id :user-lang :type :checkbox :value true :desc "Allow users to change language in the public web interface"}]}
+
  {:id :rdf-store
   :type :single
   :title "RDF store"

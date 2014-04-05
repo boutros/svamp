@@ -57,12 +57,22 @@
           (dom/option #js {:value k} v))
         (seq (:options element)))))))
 
+(defn checkbox-input
+  "Component: checkbox input."
+  [element owner]
+  (reify
+    om/IRender
+    (render [this]
+      (dom/input #js {:checked (:value element)
+                      :type "checkbox"
+                      :onChange #(om/transact! element :value not)}))))
+
 ;; Dispatch on input type:
 (defmulti input-type (fn [element _] (:type element)))
 (defmethod input-type :number [element owner] (number-input element owner))
 (defmethod input-type :text [element owner] (text-input element owner))
 (defmethod input-type :options [element owner] (options-input element owner))
-;;TODO (defmethod input-type :checkbox [element owner] (checkbox-input element owner))
+(defmethod input-type :checkbox [element owner] (checkbox-input element owner))
 
 (defn single-view
   "Component: view for non-repeatable settings."
