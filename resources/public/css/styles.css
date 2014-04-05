@@ -169,6 +169,9 @@ code { font-size: 0.8em;}
 .page-header { margin-top: 45px; }
 .page-fixed-header { color: green; position: fixed; top: 40px; left: 0; width: 100%; text-align: center; z-index:1000;}
 .page-fixed-header button { height: 2em; margin: 0 0.5em;}
+
+.page-footer { margin: 3em 0; border-top: 2px solid #bbb; font-family: monospace;}
+
 /* settings */
 .settingsGroup { position: relative;}
 .settingsElements { font-family: monospace; }
