@@ -4,13 +4,16 @@
   :license {:name "GPLv3"
             :url "http://www.gnu.org/licenses/gpl-3.0.html"}
   :profiles {:dev {:source-paths ["dev"]
-                   :dependencies [[javax.servlet/servlet-api "2.5"]]}}
+                   :dependencies [[javax.servlet/servlet-api "2.5"]
+                                  [org.clojure/tools.namespace "0.2.4"]]}}
   :source-paths ["src/clj"]
   :dependencies [
                  ;; Clojure
                  [org.clojure/clojure "1.6.0"]
                  [compojure "1.1.6"]
                  [prismatic/schema "0.2.1"]
+                 [com.taoensso/timbre "3.1.6"]
+                 [com.draines/postal "1.9.2"]
 
                  ;; Clojurecsript
                  [org.clojure/clojurescript "0.0-2173"]

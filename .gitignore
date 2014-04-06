@@ -10,3 +10,4 @@ pom.xml*
 .lein*
 .nrepl*
 *.js
+*.log

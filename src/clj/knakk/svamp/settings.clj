@@ -2,7 +2,8 @@
   "Application settings managment"
   (:require [knakk.svamp.utils :refer [debounce]]
             [clojure.edn :as edn]
-            [clojure.java.io :as io]))
+            [clojure.java.io :as io]
+            [taoensso.timbre :as timbre :refer [info]]))
 
 (defn- extract-single [elements]
   (into {}
@@ -39,11 +40,12 @@
 
 (def save-debounced
   (debounce
-    #(spit (clojure.java.io/file "test.edn") @file-settings) debounce-wait))
+    #(do
+       (spit (clojure.java.io/file "test.edn") @file-settings)
+       (info "settings flushed to disk")) debounce-wait))
 
 (add-watch file-settings :settings-state-watch
   (fn [_ _ _ _]
-    ;; TODO: log that config file is saved to disk
-   (save-debounced)))
+    (save-debounced)))
 
 
