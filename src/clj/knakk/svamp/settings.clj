@@ -32,9 +32,20 @@
     (for [group v :let [id-group (:id group)]]
       [id-group (settings-type group)])))
 
-
+;; Settings in vector format (for predictable ordering in UI)
 (def file-settings
   (->> "settings.edn" io/resource slurp edn/read-string atom))
+
+;; Settings in map format (for easy key access)
+;; This is the one used by the application server.
+(def settings
+  (atom (vec-to-map @file-settings)))
+
+(defn sync-settings
+  "Sync file-settings to settings. This has to be run for changes in settings
+  to take effect in the running application server."
+  []
+  (reset! settings (vec-to-map @file-settings)))
 
 (def debounce-wait 5000) ;; In ms
 
