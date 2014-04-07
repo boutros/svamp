@@ -3,7 +3,8 @@
   :type :single
   :title "Security"
   :desc "This is supert important, bla bla"
-  :elements [{:id :sys-admin :type :text :value "" :desc "Email adress of your system administrator"}]}
+  :elements [{:id :sys-admin :type :text :value "" :desc "Email adress of your system administrator"}
+             {:id :debug :type :checkbox :value false :desc "Display debug information and error details in the user interface to assist in troubleshooting."}]}
 
  {:id :languages
   :type :single

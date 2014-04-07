@@ -82,10 +82,11 @@
     (render [this]
       (apply dom/ul nil
         (map (fn [e]
-          (dom/li nil
-            (dom/label nil (name (:id e)))
-            (om/build input-type e)
-            (dom/span #js {:className "elementDesc"} (:desc e))))
+          (dom/li #js {:className "row"}
+            (dom/div #js {:className "column half"}
+              (dom/label nil (name (:id e)))
+              (om/build input-type e))
+            (dom/div #js {:className "column half elementDesc"} (:desc e))))
         (:elements group))))))
 
 (defn multi-row ; TODO row is a wrong name here, rename repeatable?

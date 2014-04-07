@@ -183,7 +183,7 @@ code { font-size: 0.8em;}
 .settings select, .settings input { width: 230px;}
 .settings ul { list-style-type: none; margin:0; padding: 0; }
 .settings li { padding: 0.3em 0;}
-.elementDesc { margin-left: 1em; color: #444;}
+.elementDesc { color: #444;}
 .multiID { background: #eee; margin: 0.5em 0; border-top: 1px dashed #bbb; padding: 4px;}
 .multiElement { margin: 0.3em 0;}
 .delete { font-weight: bold; color: #888;}
