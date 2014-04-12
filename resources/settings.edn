@@ -27,24 +27,20 @@
  {:id :ns
   :type :multi
   :title "RDF Namespaces"
-  :desc "Namespace prefixes must be defined here and are accessible to all SPARQL queries. The ID must be the same as the namespace prefix."
-  :template {:content {:prefix {:type :text :value ""}
-                       :uri {:type :text :value ""}}}
+  :desc "Namespace prefixes must be defined here and are accessible to all SPARQL queries. The ID means the prefix here."
+  :template {:content {:uri {:type :text :value ""}}}
   :elements [{:id :foaf
-              :content {:prefix {:type :text :value "foaf"}
-                        :uri {:type :text :value "http://xmlns.com/foaf/0.1/"}}}
+              :content {:uri {:type :text :value "http://xmlns.com/foaf/0.1/"}}}
              {:id :dc
-              :content {:prefix {:type :text :value "dc"}
-                        :uri {:type :text :value "http://purl.org/dc/terms/"}}}
+              :content {:uri {:type :text :value "http://purl.org/dc/terms/"}}}
              {:id :skos
-              :content {:prefix {:type :text :value "skos"}
-                        :uri {:type :text :value "http://www.w3.org/2004/02/skos/core#"}}}]}
+              :content {:uri {:type :text :value "http://www.w3.org/2004/02/skos/core#"}}}]}
  {:id :data
   :type :single
   :title "Metadata options"
   :desc "Various configurations"
-  :elements [{:id :default-graph :type :text :value "http://data.svamp.no"}
-             {:id :drafts-graph :type :text :value "http://data.svamp.no/drafts"}
+  :elements [{:id :default-graph :type :text :value "http://data.svamp.no" :desc "all public metadata is published to this graph"}
+             {:id :drafts-graph :type :text :value "http://data.svamp.no/drafts" :desc "drafts (not public) are published to this graph"}
              {:id :default-lang :type :text :value "no" :desc "default language for literals when no other tag is supplied"}]}
  {:id :api
   :type :multi

@@ -51,7 +51,7 @@
 ;; Routing ====================================================================
 
 (defroutes apiroutes
-  (GET "/settings" [] (api-response @settings))
+  (GET "/settings" [] (api-response (load-edn "settings.edn")))
   (GET "/rdf-types" [] (api-response (rdf-types)))
   (GET "/template" {{template :template} :params}
        (if-let [f (io/resource (str "rdf-types/" template))]
