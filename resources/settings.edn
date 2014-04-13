@@ -18,10 +18,10 @@
   :type :single
   :title "RDF store"
   :desc "RDF (quad-store) where all metadata is stored. The endpoint must have support for SPARQL 1.1. Openlink's Virtuoso is the recommended option."
-  :elements [{:id :endpoint :type :text :value "http://localhost:8890/sparql" :desc "SPARQL endpoint"}
+  :elements [{:id :endpoint :type :text :value "http://localhost:8890/sparql-auth" :desc "SPARQL endpoint"}
              {:id :auth-method :type :options :selected :digest :options {:none "none" :basic "basic" :digest "digest"} :desc "authentication method for the SPARQL endpoint"}
-             {:id :username :type :text :value "noe1" :desc "username for basic/digest authentication"}
-             {:id :password :type :text :value "hemli" :desc "password for basic/digest authentication"}
+             {:id :username :type :text :value "dba" :desc "username for basic/digest authentication"}
+             {:id :password :type :text :value "dba" :desc "password for basic/digest authentication"}
              {:id :open-timeout :type :number :value 1500 :desc "in milliseconds"}
              {:id :read-timeout :type :number :value 3000 :desc "in milliseconds"}]}
  {:id :ns
@@ -33,6 +33,8 @@
               :content {:uri {:type :text :value "http://xmlns.com/foaf/0.1/"}}}
              {:id :dc
               :content {:uri {:type :text :value "http://purl.org/dc/terms/"}}}
+             {:id :svamp
+              :content {:uri {:type :text :value "http://data.svamp.no"}}}
              {:id :skos
               :content {:uri {:type :text :value "http://www.w3.org/2004/02/skos/core#"}}}]}
  {:id :data

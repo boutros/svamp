@@ -211,7 +211,13 @@
         (dom/div #js {:className "error"} (:error data))
         (dom/div nil
           (dom/div #js {:className "page-fixed-header monospace"}
-            (dom/button nil "Save draft")
+            (dom/button #js {:onClick #(edn-xhr
+                                        {:method :post
+                                         :url "api/resource"
+                                         :data {:draft? true
+                                                :resource @data
+                                                :file (:template (query-params))}})}
+                        "Save draft")
             (dom/button #js {:disabled true} "Preview RDF")
             (dom/button #js {:disabled true :title "You must fill in the required fields to publish."}
               (dom/strong nil "Publish")))

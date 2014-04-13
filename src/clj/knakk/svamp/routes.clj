@@ -1,10 +1,12 @@
 (ns knakk.svamp.routes
   "Application HTTP routes."
-  (:require [compojure.core :refer [GET defroutes context]]
+  (:require [compojure.core :refer [GET POST PUT defroutes context]]
             [compojure.route :as route]
             [compojure.handler :as handler]
+            [ring.middleware.edn :refer [wrap-edn-params]]
             [clojure.java.io :as io]
-            [clojure.edn :as edn])
+            [clojure.edn :as edn]
+            [knakk.svamp.resources :as res])
   (:import [java.io.PushbackReader]))
 
 
@@ -42,7 +44,7 @@
   (let [files (->> "rdf-types" io/resource io/file file-seq (filter #(.isFile %)))
         filenames (map #(.getName %) files)
         types (map (comp #(select-keys % [:label :desc])
-                    edn/read-string slurp) files)]
+                    read-string slurp) files)]
     (vec (map #(assoc %1 :file %2) types filenames))))
 
 (defn template [filename]
@@ -53,14 +55,24 @@
 (defroutes apiroutes
   (GET "/settings" [] (api-response (load-edn "settings.edn")))
   (GET "/rdf-types" [] (api-response (rdf-types)))
-  (GET "/template" {{template :template} :params}
+  (GET "/template" [template]
        (if-let [f (io/resource (str "rdf-types/" template))]
-         (api-response-raw (slurp f))
-         (api-response {:error (str "cannot find template file: " template)} 400))))
+         (api-response (select-keys (read-string (slurp f))
+                                    [:rdf-type :label :desc :groups]))
+         (api-response {:error (str "cannot find template file: " template)} 400)))
+  (POST "/resource" [resource draft? file]
+        (let [f (io/resource (str "rdf-types/" file))
+              res-fns (select-keys (load-string (slurp f))
+                                   [:uri-fn :inner-rules :outer-rules
+                                    :search-label :display-label])
+              full-resource (merge resource res-fns)]
+          (println
+           (res/build-query full-resource draft?)
+           ))))
 
 (defroutes approutes
   ;; API
-  (context "/api" [] (handler/api apiroutes))
+  (context "/api" [] (-> apiroutes handler/api wrap-edn-params))
 
   ;; Web interface
   (GET "/resources" [] (page-resources))

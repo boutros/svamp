@@ -139,6 +139,8 @@
       {:delete (chan) :template (:template group) :new-id ""})
     om/IWillMount
     (will-mount [_]
+      ;; TODO try with simple callback fn instead of async channel
+      ;; https://groups.google.com/forum/#!topic/clojure/6p8eolXpMlw
       (let [delete (om/get-state owner :delete)]
         (go (loop []
               (let [el (<! delete)]
