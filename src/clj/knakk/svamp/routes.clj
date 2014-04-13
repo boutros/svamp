@@ -61,9 +61,9 @@
          (api-response (select-keys (read-string (slurp f))
                                     [:rdf-type :label :desc :groups]))
          (api-response {:error (str "cannot find template file: " template)} 400)))
-  (POST "/resource" [resource draft? file]
-        (let [f (io/resource (str "rdf-types/" file))
-              res-fns (select-keys (load-string (slurp f))
+  (POST "/resource" [resource draft? template]
+        (let [t (io/resource (str "rdf-types/" template))
+              res-fns (select-keys (load-string (slurp t))
                                    [:uri-fn :inner-rules :outer-rules
                                     :search-label :display-label])
               full-resource (merge resource res-fns)]

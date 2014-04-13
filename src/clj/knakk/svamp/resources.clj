@@ -43,10 +43,10 @@
   (condp = (:type v)
     :string (if-let [m (re-find #"@[a-zA-Z-]{2,5}$" (:value v))]
               (str "\"" (subs (:value v) 0 (- (count (:value v)) (count m))) "\"" m)
-              (str  "\"" (:value v) "\""))
+              (str  "\"" (:value v) "\"@" (get-in @settings [:data :default-lang])))
     :uri (uri (:value v))
     :integer (:value v)
-    :float (:Value v)))
+    :float (:value v)))
 
 
 ;; Public API =================================================================

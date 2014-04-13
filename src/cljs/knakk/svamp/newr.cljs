@@ -145,6 +145,7 @@
 ;; Dispatch on input type
 (defmulti input-type (fn [value _] (:type value)))
 (defmethod input-type :integer [value owner] (literal-input value owner)) ;; TODO make number-input, and also textarea-input
+(defmethod input-type :float [value owner] (literal-input value owner)) ;;
 (defmethod input-type :string [value owner] (literal-input value owner))
 (defmethod input-type :uri [value owner] (uri-input value owner))
 (defmethod input-type :multi-uri [value owner] (multi-uri-input value owner))
@@ -217,7 +218,7 @@
                                          :on-complete (fn [res] (println res))
                                          :data {:draft? true
                                                 :resource @data
-                                                :file (:template (query-params))}})}
+                                                :template (:template (query-params))}})}
                         "Save draft")
             (dom/button #js {:disabled true} "Preview RDF")
             (dom/button #js {:disabled true :title "You must fill in the required fields to publish."}

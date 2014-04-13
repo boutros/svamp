@@ -27,29 +27,26 @@
  :groups [ {:elements
             [{:id :location
               :label "Location"
+              :unique true
               :desc "The number in the decimal system"
               :repeatable false
               :required true
-              :value-template {:value "" :predicate "skos:notation" :type :string}}
+              :value-template {:value "" :predicate "skos:notation" :type :float}}
              {:id :label
               :label "Label"
               :repeatable true
               :required true
               :value-template {:value "" :predicate "skos:prefLabel" :type :string}}
-             {:id :subject
-              :label "Subject"
-              :desc "A dc:subject decsribing this Dewey location"
+             {:id :exact-subject
+              :label "Subject (excact match)"
+              :desc "a subject which maps exactly this dewey location"
               :repeatable true
               :required false
-              :value-template {:value "" :predicate "dc:subject" :type :uri}}
-             {:id :narrower
-              :label "Narrower dewey location"
+              :value-template {:value "" :predicate "skos:exactMatch" :type :uri}}
+             {:id :close-subject
+              :label "Subject (close match)"
+              :desc "a subject which maps roughly to this dewey location"
               :repeatable true
               :required false
-              :value-template {:value "" :predicate "skos:narrower" :type :uri}}
-             {:id :broader
-              :label "Broader dewey location"
-              :repeatable true
-              :required false
-              :value-template {:value "" :predicate "skos:broader" :type :uri}}]}]
+              :value-template {:value "" :predicate "skos:closeMatch" :type :uri}}]}]
  }
