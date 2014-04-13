@@ -78,9 +78,9 @@
         pred-vals (map (fn [v] (str (:predicate v) " " (literal v)) ) values)
         inner (clojure.string/join " . " (map #(% r2) (:inner-rules resource)))]
     (infer-prefixes
-     (str "INSERT DATA { GRAPH " g " { "
+     (str "INSERT INTO GRAPH " g " { "
          id " a " (uri (:rdf-type resource)) " ; "
          (clojure.string/join " ; " pred-vals)
          " . "
          inner
-         "} }"))))
+         "}"))))

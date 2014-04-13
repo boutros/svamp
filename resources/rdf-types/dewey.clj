@@ -14,7 +14,7 @@
                                (re-find #"\.\d{2,}" l) (subs l 0 (dec (count l)))
                                (re-find #"\.\d{1}$" l) (subs l 0 (- (count l) 2))
                                (re-find #"[1-9]$" l) (str (subs l 0 (dec (count l))) "0")
-                               (re-find #"\d\d0$" l) (str (first l) "00"))]
+                               (re-find #"[1-9]{2}0$" l) (str (first l) "00"))]
                      (str (uri-fn all) " skos:broader " (uri-fn {:location [{:value broader-dewey}]}) " . "
                           (uri-fn {:location [{:value broader-dewey}]}) " skos:narrower " (uri-fn all) " . "))))]
  :outer-rules []

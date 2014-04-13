@@ -214,6 +214,7 @@
             (dom/button #js {:onClick #(edn-xhr
                                         {:method :post
                                          :url "api/resource"
+                                         :on-complete (fn [res] (println res))
                                          :data {:draft? true
                                                 :resource @data
                                                 :file (:template (query-params))}})}

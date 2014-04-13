@@ -6,6 +6,7 @@
             [ring.middleware.edn :refer [wrap-edn-params]]
             [clojure.java.io :as io]
             [clojure.edn :as edn]
+            [knakk.svamp.sparql :as sparql]
             [knakk.svamp.resources :as res])
   (:import [java.io.PushbackReader]))
 
@@ -66,9 +67,9 @@
                                    [:uri-fn :inner-rules :outer-rules
                                     :search-label :display-label])
               full-resource (merge resource res-fns)]
-          (println
-           (res/build-query full-resource draft?)
-           ))))
+          (api-response
+           (sparql/insert
+             (res/build-query full-resource draft?))))))
 
 (defroutes approutes
   ;; API

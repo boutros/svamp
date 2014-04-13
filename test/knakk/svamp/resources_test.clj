@@ -27,7 +27,7 @@
                                  (re-find #"\.\d{2,}" l) (subs l 0 (dec (count l)))
                                  (re-find #"\.\d{1}$" l) (subs l 0 (- (count l) 2))
                                  (re-find #"[1-9]$" l) (str (subs l 0 (dec (count l))) "0")
-                                 (re-find #"\d\d0$" l) (str (first l) "00"))]
+                                 (re-find #"[1-]{2}0$" l) (str (first l) "00"))]
                        (str (uri-fn all) " skos:broader " (uri-fn {:location [{:value broader-dewey}]}) " . "
                             (uri-fn {:location [{:value broader-dewey}]}) " skos:narrower " (uri-fn all) " . "))))]
    ;; outer-rules are complete, independent queries run consequetly after the resource query
@@ -58,23 +58,22 @@
 
 (def query-wanted-1
   "PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
-  PREFIX svamp: <http://data.svamp.no>
-  INSERT DATA
-    { GRAPH <http://data.svamp.no>
-       { <http://dewey.info/class/641.5> a <http://dewey.info/Class> ;
-                                         skos:notation \"641.5\" ;
-                                         skos:prefLabel \"Kokebøker\"@no ;
-                                         skos:prefLabel \"Cookbooks\"@en ;
-                                         svamp:searchLabel \"641.5 Kokebøker\"@no ;
-                                         svamp:displayLabel \"641.5 Kokebøker\"@no .
-         <http://dewey.info/class/641.5> a skos:Concept .
-         <http://dewey.info/class/641.5> skos:broader <http://dewey.info/class/641> .
-         <http://dewey.info/class/641> skos:narrower <http://dewey.info/class/641.5> .
-       }
-    }")
+  PREFIX svamp: <http://data.svamp.no/>
+  INSERT INTO GRAPH <http://data.svamp.no>
+    {
+     <http://dewey.info/class/641.5> a <http://dewey.info/Class> ;
+                                     skos:notation \"641.5\" ;
+                                     skos:prefLabel \"Kokebøker\"@no ;
+                                     skos:prefLabel \"Cookbooks\"@en ;
+                                     svamp:searchLabel \"641.5 Kokebøker\"@no ;
+                                     svamp:displayLabel \"641.5 Kokebøker\"@no .
+      <http://dewey.info/class/641.5> a skos:Concept .
+      <http://dewey.info/class/641.5> skos:broader <http://dewey.info/class/641> .
+      <http://dewey.info/class/641> skos:narrower <http://dewey.info/class/641.5> .
+     }")
 
 
 ;; Tests  =====================================================================
 
-(expect (strip-newlines query-wanted-1 false)
-        (build-query test-resource-1))
+(expect (strip-newlines query-wanted-1)
+        (build-query test-resource-1 false))

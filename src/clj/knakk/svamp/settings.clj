@@ -9,7 +9,10 @@
   (into {}
     (for [e elements
           :let [id-element (:id e)
-                value (:value e)]]
+                options? (= (:type e) :options)
+                value (if options?
+                        (:selected e)
+                        (:value e))]]
       [id-element value])))
 
 (defn- extract-multi [elements]

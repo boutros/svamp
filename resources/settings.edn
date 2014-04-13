@@ -34,7 +34,7 @@
              {:id :dc
               :content {:uri {:type :text :value "http://purl.org/dc/terms/"}}}
              {:id :svamp
-              :content {:uri {:type :text :value "http://data.svamp.no"}}}
+              :content {:uri {:type :text :value "http://data.svamp.no/"}}}
              {:id :skos
               :content {:uri {:type :text :value "http://www.w3.org/2004/02/skos/core#"}}}]}
  {:id :data
