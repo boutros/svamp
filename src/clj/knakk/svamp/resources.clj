@@ -44,10 +44,16 @@
     :string (if-let [m (re-find #"@[a-zA-Z-]{2,5}$" (:value v))]
               (str "\"" (subs (:value v) 0 (- (count (:value v)) (count m))) "\"" m)
               (str  "\"" (:value v) "\"@" (get-in @settings [:data :default-lang])))
+    :no-tag-string (str "\"" (:value v) "\"")
     :uri (uri (:value v))
     :integer (:value v)
     :float (:value v)))
 
+;; Rules helper functions ====================================================
+
+;; (defn trim-lang-tag [s])
+
+;; (defn urlize [s])
 
 ;; Public API =================================================================
 
@@ -57,7 +63,7 @@
 
   Returns the query string.
   Throws IllegalArgumentException on missing namespace prefix in @settings."
-  [resource draft?]
+  [resource draft? template]
   (let [r (into {}
                 (map
                   (comp #(extract-id-vals %) :elements)
@@ -66,15 +72,17 @@
              :search-label (:search-label resource)
              :display-label (:display-label resource))
         g (uri
-            (get-in @settings[:data (if draft?
+            (get-in @settings [:data (if draft?
                                       :drafts-graph
                                       :default-graph)]))
         id ((:uri-fn r2) r2)
         search-label ((:search-label r2) r2)
         display-label ((:display-label r2) r2)
         values (conj (reduce into [] (map (fn [[k v]] v) r))
-                     {:predicate "svamp:searchLabel" :value search-label :type :string}
-                     {:predicate "svamp:displayLabel" :value display-label :type :string})
+                     {:predicate "a" :value "svamp://internal/class/Resource" :type :uri}
+                     {:predicate "<svamp://internal/resource/searchLabel>" :value search-label :type :string}
+                     {:predicate "<svamp://internal/resource/displayLabel>" :value display-label :type :string}
+                     {:predicate "<svamp://internal/resource/template>" :value template :type :no-tag-string})
         pred-vals (map (fn [v] (str (:predicate v) " " (literal v)) ) values)
         inner (clojure.string/join " . " (map #(% r2) (:inner-rules resource)))]
     (infer-prefixes

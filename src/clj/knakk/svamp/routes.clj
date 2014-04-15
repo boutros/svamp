@@ -69,7 +69,7 @@
               full-resource (merge resource res-fns)]
           (api-response
            (sparql/insert
-             (res/build-query full-resource draft?))))))
+             (res/build-query full-resource draft? template))))))
 
 (defroutes approutes
   ;; API

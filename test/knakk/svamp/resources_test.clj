@@ -41,7 +41,7 @@
    :groups [ {:elements
               [{:id :location
                 :repeatable false
-                :values [{:value "641.5" :predicate "skos:notation" :type :string}]}
+                :values [{:value "641.5" :predicate "skos:notation" :type :float}]}
                {:id :label
                 :repeatable true
                 :values [{:value "Kokebøker@no" :predicate "skos:prefLabel" :type :string}
@@ -58,15 +58,16 @@
 
 (def query-wanted-1
   "PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
-  PREFIX svamp: <http://data.svamp.no/>
   INSERT INTO GRAPH <http://data.svamp.no>
     {
      <http://dewey.info/class/641.5> a <http://dewey.info/Class> ;
-                                     skos:notation \"641.5\" ;
+                                     skos:notation 641.5 ;
                                      skos:prefLabel \"Kokebøker\"@no ;
                                      skos:prefLabel \"Cookbooks\"@en ;
-                                     svamp:searchLabel \"641.5 Kokebøker\"@no ;
-                                     svamp:displayLabel \"641.5 Kokebøker\"@no .
+                                     a <svamp://internal/class/Resource> ;
+                                     <svamp://internal/resource/searchLabel> \"641.5 Kokebøker\"@no ;
+                                     <svamp://internal/resource/displayLabel> \"641.5 Kokebøker\"@no ;
+                                     <svamp://internal/resource/template> \"dewey.clj\" .
       <http://dewey.info/class/641.5> a skos:Concept .
       <http://dewey.info/class/641.5> skos:broader <http://dewey.info/class/641> .
       <http://dewey.info/class/641> skos:narrower <http://dewey.info/class/641.5> .
@@ -76,4 +77,4 @@
 ;; Tests  =====================================================================
 
 (expect (strip-newlines query-wanted-1)
-        (build-query test-resource-1 false))
+        (build-query test-resource-1 false "dewey.clj"))
