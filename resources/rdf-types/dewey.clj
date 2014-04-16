@@ -1,5 +1,6 @@
 {
  :rdf-type "http://dewey.info/Class"
+ :index-type "dewey"
  :label "Dewey"
  :desc "a location in the dewey decimal system"
  :uri-fn (fn [{:keys [location]}]

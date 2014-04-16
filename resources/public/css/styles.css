@@ -195,6 +195,18 @@ code { font-size: 0.8em;}
 .mrgh { margin: 0 0.5em; }
 .mrgv { margin: 0.5em 0; }
 
+/* help */
+
+.help button, .help select, .help input { margin: 0 2.5em; }
+.qaQuestion { font-weight: bold; border-bottom: 2px solid #bbb }
+.qaLetter { font-size: 20px; font-weight:bold; padding: 0.2em;  margin-right: 0.5em; }
+.seeAlso { margin: 1em 0; }
+.seeAlso ul { padding: 0; margin: 0; display: inline-block; vertical-align: bottom; }
+.seeAlso li { display: inline-block; float: left;}
+.actionResult, .actionError { margin: 1em 0; padding: 0.5em}
+.actionResult { background: #aea }
+.actionError { background: #eaa; }
+.help .loading { margin: 1em 2.5em}
 
 /* resources */
 ul.resources { padding: 0; margin: 0; list-style: none;}

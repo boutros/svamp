@@ -12,11 +12,15 @@
                  ;; Temporary as not to fail tests:
                  [org.immutant/immutant-web "1.1.1"]
 
+                 ;; Java
+                 ;[org.elasticsearch/elasticsearch "1.1.0"]
+
                  ;; Clojure
                  [org.clojure/clojure "1.6.0"]
                  [compojure "1.1.6"]
                  [prismatic/schema "0.2.1"]
                  [com.taoensso/timbre "3.1.6"]
+                 [clojurewerkz/elastisch "2.0.0-beta3"]
                  [com.draines/postal "1.9.2"]
                  [clj-http "0.9.1"]
                  [fogus/ring-edn "0.2.0"]

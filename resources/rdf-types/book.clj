@@ -1,5 +1,6 @@
 {
  :rdf-type "http://data.deichman.no/format/Book"
+ :index-type "book"
  :label "Book"
  :desc "a physical or digital manifestation of a literary work."
  :groups [

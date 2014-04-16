@@ -35,6 +35,7 @@
               :basic {:basic-auth auth-credentials}
               :digest {:digest-auth auth-credentials})))))
 
+(defn- uri [s] (str "<" s ">"))
 
 ;; Public API =================================================================
 
@@ -64,3 +65,35 @@
              :bindings first :callret-0 :value))
       (catch Exception e
         (assoc res :error (.getMessage e))))))
+
+(defn select-resource [resource draft?]
+  (let [graph (get-in @settings
+                      [:data (if draft? :drafts-graph :default-graph)])]
+    (select
+     (str "select * from " (uri graph)
+          " where { "
+          (uri resource)
+          " ?p ?o }"))))
+
+(defn solutions
+  "Returns the solution maps from a sparql/json response."
+  [response]
+  (for [solution (->> response :results :bindings)]
+    (into {}
+          (for [[k v] solution]
+            [k (:value v)]))))
+
+
+
+(->> (select-resource "http://dewey.info/class/200" true)
+     :results
+     solutions
+     (map #(vector (:p %) (:o %)))
+     (reduce
+      (fn [m [k v]]
+        (assoc m k (conj (m k []) v)))
+      {}))
+
+
+
+

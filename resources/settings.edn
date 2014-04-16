@@ -27,7 +27,7 @@
  {:id :ns
   :type :multi
   :title "RDF Namespaces"
-  :desc "Namespace prefixes must be defined here and are accessible to all SPARQL queries. The ID means the prefix here."
+  :desc "Namespace prefixes must be defined here and are accessible to all SPARQL queries. The ID means the prefix here. The 'svamp' prefix is obligatory, but you may change the URI."
   :template {:content {:uri {:type :text :value ""}}}
   :elements [{:id :foaf
               :content {:uri {:type :text :value "http://xmlns.com/foaf/0.1/"}}}
@@ -44,6 +44,13 @@
   :elements [{:id :default-graph :type :text :value "http://data.svamp.no" :desc "all public metadata is published to this graph"}
              {:id :drafts-graph :type :text :value "http://data.svamp.no/drafts" :desc "drafts (not public) are published to this graph"}
              {:id :default-lang :type :text :value "no" :desc "default language for literals when no other tag is supplied"}]}
+  {:id :search
+  :type :single
+  :title "Indexing and search"
+  :desc "Elasticsearch configuration"
+  :elements [{:id :host :type :text :value "127.0.0.1" :desc "node IP"}
+             {:id :port :type :number :value "9300" :desc "node port number"}
+             {:id :cluster-name :type :text :value "svamp" :desc "name of elasticsearch cluster"}]}
  {:id :api
   :type :multi
   :title "External APIs"

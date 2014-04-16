@@ -7,7 +7,8 @@
             [clojure.java.io :as io]
             [clojure.edn :as edn]
             [knakk.svamp.sparql :as sparql]
-            [knakk.svamp.resources :as res])
+            [knakk.svamp.resources :as res]
+            [knakk.svamp.help :as help])
   (:import [java.io.PushbackReader]))
 
 
@@ -37,16 +38,9 @@
 (defn page-settings [] (io/resource "html/settings.html"))
 (defn page-resources [] (io/resource "html/resources.html"))
 (defn page-new-resource [] (io/resource "html/resource-new.html"))
+(defn page-help [] (io/resource "html/help.html"))
 
 (def settings (atom (load-edn "settings.edn")))
-(defn rdf-types []
-  ;; TODO error handling:
-  ;;   edn/read-string will fail if input is not well-formed EDN
-  (let [files (->> "rdf-types" io/resource io/file file-seq (filter #(.isFile %)))
-        filenames (map #(.getName %) files)
-        types (map (comp #(select-keys % [:label :desc])
-                    read-string slurp) files)]
-    (vec (map #(assoc %1 :file %2) types filenames))))
 
 (defn template [filename]
   (->> filename io/resource slurp edn/read))
@@ -55,13 +49,17 @@
 
 (defroutes apiroutes
   (GET "/settings" [] (api-response (load-edn "settings.edn")))
-  (GET "/rdf-types" [] (api-response (rdf-types)))
+  (GET "/rdf-types" [] (api-response (res/rdf-types)))
+  (GET "/help" [] (api-response (help/data)))
+  (POST "/help" [id params] (api-response (help/hooks id params)))
   (GET "/template" [template]
        (if-let [f (io/resource (str "rdf-types/" template))]
          (api-response (select-keys (read-string (slurp f))
                                     [:rdf-type :label :desc :groups]))
          (api-response {:error (str "cannot find template file: " template)} 400)))
   (POST "/resource" [resource draft? template]
+        ; TODO move out to helper fns
+        ; TODO logging + error handling
         (let [t (io/resource (str "rdf-types/" template))
               res-fns (select-keys (load-string (slurp t))
                                    [:uri-fn :inner-rules :outer-rules
@@ -79,5 +77,6 @@
   (GET "/resources" [] (page-resources))
   (GET "/resource-new" [] (page-new-resource))
   (GET "/settings"[] (page-settings))
+  (GET "/help" [] (page-help))
 
   (route/not-found "Nothing here. Try elsewhere."))

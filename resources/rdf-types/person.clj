@@ -1,5 +1,6 @@
 {
  :rdf-type "http://data.deichman.no/format/Person"
+ :index-type "person"
  :label "Person"
  :desc "a human being, living or dead."
  :groups [

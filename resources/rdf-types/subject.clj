@@ -1,5 +1,6 @@
 {
  :rdf-type "http://www.w3.org/2004/02/skos/core#Concept"
+ :index-type "subject"
  :label "Subject"
  :desc "an area of study, or a concept"
  :uri-fn (fn [{:keys [label]}]
@@ -37,17 +38,17 @@
            {:title "Relations"
             :elements
             [{:id :narrower
-              :label "Narrower concept"
+              :label "Narrower subject"
               :repeatable true
               :required false
               :value-template {:value "" :predicate "skos:narrower" :type :uri}}
              {:id :borader
-              :label "Broader concept"
+              :label "Broader subject"
               :repeatable true
               :required false
               :value-template {:value "" :predicate "skos:broader" :type :uri}}
              {:id :related
-              :label "Related concept"
+              :label "Related subject"
               :repeatable true
               :required false
               :value-template {:value "" :predicate "skos:related" :type :uri}}]}]

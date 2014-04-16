@@ -1,6 +1,7 @@
 (ns knakk.svamp.resources
   "Functions for creating, editing and deleting metadata resources."
-  (:require [knakk.svamp.settings :refer [settings]]))
+  (:require [clojure.java.io :as io]
+            [knakk.svamp.settings :refer [settings]]))
 
 
 ;; Constants ==================================================================
@@ -49,13 +50,23 @@
     :integer (:value v)
     :float (:value v)))
 
-;; Rules helper functions ====================================================
+;; Rules helper functions =====================================================
 
 ;; (defn trim-lang-tag [s])
 
 ;; (defn urlize [s])
 
 ;; Public API =================================================================
+
+
+(defn rdf-types []
+  ;; TODO error handling:
+  ;;   read-string will fail if input is not well-formed clj syntax
+  (let [files (->> "rdf-types" io/resource io/file file-seq (filter #(.isFile %)))
+        filenames (map #(.getName %) files)
+        types (map (comp #(select-keys % [:label :desc :index-type])
+                    read-string slurp) files)]
+    (vec (map #(assoc %1 :file %2) types filenames))))
 
 
 (defn build-query
@@ -82,7 +93,11 @@
                      {:predicate "a" :value "svamp://internal/class/Resource" :type :uri}
                      {:predicate "<svamp://internal/resource/searchLabel>" :value search-label :type :string}
                      {:predicate "<svamp://internal/resource/displayLabel>" :value display-label :type :string}
-                     {:predicate "<svamp://internal/resource/template>" :value template :type :no-tag-string})
+                     {:predicate "<svamp://internal/resource/template>" :value template :type :no-tag-string}
+                     ; TODO:
+                     ;{:predicate <svamp://internal/resource/created> :value timestamp-now :type :date}
+                     ; when not draft? + {:predicate <svamp://internal/resource/published> :value timestamp-now :type :date}
+                     )
         pred-vals (map (fn [v] (str (:predicate v) " " (literal v)) ) values)
         inner (clojure.string/join " . " (map #(% r2) (:inner-rules resource)))]
     (infer-prefixes
