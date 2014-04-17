@@ -17,8 +17,7 @@
     (for [el elements]
       [(:id el) (remove no-value? (:values el))])))
 
-(defn- uri [s]
-  (str "<" s ">"))
+(defn- uri [s] (str "<" s ">"))
 
 (defn- literal [v]
   (condp = (:type v)

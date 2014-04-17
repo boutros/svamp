@@ -5,8 +5,6 @@
             [knakk.svamp.index :as index]))
 
 
-;; Private functions ==========================================================
-
 ;; Public API =================================================================
 
 (defn hooks
@@ -20,10 +18,10 @@
     :re-index (let [file (:resource-file params)]
                 (if (= "All types" file)
                   (apply merge-with into
-                    (map index/update-mapping! (for [t (rdf-types)] (:file t))))
+                         (map index/update-mapping!
+                              (for [t (rdf-types)] (:file t))))
                   (index/update-mapping! file)))
     :indexing-queue {:results ["Size of the queue: 0"] :errors []}))
-
 
 (defn data []
   [
