@@ -80,7 +80,3 @@
           (for [[k v] solution]
             [k (:value v)]))))
 
-
-
-
-

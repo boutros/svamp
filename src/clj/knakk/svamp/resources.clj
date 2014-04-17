@@ -7,8 +7,6 @@
             [clj-time.core :refer [now]]))
 
 
-;; Constants ==================================================================
-
 ;; Private helper functions ===================================================
 
 (defn- no-value? [e] (empty? (:value e)))
@@ -18,15 +16,6 @@
   (into {}
     (for [el elements]
       [(:id el) (remove no-value? (:values el))])))
-
-
-;(defn- prefix-or-err
-;  [namespaces prefix]
-;  (if (contains? namespaces prefix)
-;    (get-in namespaces [prefix :uri])
-;    (throw
-;      (IllegalArgumentException.
-;        (str "settings.edn: missing namespace prefix \"" (name prefix) "\"")))))
 
 (defn- uri [s]
   (str "<" s ">"))
@@ -42,18 +31,6 @@
     :float (:value v)
     :date (str "\"" (:value v) "\"^^xsd:dateTime")))
 
-(defn- extract-id-pred
-  [elements]
-  (into {}
-    (for [el elements
-          :let [t (name (get-in el [:value-template :type]))]]
-      [(get-in el [:value-template :predicate]) (:id el) ])))
-
-;; Rules helper functions =====================================================
-
-;; (defn trim-lang-tag [s])
-
-;; (defn urlize [s])
 
 ;; Public API =================================================================
 

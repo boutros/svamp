@@ -42,8 +42,6 @@
 
 (def settings (atom (load-edn "settings.edn")))
 
-;(defn template [filename]
-;  (->> filename io/resource slurp edn/read))
 
 ;; Routing ====================================================================
 
