@@ -81,6 +81,14 @@
           " . " inner "}")
      :uri id}))
 
+(defn- delete-query
+  [resource published?]
+  (let [g (uri (get-in @settings [:data
+                                  (if published?
+                                      :default-graph
+                                      :drafts-graph)]))]
+    (str "WITH " g " DELETE { ?s ?p ?o } WHERE { ?s ?p ?o . "
+         (uri resource) " ?p ?o . }")))
 
 ;; Public API =================================================================
 
@@ -102,3 +110,12 @@
       (info (str "resource created: " (:uri query))))
     (println "put on index queue")
     res))
+
+(defn delete! [resource published?]
+  (let [res (sparql/delete (delete-query resource published?))]
+    (if (:error res)
+      (error (str "failed to delete resource " (uri resource) ": " (:error res)))
+      (info (str "resource deleted: " (uri resource))))
+    (println "Remove from index queue")
+    res))
+

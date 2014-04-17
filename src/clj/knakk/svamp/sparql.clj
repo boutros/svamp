@@ -69,6 +69,24 @@
         (assoc res :error (.getMessage e)
                    :error-details (some->> e .getData :object :body))))))
 
+(defn delete
+  "Perform a SPARQL DELETE query <q> against the application's RDF-store.
+
+  Returns: {:results <nil> or <successmessage>,
+            :error <nil> or <error string>
+            :error-details <nil> or <errordetails>}"
+  [q]
+  (let [res {:result nil :error nil :error-details nil}]
+    (try
+      (let [msg (->> (do-query q) :body json/parse-string keywordize-keys :results
+             :bindings first :callret-0 :value)]
+      (if (re-find #"nothing to do" msg)
+        (assoc res :error "nothing delted; 0 triples matched the query")
+        (assoc res :result msg)))
+      (catch Exception e
+        (assoc res :error (.getMessage e)
+                   :error-details (some->> e .getData :object :body))))))
+
 (defn select-resource [resource]
   (select
    (str "select * where { " (uri resource) " ?p ?o }")))
