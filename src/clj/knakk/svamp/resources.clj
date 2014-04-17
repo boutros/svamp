@@ -41,23 +41,11 @@
   (catch Exception e
     (error (str "failed to parse file '" file "': " (.getMessage e))))))
 
-
-;; Public API =================================================================
-
-(defn all-types
-  "Returns a vector of the resource types, where each type is a map with the
-  keys: :file, :index-type, :desc & :label"
-  []
-  (let [files (->> "resource-types" io/resource io/file file-seq (filter #(.isFile %)))
-        filenames (map #(.getName %) files)
-        types (map (comp #(select-keys % [:label :desc :index-type])
-                    parse-or-nil) files)]
-    (vec (map #(assoc %1 :file %2) types filenames))))
-
-(defn build-query
+(defn- insert-query
   "Takes a resource map and builds the SPARQL query to be inserted.
 
-  Returns the query string."
+  Returns a map of the query string and the uri (id):
+  {:query '...' :uri 'http://...'}"
   [resource publish? template]
   (let [r (into {}
                 (map
@@ -86,17 +74,31 @@
                           ]))
         pred-vals (map (fn [v] (str (:predicate v) " " (literal v)) ) values)
         inner (clojure.string/join " . " (map #(% r2) (:inner-rules resource)))]
-    (str "INSERT INTO GRAPH " g " { "
-         id " a " (uri (:rdf-type resource)) " ; "
-         (clojure.string/join " ; " pred-vals)
-         " . "
-         inner
-         "}")))
+    {:query
+     (str "INSERT INTO GRAPH " g " { "
+          id " a " (uri (:rdf-type resource)) " ; "
+          (clojure.string/join " ; " pred-vals)
+          " . " inner "}")
+     :uri id}))
 
 
-;; (defn create! [resource-map publish? template])
-;; 1. build sparql query
-;; 2. sparql/insert
-;; 3. log sucess/failure
-;; 4. put uri on index queue
-;; -> returns {:result x :error y :error-details z}
+;; Public API =================================================================
+
+(defn all-types
+  "Returns a vector of the resource types, where each type is a map with the
+  keys: :file, :index-type, :desc & :label"
+  []
+  (let [files (->> "resource-types" io/resource io/file file-seq (filter #(.isFile %)))
+        filenames (map #(.getName %) files)
+        types (map (comp #(select-keys % [:label :desc :index-type])
+                    parse-or-nil) files)]
+    (vec (map #(assoc %1 :file %2) types filenames))))
+
+(defn create! [resource publish? template]
+  (let [query (insert-query resource publish? template)
+        res (sparql/insert (:query query))]
+    (if (:error res)
+      (error (str "failed to create resource: " (:error res)))
+      (info (str "resource created: " (:uri query))))
+    (println "put on index queue")
+    res))
