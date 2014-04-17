@@ -58,7 +58,7 @@
   "Takes a resource map and builds the SPARQL query to be inserted.
 
   Returns the query string."
-  [resource publish? template]
+  [resource publish?]
   (let [r (into {}
                 (map
                   (comp #(extract-id-vals %) :elements)
@@ -93,3 +93,4 @@
          "}")))
 
 
+;; (defn create! [resource-map publish?])
