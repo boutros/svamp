@@ -73,16 +73,17 @@
         id ((:uri-fn r2) r2)
         search-label ((:search-label r2) r2)
         display-label ((:display-label r2) r2)
-        values (conj (reduce into [] (map (fn [[k v]] v) r))
-                     {:predicate "a" :value "svamp://internal/class/Resource" :type :uri}
-                     {:predicate "<svamp://internal/resource/searchLabel>" :value search-label :type :string}
-                     {:predicate "<svamp://internal/resource/displayLabel>" :value display-label :type :string}
-                     {:predicate "<svamp://internal/resource/template>" :value template :type :no-tag-string}
-                     {:predicate "<svamp://internal/resource/created>" :value (now) :type :date}
-                     {:predicate "<svamp://internal/resource/updated>" :value (now) :type :date}
-                     ;(if publish?
-                     ;  {:predicate "<svamp://internal/resource/published>" :value (now) :type :date})
-                     )
+        values (into
+                (reduce into [] (map (fn [[k v]] v) r))
+                 (remove nil?
+                         [{:predicate "a" :value "svamp://internal/class/Resource" :type :uri}
+                          {:predicate "<svamp://internal/resource/searchLabel>" :value search-label :type :string}
+                          {:predicate "<svamp://internal/resource/displayLabel>" :value display-label :type :string}
+                          {:predicate "<svamp://internal/resource/template>" :value template :type :no-tag-string}
+                          {:predicate "<svamp://internal/resource/created>" :value (now) :type :date}
+                          {:predicate "<svamp://internal/resource/updated>" :value (now) :type :date}
+                          (when publish? {:predicate "<svamp://internal/resource/published>" :value (now) :type :date})
+                          ]))
         pred-vals (map (fn [v] (str (:predicate v) " " (literal v)) ) values)
         inner (clojure.string/join " . " (map #(% r2) (:inner-rules resource)))]
     (str "INSERT INTO GRAPH " g " { "
