@@ -42,8 +42,8 @@
 
 (def settings (atom (load-edn "settings.edn")))
 
-(defn template [filename]
-  (->> filename io/resource slurp edn/read))
+;(defn template [filename]
+;  (->> filename io/resource slurp edn/read))
 
 ;; Routing ====================================================================
 
@@ -57,7 +57,7 @@
          (api-response (select-keys (read-string (slurp f))
                                     [:rdf-type :label :desc :groups]))
          (api-response {:error (str "cannot find template file: " template)} 400)))
-  (POST "/resource" [resource draft? template]
+  (POST "/resource" [resource publish? template]
         ; TODO move out to helper fns
         ; TODO logging + error handling
         (let [t (io/resource (str "rdf-types/" template))
@@ -67,7 +67,7 @@
               full-resource (merge resource res-fns)]
           (api-response
            (sparql/insert
-             (res/build-query full-resource draft? template))))))
+             (res/build-query full-resource publish? template))))))
 
 (defroutes approutes
   ;; API

@@ -26,3 +26,10 @@
   (if show
     #js {}
     #js {:display "none"}))
+
+(defn spinner []
+  (om/component
+    (dom/div #js {:className "spinner"}
+      (dom/div #js {:className "bounce1"})
+      (dom/div #js {:className "bounce2"})
+      (dom/div #js {:className "bounce3"}))))

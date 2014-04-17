@@ -216,7 +216,7 @@
                                         {:method :post
                                          :url "api/resource"
                                          :on-complete (fn [res] (println res))
-                                         :data {:draft? true
+                                         :data {:publish? false
                                                 :resource @data
                                                 :template (:template (query-params))}})}
                         "Save draft")

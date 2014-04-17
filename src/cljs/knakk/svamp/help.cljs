@@ -22,36 +22,28 @@
     om/IRenderState
     (render-state [_ {:keys [action-fn]}]
       (dom/div #js {:className "monospace"}
-        (apply dom/select nil
+        (apply dom/select #js {:ref "selected-option"}
           (map
             (fn [o]
-              (dom/option #js {:value (:index-type o)} (:label o)))
-            (into [{:label "All types" :index-type false}] (:options action))))
-        (dom/button nil #js {:onClick #(action-fn nil)}
+              (dom/option #js {:value (:file o)} (:label o)))
+            (:options action)))
+        (dom/button #js {:onClick #(action-fn {:resource-file (-> (om/get-node owner "selected-option") .-value)})}
                     (:button action))))))
 
 (defmulti action-type (fn [action _] (:type action)))
-(defmethod action-type :button [action owner opts] (button-action action owner))
-(defmethod action-type :dropdown [action owner opts] (dropdown-action action owner))
-
-;; TODO common component; move to utils
-(defn spinner []
-  (om/component
-    (dom/div #js {:className "spinner"}
-      (dom/div #js {:className "bounce1"})
-      (dom/div #js {:className "bounce2"})
-      (dom/div #js {:className "bounce3"}))))
+(defmethod action-type :button [action owner] (button-action action owner))
+(defmethod action-type :dropdown [action owner] (dropdown-action action owner))
 
 (defn q-and-a
   [qa owner]
   (reify
     om/IInitState
     (init-state [_]
-      {:result [] :error [] :waiting false
+      {:results [] :errors [] :waiting false
        :action-fn (fn [params]
                  (do
-                   (om/set-state! owner :result [])
-                   (om/set-state! owner :error [])
+                   (om/set-state! owner :results [])
+                   (om/set-state! owner :errors [])
                    (om/set-state! owner :waiting true)
                    (edn-xhr
                     {:method :post
@@ -59,8 +51,9 @@
                      :data {:id (:id @qa) :params params}
                      :on-complete #(om/set-state! owner %)})))})
     om/IRenderState
-    (render-state [_ {:keys [result error waiting action-fn]}]
+    (render-state [_ {:keys [results errors waiting action-fn]}]
       (dom/div #js {:id (name (:id qa))}
+        (dom/h3 nil (:title qa))
         (dom/p #js {:className "qaQuestion"}
           (dom/span #js {:className "qaLetter"} "Q")
           (dom/span nil (:question qa)))
@@ -70,16 +63,16 @@
         (om/build action-type (:action qa) {:init-state {:action-fn action-fn}})
         (when waiting
           (dom/img #js {:className "loading" :src "img/loading.gif"}))
-        (when (seq result)
+        (when (seq results)
           (apply dom/ul #js {:className "actionResult monospace"}
             (map
              (fn [line] (dom/li nil line))
-             result)))
-        (when (seq error)
+             results)))
+        (when (seq errors)
           (apply dom/ul #js {:className "actionError monospace"}
             (map
              (fn [line] (dom/li nil line))
-             error)))
+             errors)))
         (when (seq (:see-also qa))
           (dom/div #js {:className "seeAlso monospace"}
             (dom/span nil "See also:")

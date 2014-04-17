@@ -6,6 +6,7 @@
             [clj-http.client :as http]))
 
 
+
 ;; Constants ==================================================================
 
 (def http-options
@@ -58,22 +59,18 @@
   Returns: {:results <nil> or ..?,
             :error <nil> or <error string>}"
   [q]
-  (let [res {:results nil :error nil}]
+  (let [res {:results nil :error nil :error-details nil}]
     (try
       (assoc res :results
         (->> (do-query q) :body json/parse-string keywordize-keys :results
              :bindings first :callret-0 :value))
       (catch Exception e
-        (assoc res :error (.getMessage e))))))
+        (assoc res :error (.getMessage e)
+                   :error-details (->> e .getData :object :body))))))
 
-(defn select-resource [resource draft?]
-  (let [graph (get-in @settings
-                      [:data (if draft? :drafts-graph :default-graph)])]
-    (select
-     (str "select * from " (uri graph)
-          " where { "
-          (uri resource)
-          " ?p ?o }"))))
+(defn select-resource [resource]
+  (select
+   (str "select * where { " (uri resource) " ?p ?o }")))
 
 (defn solutions
   "Returns the solution maps from a sparql/json response."
@@ -83,16 +80,6 @@
           (for [[k v] solution]
             [k (:value v)]))))
 
-
-
-(->> (select-resource "http://dewey.info/class/200" true)
-     :results
-     solutions
-     (map #(vector (:p %) (:o %)))
-     (reduce
-      (fn [m [k v]]
-        (assoc m k (conj (m k []) v)))
-      {}))
 
 
 

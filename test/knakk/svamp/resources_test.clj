@@ -19,7 +19,7 @@
    ;; inner-rules are inserted into the resource query
    :inner-rules [(fn [{:keys [location uri-fn] :as all}]
                    (let [l (->> location first :value)]
-                     (str (uri-fn all) " a skos:Concept")))
+                     (str (uri-fn all) " a <http://www.w3.org/2004/02/skos/core#Concept>")))
                  (fn [{:keys [location uri-fn] :as all}]
                    (let [l (->> location first :value)]
                      (when-let [broader-dewey
@@ -28,8 +28,8 @@
                                  (re-find #"\.\d{1}$" l) (subs l 0 (- (count l) 2))
                                  (re-find #"[1-9]$" l) (str (subs l 0 (dec (count l))) "0")
                                  (re-find #"[1-]{2}0$" l) (str (first l) "00"))]
-                       (str (uri-fn all) " skos:broader " (uri-fn {:location [{:value broader-dewey}]}) " . "
-                            (uri-fn {:location [{:value broader-dewey}]}) " skos:narrower " (uri-fn all) " . "))))]
+                       (str (uri-fn all) " <http://www.w3.org/2004/02/skos/core#broader> " (uri-fn {:location [{:value broader-dewey}]}) " . "
+                            (uri-fn {:location [{:value broader-dewey}]}) " <<http://www.w3.org/2004/02/skos/core#narrower> " (uri-fn all) " . "))))]
    ;; outer-rules are complete, independent queries run consequetly after the resource query
    :outer-rules []
    :search-label (fn [{:keys [location label]}]
@@ -41,36 +41,35 @@
    :groups [ {:elements
               [{:id :location
                 :repeatable false
-                :values [{:value "641.5" :predicate "skos:notation" :type :float}]}
+                :values [{:value "641.5" :predicate "<http://www.w3.org/2004/02/skos/core#notation>" :type :float}]}
                {:id :label
                 :repeatable true
-                :values [{:value "Kokebøker@no" :predicate "skos:prefLabel" :type :string}
-                         {:value "Cookbooks@en" :predicate "skos:prefLabel" :type :string}]}
+                :values [{:value "Kokebøker@no" :predicate "<http://www.w3.org/2004/02/skos/core#prefLabel>" :type :string}
+                         {:value "Cookbooks@en" :predicate "<http://www.w3.org/2004/02/skos/core#prefLabel>" :type :string}]}
                {:id :subject
                 :repeatable true
                 :values [{:value "" :predicate "dc:subject" :type :uri}]}
                {:id :narrower
                 :repeatable true
-                :values[{:value "" :predicate "skos:narrower" :type :uri}]}
+                :values[{:value "" :predicate "<http://www.w3.org/2004/02/skos/core#narrower>" :type :uri}]}
                {:id :broader
                 :repeatable true
-                :values [{:value "" :predicate "skos:broader" :type :uri}]}]}]})
+                :values [{:value "" :predicate "<http://www.w3.org/2004/02/skos/core#broader>" :type :uri}]}]}]})
 
 (def query-wanted-1
-  "PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
-  INSERT INTO GRAPH <http://data.svamp.no>
+  "INSERT INTO GRAPH <http://data.svamp.no/drafts>
     {
      <http://dewey.info/class/641.5> a <http://dewey.info/Class> ;
-                                     skos:notation 641.5 ;
-                                     skos:prefLabel \"Kokebøker\"@no ;
-                                     skos:prefLabel \"Cookbooks\"@en ;
+                                     <http://www.w3.org/2004/02/skos/core#notation> 641.5 ;
+                                     <http://www.w3.org/2004/02/skos/core#prefLabel> \"Kokebøker\"@no ;
+                                     <http://www.w3.org/2004/02/skos/core#prefLabel> \"Cookbooks\"@en ;
                                      a <svamp://internal/class/Resource> ;
                                      <svamp://internal/resource/searchLabel> \"641.5 Kokebøker\"@no ;
                                      <svamp://internal/resource/displayLabel> \"641.5 Kokebøker\"@no ;
                                      <svamp://internal/resource/template> \"dewey.clj\" .
-      <http://dewey.info/class/641.5> a skos:Concept .
-      <http://dewey.info/class/641.5> skos:broader <http://dewey.info/class/641> .
-      <http://dewey.info/class/641> skos:narrower <http://dewey.info/class/641.5> .
+      <http://dewey.info/class/641.5> a <http://www.w3.org/2004/02/skos/core#Concept> .
+      <http://dewey.info/class/641.5> <http://www.w3.org/2004/02/skos/core#broader> <http://dewey.info/class/641> .
+      <http://dewey.info/class/641> <http://www.w3.org/2004/02/skos/core#narrower> <http://dewey.info/class/641.5> .
      }")
 
 

@@ -24,25 +24,25 @@
              {:id :password :type :text :value "dba" :desc "password for basic/digest authentication"}
              {:id :open-timeout :type :number :value 1500 :desc "in milliseconds"}
              {:id :read-timeout :type :number :value 3000 :desc "in milliseconds"}]}
- {:id :ns
-  :type :multi
-  :title "RDF Namespaces"
-  :desc "Namespace prefixes must be defined here and are accessible to all SPARQL queries. The ID means the prefix here. The 'svamp' prefix is obligatory, but you may change the URI."
-  :template {:content {:uri {:type :text :value ""}}}
-  :elements [{:id :foaf
-              :content {:uri {:type :text :value "http://xmlns.com/foaf/0.1/"}}}
-             {:id :dc
-              :content {:uri {:type :text :value "http://purl.org/dc/terms/"}}}
-             {:id :svamp
-              :content {:uri {:type :text :value "http://data.svamp.no/"}}}
-             {:id :skos
-              :content {:uri {:type :text :value "http://www.w3.org/2004/02/skos/core#"}}}]}
+ ;{:id :ns
+ ; :type :multi
+ ; :title "RDF Namespaces"
+ ; :desc "Namespace prefixes must be defined here and are accessible to all SPARQL queries. The ID means the prefix here. The 'svamp' prefix is obligatory, but you may change the URI."
+ ; :template {:content {:uri {:type :text :value ""}}}
+ ; :elements [{:id :foaf
+ ;             :content {:uri {:type :text :value "http://xmlns.com/foaf/0.1/"}}}
+ ;            {:id :dc
+ ;             :content {:uri {:type :text :value "http://purl.org/dc/terms/"}}}
+ ;            {:id :svamp
+ ;             :content {:uri {:type :text :value "http://data.svamp.no/"}}}
+ ;            {:id :skos
+ ;             :content {:uri {:type :text :value "http://www.w3.org/2004/02/skos/core#"}}}]}
  {:id :data
   :type :single
-  :title "Metadata options"
-  :desc "Various configurations"
+  :title "Resource metadata options"
   :elements [{:id :default-graph :type :text :value "http://data.svamp.no" :desc "all public metadata is published to this graph"}
              {:id :drafts-graph :type :text :value "http://data.svamp.no/drafts" :desc "drafts (not public) are published to this graph"}
+             {:id :use-lang-tag :type :checkbox :value true :desc "add language tag to string literals"}
              {:id :default-lang :type :text :value "no" :desc "default language for literals when no other tag is supplied"}]}
   {:id :search
   :type :single

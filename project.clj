@@ -17,6 +17,7 @@
 
                  ;; Clojure
                  [org.clojure/clojure "1.6.0"]
+                 [clj-time "0.6.0"]
                  [compojure "1.1.6"]
                  [prismatic/schema "0.2.1"]
                  [com.taoensso/timbre "3.1.6"]
