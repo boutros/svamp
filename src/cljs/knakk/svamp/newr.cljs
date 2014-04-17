@@ -217,6 +217,7 @@
                                          :url "api/resource"
                                          :on-complete (fn [res] (println res))
                                          :data {:publish? false
+                                                :template (:template (query-params))
                                                 :resource @data}})}
                         "Save draft")
             (dom/button #js {:disabled true} "Preview RDF")

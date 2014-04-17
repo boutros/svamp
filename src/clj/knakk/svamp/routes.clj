@@ -55,7 +55,7 @@
          (api-response (select-keys (read-string (slurp f))
                                     [:rdf-type :label :desc :groups]))
          (api-response {:error (str "cannot find template file: " template)} 400)))
-  (POST "/resource" [resource publish?]
+  (POST "/resource" [resource publish? template]
         ; TODO move out to helper fns
         ; TODO logging + error handling
         (let [t (io/resource (str "resource-types/" template))
@@ -65,7 +65,7 @@
               full-resource (merge resource res-fns)]
           (api-response
            (sparql/insert
-             (resources/build-query full-resource publish?))))))
+             (resources/build-query full-resource publish? template))))))
 
 (defroutes approutes
   ;; API

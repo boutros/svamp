@@ -58,7 +58,7 @@
   "Takes a resource map and builds the SPARQL query to be inserted.
 
   Returns the query string."
-  [resource publish?]
+  [resource publish? template]
   (let [r (into {}
                 (map
                   (comp #(extract-id-vals %) :elements)
@@ -93,4 +93,9 @@
          "}")))
 
 
-;; (defn create! [resource-map publish?])
+;; (defn create! [resource-map publish? template])
+;; 1. build sparql query
+;; 2. sparql/insert
+;; 3. log sucess/failure
+;; 4. put uri on index queue
+;; -> returns {:result x :error y :error-details z}

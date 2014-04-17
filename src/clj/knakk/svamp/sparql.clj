@@ -56,17 +56,18 @@
 (defn insert
   "Perform a SPARQL INSERT query <q> against the application's RDF-store.
 
-  Returns: {:results <nil> or ..?,
-            :error <nil> or <error string>}"
+  Returns: {:results <nil> or <successmessage>,
+            :error <nil> or <error string>
+            :error-details <nil> or <errordetails>}"
   [q]
-  (let [res {:results nil :error nil :error-details nil}]
+  (let [res {:result nil :error nil :error-details nil}]
     (try
-      (assoc res :results
+      (assoc res :result
         (->> (do-query q) :body json/parse-string keywordize-keys :results
              :bindings first :callret-0 :value))
       (catch Exception e
         (assoc res :error (.getMessage e)
-                   :error-details (->> e .getData :object :body))))))
+                   :error-details (some->> e .getData :object :body))))))
 
 (defn select-resource [resource]
   (select
