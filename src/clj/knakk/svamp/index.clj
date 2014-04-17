@@ -29,7 +29,7 @@
 
 
 (defn- mapping-from-file [file]
-  (let [r (->> (str "rdf-types/" file) io/resource slurp read-string)]
+  (let [r (->> (str "resource-types/" file) io/resource slurp read-string)]
     {(:index-type r) {:properties
      (into {}
        (for [[_ prop] (merge common-mappings (:index-mappings r))]
@@ -41,7 +41,7 @@
   (into {}
    (map
      #(mapping-from-file (:file %))
-     (resources/rdf-types))))
+     (resources/all-types))))
 
 ;; Public API =================================================================
 
@@ -90,7 +90,7 @@
   Returns {:error [<errormessages>], :result [<successmessages>]"
   ;; TODO error handling; missing file or syntax errors in file, use some->> ?
   (let [res (atom {:results [] :errors []})
-        resource-type (->> (str "rdf-types/" resource-file) io/resource slurp read-string :index-type)]
+        resource-type (->> (str "resource-types/" resource-file) io/resource slurp read-string :index-type)]
     (doseq [idx indexes]
       (try
         (esi/update-mapping idx resource-type :mapping (mapping-from-file resource-file))
@@ -116,7 +116,7 @@
                 (assoc m k (conj (m k []) v)))
               {}))
         template (first (values "svamp://internal/resource/template"))
-        template-file (->> (str "rdf-types/" template) io/resource slurp load-string)
+        template-file (->> (str "resource-types/" template) io/resource slurp load-string)
         pred-id (->> template-file :index-mappings (into common-mappings))
         ]
     (into {:type (:index-type template-file)}
@@ -140,7 +140,7 @@
 (comment
   (indexable-resource "http://dewey.info/class/200")
   (index-resource! "http://dewey.info/class/220")
-  (some->> (str "rdf-types/" "dewey.clj<") io/resource slurp read-string :index-type)
+  (some->> (str "resource-types/" "dewey.clj<") io/resource slurp read-string :index-type)
 
   (update-mapping! "dewey.clj")
 

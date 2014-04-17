@@ -1,6 +1,6 @@
 (ns knakk.svamp.help
   "Help & troubleshooting in question/answer format"
-  (:require [knakk.svamp.resources :refer [rdf-types]]
+  (:require [knakk.svamp.resources :as resources]
             [knakk.svamp.settings :refer [settings]]
             [knakk.svamp.index :as index]))
 
@@ -19,7 +19,7 @@
                 (if (= "All types" file)
                   (apply merge-with into
                          (map index/update-mapping!
-                              (for [t (rdf-types)] (:file t))))
+                              (for [t (resources/all-types)] (:file t))))
                   (index/update-mapping! file)))
     :indexing-queue {:results ["Size of the queue: 0"] :errors []}))
 
@@ -36,7 +36,7 @@
     :title "Schedule resource re-indexing"
     :question "I changed some resource type-definitions, but it doesn't seem to have any effect on my search-results."
     :answer "You have to update the mapping and schedule a re-index for the changed types:"
-    :action {:type :dropdown :options (into [{:index-type "all" :label "All types"}] (rdf-types)) :button "Update mappings and schedule re-indexing"}
+    :action {:type :dropdown :options (into [{:index-type "all" :label "All types"}] (resources/all-types)) :button "Update mappings and schedule re-indexing"}
     :see-also [{:id :indexing-queue :desc "Check status of indexing queue"}]}
 
    {:id :indexing-queue

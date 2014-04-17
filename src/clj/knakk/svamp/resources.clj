@@ -44,11 +44,11 @@
 
 ;; Public API =================================================================
 
-(defn rdf-types
+(defn all-types
   "Returns a vector of the resource types, where each type is a map with the
   keys: :file, :index-type, :desc & :label"
   []
-  (let [files (->> "rdf-types" io/resource io/file file-seq (filter #(.isFile %)))
+  (let [files (->> "resource-types" io/resource io/file file-seq (filter #(.isFile %)))
         filenames (map #(.getName %) files)
         types (map (comp #(select-keys % [:label :desc :index-type])
                     parse-or-nil) files)]

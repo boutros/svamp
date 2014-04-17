@@ -14,7 +14,7 @@
     (will-mount [_]
       (edn-xhr
         {:method :get
-         :url "api/rdf-types"
+         :url "api/resource-types"
          :on-complete #(om/update! data %)}))
     om/IRender
     (render [_]
