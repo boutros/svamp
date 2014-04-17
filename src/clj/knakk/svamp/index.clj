@@ -84,10 +84,11 @@
     (merge-with into deleted created)))
 
 
-(defn update-mapping! [resource-file]
+(defn update-mapping!
   "Updates the mapping for a given ressource-type.
 
   Returns {:error [<errormessages>], :result [<successmessages>]"
+  [resource-file]
   ;; TODO error handling; missing file or syntax errors in file, use some->> ?
   (let [res (atom {:results [] :errors []})
         resource-type (->> (str "resource-types/" resource-file) io/resource slurp read-string :index-type)]
