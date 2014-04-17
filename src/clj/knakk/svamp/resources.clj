@@ -4,6 +4,7 @@
             [clojure.edn :as edn]
             [knakk.svamp.settings :refer [settings]]
             [knakk.svamp.sparql :as sparql]
+            [taoensso.timbre :as timbre :refer [info error]]
             [clj-time.core :refer [now]]))
 
 
@@ -30,19 +31,28 @@
     :float (:value v)
     :date (str "\"" (:value v) "\"^^xsd:dateTime")))
 
+(defn- parse-or-nil [file]
+  "Slurps and parses a clojure file.
+
+  Returns the parsed clojure data or nil if the file cannot be parsed.
+  An error will be logged."
+  (try
+    (read-string (slurp file))
+  (catch Exception e
+    (error (str "failed to parse file '" file "': " (.getMessage e))))))
+
 
 ;; Public API =================================================================
 
-
-(defn rdf-types []
-  ;; TODO error handling:
-  ;;   read-string will fail if input is not well-formed clj syntax
+(defn rdf-types
+  "Returns a vector of the resource types, where each type is a map with the
+  keys: :file, :index-type, :desc & :label"
+  []
   (let [files (->> "rdf-types" io/resource io/file file-seq (filter #(.isFile %)))
         filenames (map #(.getName %) files)
         types (map (comp #(select-keys % [:label :desc :index-type])
-                    read-string slurp) files)]
+                    parse-or-nil) files)]
     (vec (map #(assoc %1 :file %2) types filenames))))
-
 
 (defn build-query
   "Takes a resource map and builds the SPARQL query to be inserted.
