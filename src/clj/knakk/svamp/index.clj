@@ -12,6 +12,8 @@
 
 ;; Data  ======================================================================
 
+(def queue "/queue/indexing")
+
 (def indexes ["drafts" "public"])
 
 (defn index-settings []
@@ -36,6 +38,7 @@
          prop))}}))
 
 (defn create-mappings
+  ;; TODO move this elsewhere and remove import knakk.svamp.resources
   "Automatically create mappings for Elasticsearch from the rdf type definition files."
   []
   (into {}
@@ -116,7 +119,7 @@
               (fn [m [k v]]
                 (assoc m k (conj (m k []) v)))
               {}))
-        template (first (values "svamp://internal/resource/template"))
+        template (first (values "svamp://internal/resource/template")) ;; TODO what if nil?
         template-file (->> (str "resource-types/" template) io/resource slurp load-string)
         pred-id (->> template-file :index-mappings (into common-mappings))
         ]
@@ -135,12 +138,11 @@
     (try
       (esd/put index t resource (dissoc doc :type))
       (catch Exception e
-        (.toString e))))) ;; TODO logg or somthing?
-
+        (println (.toString e)))))) ;; TODO logg or somthing?
 
 (comment
-  (indexable-resource "http://dewey.info/class/200")
-  (index-resource! "http://dewey.info/class/220")
+  (indexable-resource "http://dewey.info/class/700")
+  (index-resource! "http://dewey.info/class/700")
   (some->> (str "resource-types/" "dewey.clj<") io/resource slurp read-string :index-type)
 
   (update-mapping! "dewey.clj")

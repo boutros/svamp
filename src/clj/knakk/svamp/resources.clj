@@ -2,11 +2,11 @@
   "Functions for creating, editing and deleting metadata resources."
   (:require [clojure.java.io :as io]
             [clojure.edn :as edn]
+            [immutant.messaging :as msg]
             [knakk.svamp.settings :refer [settings]]
             [knakk.svamp.sparql :as sparql]
             [taoensso.timbre :as timbre :refer [info error]]
             [clj-time.core :refer [now]]))
-
 
 ;; Private helper functions ===================================================
 
@@ -19,6 +19,9 @@
       [(:id el) (remove no-value? (:values el))])))
 
 (defn- uri [s] (str "<" s ">"))
+
+(defn- clean-uri [s] (subs s 1 (dec (count s))))
+
 
 (defn- literal [v]
   (condp = (:type v)
@@ -107,8 +110,9 @@
         res (sparql/insert (:query query))]
     (if (:error res)
       (error (str "failed to create resource: " (:error res)))
-      (info (str "resource created: " (:uri query))))
-    (println "put on index queue")
+      (do
+        (info (str "resource created: " (:uri query)))
+        (msg/publish "/queue/indexing" (clean-uri (:uri query)))))
     res))
 
 (defn delete! [resource published?]
