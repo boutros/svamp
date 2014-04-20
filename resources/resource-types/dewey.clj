@@ -18,6 +18,7 @@
                  (let [l (->> location first :value)]
                    (when-let [broader-dewey
                               (cond
+                               ;; TODO what about 060 > 000 ?
                                (re-find #"\.\d{2,}" l) (subs l 0 (dec (count l)))
                                (re-find #"\.\d{1}$" l) (subs l 0 (- (count l) 2))
                                (re-find #"[1-9]$" l) (str (subs l 0 (dec (count l))) "0")

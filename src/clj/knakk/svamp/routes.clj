@@ -7,6 +7,7 @@
             [clojure.java.io :as io]
             [clojure.edn :as edn]
             [knakk.svamp.sparql :as sparql]
+            [knakk.svamp.search :as search]
             [knakk.svamp.resources :as resources]
             [knakk.svamp.help :as help])
   (:import [java.io.PushbackReader]))
@@ -62,7 +63,13 @@
                                     :search-label :display-label])
               full-resource (merge resource res-fns)]
           (api-response
-           (resources/create! full-resource publish? template)))))
+           (resources/create! full-resource publish? template))))
+  (POST "/search" [q drafts? type]
+        (let [t (if (= "Any type" type) false type)]
+          (api-response
+           (if drafts?
+             (search/search-all q :type t)
+             (search/search-public q :type t))))))
 
 (defroutes approutes
   ;; API

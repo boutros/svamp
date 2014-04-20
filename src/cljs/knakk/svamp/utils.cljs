@@ -27,7 +27,7 @@
     #js {}
     #js {:display "none"}))
 
-(defn spinner []
+#_(defn spinner []
   (om/component
     (dom/div #js {:className "spinner"}
       (dom/div #js {:className "bounce1"})

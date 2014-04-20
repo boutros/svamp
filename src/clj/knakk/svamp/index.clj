@@ -127,7 +127,7 @@
            (for [[k v] values
              :when (get pred-id (uri k))
              :let [id (first (first (get pred-id (uri k))))]]
-           [id v]))))
+           [id (if (> (count v) 1) v (first v))]))))
 
 
 (defn index-resource! [resource]

@@ -9,10 +9,10 @@
                                   [expectations "2.0.6"]]}}
   :source-paths ["src/clj"]
   :dependencies [
-                 ;; Temporary as not to fail tests:
-                 ;[org.immutant/immutant-web "1.1.1"]
-                 ;[org.immutant/immutant-messaging "1.1.1"]
-                 ;[org.immutant/immutant-daemons "1.1.1"]
+                 ;; Temporarily - to be able to use lighttable interactivly:
+                 [org.immutant/immutant-web "1.1.1"]
+                 [org.immutant/immutant-messaging "1.1.1"]
+                 [org.immutant/immutant-daemons "1.1.1"]
 
                  ;; Java
                  ;[org.elasticsearch/elasticsearch "1.1.0"]

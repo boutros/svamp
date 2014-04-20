@@ -7,6 +7,53 @@
 
 (enable-console-print!)
 
+(defn do-search [q owner]
+  (edn-xhr
+   {:method :post
+    :url "api/search"
+    :data {:q q
+           :drafts? (om/get-state owner :including-drafts?)
+           :type (om/get-state owner :index-type)}
+    :on-complete (fn [r] (om/set-state! owner :results r))}))
+
+(defn resource-search
+  [data owner]
+   (reify
+     om/IInitState
+     (init-state [_]
+      {:searching false :including-drafts? true :index-type "Any type"
+       :query "" :results {}})
+     om/IRenderState
+     (render-state [_ {:keys [searching query results including-drafts? index-type]}]
+       (dom/div #js {:className "monospace beigebg lineBar"}
+         (dom/input #js {:type "text" :placeholder "Search for resources" :value query
+                         :onChange (fn [e]
+                                     (let [q (.. e -target -value)]
+                                       (om/set-state! owner :query q)
+                                       (do-search q owner)))})
+         (dom/span nil " of type ")
+         (apply dom/select #js {:value index-type
+                                :onChange (fn [e]
+                                            (do
+                                              (om/set-state! owner :index-type (.. e -target -value))
+                                              (do-search query owner)))}
+           (map (fn [e]
+                  (dom/option #js {:value (:index-type e)} (:label e)))
+                (into [{:label "Any type" :index-type "Any type"}] data)))
+         (dom/input #js {:type "checkbox" :checked including-drafts? :className "chk"
+                         :onChange (fn [e]
+                                     (do
+                                       (om/set-state! owner :including-drafts? (not including-drafts?))
+                                       (do-search query owner)))})
+         (dom/label nil "including drafts")
+         (dom/div #js {:className "searchResults"}
+           (apply dom/ul nil
+             (map (fn [hit]
+                    (dom/li #js {:className (if (= "drafts" (:_index hit)) "red" "")}
+                      (dom/span #js {:className "searchResultsType"} (:_type hit))
+                      (dom/span #js {:className "searchResultsLabel"} (-> hit :_source :displayLabel))))
+                  (->> results :hits :hits))))))))
+
 (defn metadata
   [data owner]
   (reify
@@ -17,7 +64,7 @@
          :url "api/resource-types"
          :on-complete #(om/update! data %)}))
     om/IRender
-    (render [_]
+    (render [this]
       (dom/div nil
         (dom/div nil
           (dom/h3 nil "Create a new resource")
@@ -30,14 +77,6 @@
                  data)))
         (dom/div nil
           (dom/h3 nil "Modify an existing resource")
-          (dom/div #js {:className "monospace beigebg lineBar"}
-            (dom/input #js {:type "text" :placeholder "Search for resources"})
-            (dom/span nil " of type ")
-            (apply dom/select nil
-              (map (fn [e]
-                     (dom/option #js {:value (:rdf-type e)} (:label e)))
-                   (into [{:label "Any" :rdf-type "any"}] data)))
-            (dom/input #js {:type "checkbox" :checked true :className "chk"})
-            (dom/label nil "including drafts")))))))
+          (om/build resource-search data))))))
 
 (om/root metadata {} {:target (. js/document (getElementById "page-app-1"))})

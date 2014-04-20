@@ -218,6 +218,11 @@ ul.resources { padding: 0; margin: 0; list-style: none;}
 .rdfType:before { content: '<'; }
 .rdfType:after { content: '>'; }
 
+.searchResults { margin: 0.5em 0}
+.searchResults ul { list-style: none; padding:0; margin: 0;}
+.searchResults li:hover { background: #fff; text-decoration:underline; cursor: pointer;}
+.searchResultsType { font-weight: bold; display:inline-block; min-width: 100px; margin: 0 1em;}
+
 .elementTitle { border-bottom: 1px dashed #bbb; margin: 0.5em 0;}
 .resource label { font-weight: bold;}
 .resource input { width: 230px; margin-bottom: 1em;}
