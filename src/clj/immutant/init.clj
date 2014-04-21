@@ -17,7 +17,9 @@
 (info "starting up svamp!")
 
 ;; connect to elasticsearch
-(es/connect! [["127.0.0.1" 9300]] {"cluster.name" "svamp"})
+(let [es-cfg (:search @settings)]
+  (es/connect! [[(:host es-cfg) (#(Integer/parseInt %) (:port es-cfg))]]
+               {"cluster.name" (:cluster-name es-cfg)}))
 
 ;; start indexing queue
 (msg/start index/queue)
