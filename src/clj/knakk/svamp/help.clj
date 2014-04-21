@@ -2,7 +2,9 @@
   "Help & troubleshooting in question/answer format"
   (:require [knakk.svamp.resources :as resources]
             [knakk.svamp.settings :refer [settings]]
-            [knakk.svamp.index :as index]))
+            [knakk.svamp.index :as index]
+            [cheshire.core :as json]
+            [immutant.messaging.hornetq :as hq]))
 
 
 ;; Public API =================================================================
@@ -21,7 +23,17 @@
                          (map index/update-mapping!
                               (for [t (resources/all-types)] (:file t))))
                   (index/update-mapping! file)))
-    :indexing-queue {:results ["Size of the queue: 0"] :errors []}))
+    ;; TODO messagcount disabled by default.
+    ;; https://github.com/hornetq/hornetq/blob/master/examples/jms/message-counters/readme.html
+    :indexing-queue (let [res {:results [] :errors []}]
+                      (try
+                        (update-in res [:results]
+                                   #(conj % ;(json/parse-string
+                                          (.listMessageCounter
+                                           (hq/destination-controller index/queue))));)
+                        (catch Exception e
+                          (update-in res [:errors]
+                                     #(conj % (.getMessage e))))))))
 
 (defn data []
   [
