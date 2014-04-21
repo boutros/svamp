@@ -12,6 +12,7 @@
    :delete "DELETE"})
 
 (defn edn-xhr
+  ;; TODO handle on-error as well, check om-sync
   [{:keys [method url data on-complete]}]
   (let [xhr (XhrIo.)]
     (events/listen xhr goog.net.EventType.COMPLETE

@@ -3,11 +3,13 @@
   (:require [om.core :as om :include-macros true]
             [om.dom :as dom :include-macros true]
             [cljs.core.async :refer [put! chan alts! <!]]
-            [knakk.svamp.utils :refer [edn-xhr]]))
+            [knakk.svamp.utils :refer [edn-xhr]])
+  (:import goog.async.Throttle))
 
 (enable-console-print!)
 
 (defn do-search [q owner]
+  ;; TODO throttle this function
   (edn-xhr
    {:method :post
     :url "api/search"
@@ -15,6 +17,9 @@
            :drafts? (om/get-state owner :including-drafts?)
            :type (om/get-state owner :index-type)}
     :on-complete (fn [r] (om/set-state! owner :results r))}))
+
+(def throttled ;; WIP not working, can't understand why - but arguments aren't passed on
+  (Throttle. (fn [q owner] (do-search q owner)) 300))
 
 (defn resource-search
   [data owner]
