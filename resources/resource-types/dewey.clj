@@ -18,11 +18,10 @@
                  (let [l (->> location first :value)]
                    (when-let [broader-dewey
                               (cond
-                               ;; TODO what about 060 > 000 ?
                                (re-find #"\.\d{2,}" l) (subs l 0 (dec (count l)))
                                (re-find #"\.\d{1}$" l) (subs l 0 (- (count l) 2))
                                (re-find #"[1-9]$" l) (str (subs l 0 (dec (count l))) "0")
-                               (re-find #"[1-9]{2}0$" l) (str (first l) "00"))]
+                               (re-find #"\d{2}0$" l) (str (first l) "00"))]
                      (str (uri-fn all) " <http://www.w3.org/2004/02/skos/core#broader> " (uri-fn {:location [{:value broader-dewey}]}) " . "
                           (uri-fn {:location [{:value broader-dewey}]}) " <http://www.w3.org/2004/02/skos/core#narrower> " (uri-fn all) " . "))))]
  :outer-rules []
