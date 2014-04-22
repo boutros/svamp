@@ -1,0 +1,904 @@
+000  Informatikk, informasjonsvitenskap og generelle verker
+001  Kunnskap og vitenskap
+002  Boken
+003  Systemer
+004  Databehandling og informatikk
+005  Dataprogrammering, programmer og data
+006  Spesielle datametoder
+010  Bibliografi
+011  Bibliografier
+012  Bibliografier som gjelder enkeltpersoner
+014  Bibliografier over anonyme og pseudonyme verker
+015  Bibliografier over dokumenter utgitt i bestemte områder
+016  Bibliografier over dokumenter om bestemte emner
+017  Kataloger ordnet etter emne
+018  Kataloger ordnet etter forfatter, dato etc.
+019  Ordbokskataloger
+020  Bibliotek- og informasjonsvitenskap
+021  Bibliotekers forbindelser og samarbeid
+022  Forvaltning av fysiske anlegg
+023  Personalforvaltning
+025  Bibliotekoperasjoner
+026  Biblioteker knyttet til bestemte emner
+027  Generelle biblioteker
+028  Lesing og bruk av andre informasjonsmedier
+030  Generelle encyklopedier
+031  Encyklopedier på amerikansk-engelsk
+032  Encyklopedier på engelsk
+033  Encyklopedier på andre germanske språk
+034  Encyklopedier på fransk, oksitansk og katalansk
+035  Encyklopedier på italiensk, rumensk og beslektede språk
+036  Encyklopedier på spansk og portugisisk
+037  Encyklopedier på slaviske språk
+038  Encyklopedier på nordiske språk
+039  Encyklopedier på andre språk
+050  Generelle periodika
+051  Periodika på amerikansk-engelsk
+052  Periodika på engelsk
+053  Periodika på andre germanske språk
+054  Periodika på fransk, oksitansk og katalansk
+055  Periodika på italiensk, rumensk og beslektede språk
+056  Periodika på spansk og portugisisk
+057  Periodika på slaviske språk
+058  Periodika på nordiske språk
+059  Periodika på andre språk
+060  Generelle organisasjoner og museumskunnskap
+061  Organisasjoner i Nord-Amerika
+062  Organisasjoner på de Britiske øyer; i England
+063  Organisasjoner i Sentral-Europa; i Tyskland
+064  Organisasjoner i Frankrike og Monaco
+065  Organisasjoner i Italia med tilgrensende områder
+066  Organisasjoner på den Iberiske halvøy med tilgrensende øyer
+067  Organisasjoner i Øst-Europa; i Russland
+068  Organisasjoner i andre geografiske områder
+069  Museumskunnskap
+070  Nyhetsmedier, journalistikk og publisering
+071  Aviser i Nord-Amerika
+072  Aviser på de Britiske øyer; i England
+073  Aviser i Sentral-Europa; i Tyskland
+074  Aviser i Frankrike og Monaco
+075  Aviser i Italia og omkringliggende øyer
+076  Aviser på den Iberiske halvøy og omkringliggende områder
+077  Aviser i Øst-Europa; i Russland
+078  Aviser i Norden
+079  Aviser i andre geografiske områder
+080  Generelle samlinger
+081  Samlinger på amerikansk-engelsk
+082  Samlinger på engelsk
+083  Samlinger på andre germanske språk
+084  Samlinger på fransk, oksitansk, katalansk
+085  Samlinger på italiensk, rumensk og beslektede språk
+086  Samlinger på spansk og portugisisk
+087  Samlinger på slaviske språk
+088  Samlinger på nordiske språk
+089  Samlinger på andre språk
+090  Håndskrifter og sjeldne bøker
+091  Håndskrifter
+092  Blokkbøker
+093  Inkunabler
+094  Trykte bøker
+095  Bøker med sjelden innbinding
+096  Bøker med sjeldne illustrasjoner
+097  Bøker som er kjent på grunn av sine eiere eller sin opprinnelse
+098  Forbudte bøker, forfalskninger
+099  Bøker i sjeldent format
+100  Filosofi og psykologi
+101  Teori innen filosofi
+102  Diverse
+103  Ordbøker og leksika
+105  Periodika
+106  Organisasjoner og ledelse
+107  Utdanning, forskning og lignende emner
+108  Bestemte kategorier personer
+109  Filosofiens historie, personer knyttet til filosofi
+110  Metafysikk
+111  Ontologi
+113  Kosmologi
+114  Rom
+115  Tid
+116  Forandring
+117  Struktur
+118  Kraft og energi
+119  Tall og mengde
+120  Erkjennelsesteori, årsakssammenheng og mennesket
+121  Erkjennelsesteori
+122  Årsakssammenheng
+123  Determinisme og indeterminisme
+124  Teleologi
+126  Selvet
+127  Det ubevisste og det underbevisste
+128  Mennesket
+129  Individuelle sjelers opprinnelse og bestemmelse
+130  Parapsykologi og okkultisme
+131  Parapsykologiske og okkulte midler
+133  Bestemte emner innen parapsykologi og okkultisme
+135  Drømmer og mysterier
+137  Spåing ved hjelp av grafologi
+138  Fysiognomikk
+139  Frenologi
+140  Bestemte filosofiske skoler
+141  Idealisme og lignende systemer
+142  Kritisk filosofi
+143  Bergsonisme og intuisjonisme
+144  Humanisme og lignende systemer
+145  Sensualisme
+146  Naturalisme og lignende systemer
+147  Panteisme og lignende systemer
+148  Eklektisisme, liberalisme og tradisjonalisme
+149  Andre filosofiske systemer
+150  Psykologi
+152  Sansing, bevegelse, emosjoner og fysiologiske drifter
+153  Mentale prosesser og intelligens
+154  Underbevisste og endrede tilstander
+155  Differensialpsykologi og utviklingspsykologi
+156  Sammenlignende psykologi
+158  Anvendt psykologi
+160  Logikk
+161  Induksjon
+162  Deduksjon
+165  Feilslutninger og feilkilder
+166  Syllogismer
+167  Hypoteser
+168  Argumentasjon og overtalelse
+169  Analogi
+170  Etikk
+171  Etiske systemer
+172  Politisk etikk
+173  Familieetikk
+174  Yrkesetikk
+175  Etikk vedrørende fritidsvirksomhet og fornøyelser
+176  Etikk vedrørende seksualitet og reproduksjon
+177  Etikk i mellommenneskelige forhold
+178  Forbrukeretikk
+179  Andre etiske normer
+180  Oldtidens, middelalderens og østens filosofi
+181  Østens filosofi
+182  Gresk filosofi før Sokrates
+183  Sokrates og beslektet filosofi
+184  Platonsk filosofi
+185  Aristotelisk filosofi
+186  Skeptisisme og nyplatonisme
+187  Epikureisme
+188  Stoisisme
+189  Vestens filosofi i middelalderen
+190  Vestens filosofi i nyere tid
+191  Filosofi i Forente stater og Canada
+192  Filosofi på de Britiske øyer
+193  Filosofi i Tyskland og Østerrike
+194  Filosofi i Frankrike
+195  Filosofi i Italia
+196  Filosofi i Spania og Portugal
+197  Filosofi i tidligere Sovjetunionen
+198  Filosofi i Norden
+199  Filosofi i andre geografiske områder
+200  Religion
+201  Religiøs mytologi og sosialteologi
+202  Dogmer
+203  Offentlig gudsdyrkelse
+204  Religiøse opplevelser og religiøs livsførsel
+205  Moralteologi
+206  Ledere og organisasjoner
+207  Misjon og religionsundervisning
+208  Kilder
+209  Sekter og reformbevegelser
+210  Filosofi og teori innen religion
+211  Gudsbegrep
+212  Guds eksistens og egenskaper, muligheten for å erkjenne Gud
+213  Verdens skapelse
+214  Teodicé
+215  Naturvitenskap og religion
+218  Mennesket
+220  Bibelen
+221  Det Gamle testamente (Tanak)
+222  De historiske bøker fra det Gamle testamente
+223  De poetiske bøker fra det Gamle testamente
+224  Profetenes bøker i det Gamle testamente
+225  Det Nye testamente
+226  Evangeliene og Apostlenes gjerninger
+227  Brevene
+228  Johannes' åpenbaring (apokalypsen)
+229  Apokryfer og pseudepigrafer
+230  Kristendom og kristen teologi
+231  Gud
+232  Jesus Kristus og hans familie
+233  Menneskeheten
+234  Frelsen og Guds nåde
+235  Åndelige vesener
+236  Eskatologi
+238  Trosbekjennelser og katekismer
+239  Apologetikk og polemikk
+240  Kristen etikk og oppbyggelig teologi
+241  Kristen etikk
+242  Oppbyggelig litteratur
+243  Vekkelseslitteratur for enkeltpersoner
+246  Bruk av kunst i kristendom
+247  Kirkelig innredning og utsmykning
+248  Kristne opplevelser, gudsdyrkelse og personlig kristenliv
+249  Kristenliv i familien
+250  Kristne religiøse ordener og den lokale kirke
+251  Prekenlære
+252  Prekentekster
+253  Pastoralt arbeid og prestens plikter
+254  Administrasjon av sognet
+255  Religiøse kongregasjoner og ordener
+259  Pastoralt arbeid for familier og bestemte kategorier personer
+260  Kristen sosialteologi og kirketeologi
+261  Sosialteologi
+262  Kirken og dens grunnsetninger
+263  Helligdager, høytider og hellige steder
+264  Offentlig gudsdyrkelse
+265  Sakramenter, andre riter og handlinger
+266  Misjon
+267  Foreninger som driver kristent arbeid
+268  Religionsundervisning
+269  Åndelig fornyelse
+270  Kristendommens historie og kirkehistorie
+271  Religiøse ordener innen kirkehistorie
+272  Forfølgelser i kirkehistorien
+273  Dogmestrid og kjetteri
+274  Kristendommens historie i Europa
+275  Kristendommens historie i Asia
+276  Kristendommens historie i Afrika
+277  Kristendommens historie i Nord-Amerika
+278  Kristendommens historie i Sør-Amerika
+279  Kristendommens historie i andre områder
+280  Kristne trossamfunn og sekter
+281  Oldkirken og ortodokse kirker
+282  Romersk-katolske kirke
+283  Anglikanske kirker
+284  Protestantiske trossamfunn med opprinnelse i Europa
+285  Presbyterianske, reformerte og kongregasjonalistkirker
+286  Baptistkirker, Disciples of Christ og adventistkirker
+287  Metodistkirker og beslektede kirker
+289  Andre trossamfunn og sekter
+290  Andre religioner
+292  Gresk og romersk religion
+293  Germansk religion
+294  Religioner av indisk opprinnelse
+295  Zarathustras lære
+296  Jødedom
+297  Islam, babisme og bahai
+299  Religioner som ikke har annen plassering
+300  Samfunnsvitenskap
+301  Sosiologi og antropologi
+302  Sosial interaksjon
+303  Sosiale prosesser
+304  Faktorer som påvirker sosial atferd
+305  Sosiale grupper
+306  Kultur og sosiale institusjoner
+307  Lokalsamfunn
+310  Generelle statistikksamlinger
+314  Generell statistikk for Europa
+315  Generell statistikk for Asia
+316  Generell statistikk for Afrika
+317  Generell statistikk for Nord-Amerika
+318  Generell statistikk for Sør-Amerika
+319  Generell statistikk for andre områder
+320  Statsvitenskap
+321  Regjeringssystemer og statsformer
+322  Statens forhold til organiserte grupper og deres medlemmer
+323  Menneskerettigheter, borgerrettigheter og politiske rettigheter
+324  Politiske prosesser
+325  Internasjonal flytting
+326  Slaveri og frigjøring
+327  Internasjonale forhold
+328  Den lovgivende prosess
+330  Økonomi
+331  Arbeidsøkonomi
+332  Finansøkonomi
+333  Forvaltning av landområder og energi
+334  Samvirke
+335  Sosialisme og lignende systemer
+336  Offentlige finanser
+337  Internasjonal økonomi
+338  Produksjon
+339  Makroøkonomi og lignende emner
+340  Rettsvitenskap
+341  Folkerett
+342  Forfatningsrett og forvaltningsrett
+343  Militærrett, skatter, handel og næringsliv
+344  Arbeidsrett, sosialrett, utdanning og kultur
+345  Strafferett
+346  Privatrett
+347  Sivilprosess og sivile domstoler
+348  Lover, forskrifter og domssamlinger
+349  Bestemte myndighetsområders rett
+350  Offentlig administrasjon og militærvesen
+351  Offentlig administrasjon
+352  Generelle betraktninger innen offentlig administrasjon
+353  Bestemte områder innen offentlig administrasjon
+354  Offentlig administrasjon av økonomi og miljø
+355  Militærvesen
+356  Infanteri og deres krigføring
+357  Kavaleristyrker og deres krigføring
+358  Luftforsvar og andre spesialiserte styrker
+359  Sjøstridskrefter og deres krigføring
+360  Sosiale problemer og sosiale tjenester; foreninger
+361  Sosiale problemer og sosial velferd generelt
+362  Sosiale velferdsproblemer og tjenester
+363  Andre sosiale problemer og tjenester
+364  Kriminologi
+365  Fengselsvesen
+366  Foreninger
+367  Generelle foreninger
+368  Forsikring
+369  Diverse typer foreninger
+370  Utdanning og pedagogikk
+371  Skoler og deres virksomhet; spesialpedagogikk
+372  Førskoleopplæring og grunnskole
+373  Videregående opplæring
+374  Voksenopplæring
+375  Læreplaner
+378  Høyere utdanning
+379  Utdanningspolitikk
+380  Handel, kommunikasjon og samferdsel
+381  Handel
+382  Internasjonal handel
+383  Post
+384  Kommunikasjon; telekommunikasjon
+385  Jernbanetransport
+386  Transport på vannveier i innlandet; fergetransport
+387  Transport til vanns, luftfart og romfart
+388  Samferdsel; landtransport
+389  Mål og vekt; standardisering
+390  Skikker, etikette og folkeminne
+391  Klesdrakt og personlig utseende
+392  Skikker knyttet til livssyklus og familieliv
+393  Skikker knyttet til dødsfall
+394  Generelle samfunnsskikker
+395  Etikette (Manerer)
+398  Folkeminne
+399  Skikker knyttet til krig og diplomati
+400  Språk og språkvitenskap
+401  Filosofi og teori
+402  Diverse
+403  Ordbøker og leksika
+404  Spesielle emner
+405  Periodika
+406  Organisasjoner og ledelse
+407  Utdanning, forskning og lignende emner
+408  Språk som gjelder bestemte kategorier personer
+409  Geografisk behandling og personer
+410  Språkvitenskap
+411  Skriftsystemer
+412  Etymologi
+413  Ordbøker
+414  Fonologi og fonetikk
+415  Grammatikk
+417  Dialektologi og historisk lingvistikk
+418  Normert språkbruk og anvendt lingvistikk
+419  Tegnspråk
+420  Engelsk og gammelengelsk
+421  Engelske skriftsystemer og fonologi
+422  Engelsk etymologi
+423  Engelske ordbøker
+425  Engelsk grammatikk
+427  Engelske språkvariasjoner
+428  Normert engelsk språkbruk
+429  Gammelengelsk (angelsaksisk)
+430  Germanske språk; tysk
+431  Tyske skriftsystemer og fonologi
+432  Tysk etymologi
+433  Tyske ordbøker
+435  Tysk grammatikk
+437  Tyske språkvariasjoner
+438  Normert tysk språkbruk
+439  Andre germanske språk
+440  Romanske språk; fransk
+441  Franske skriftsystemer og fonologi
+442  Fransk etymologi
+443  Franske ordbøker
+445  Fransk grammatikk
+447  Franske språkvariasjoner
+448  Normert fransk språkbruk
+449  Oksitansk og katalansk
+450  Italiensk, rumensk og beslektede språk
+451  Italienske skriftsystemer og fonologi
+452  Italiensk etymologi
+453  Italienske ordbøker
+455  Italiensk grammatikk
+457  Italienske språkvariasjoner
+458  Normert italiensk språkbruk
+459  Rumensk og beslektede språk
+460  Spansk og portugisisk
+461  Spanske skriftsystemer og fonologi
+462  Spansk etymologi
+463  Spanske ordbøker
+465  Spansk grammatikk
+467  Spanske språkvariasjoner
+468  Normert spansk språkbruk
+469  Portugisisk
+470  Italiske språk; latin
+471  Klassisk latinske skriftsystemer og fonologi
+472  Klassisk latinsk etymologi
+473  Klassisk latinske ordbøker
+475  Klassisk latinsk grammatikk
+477  Gammellatin, postklassisk latin og vulgærlatin
+478  Normert klassisk latin
+479  Andre italiske språk
+480  Greske språk; klassisk gresk
+481  Klassisk greske skriftsystemer og fonologi
+482  Klassisk gresk etymologi
+483  Klassisk greske ordbøker
+485  Klassisk gresk grammatikk
+487  Preklassisk og postklassisk gresk
+488  Normert klassisk gresk
+489  Andre greske språk
+490  Andre språk
+491  Østindoeuropeiske og keltiske språk
+492  Afroasiatiske språk; semittiske språk
+493  Ikke-semittiske afroasiatiske språk
+494  Altaiske, uralske, hyperboreiske og dravidiske språk
+495  Språk i Øst- og Sørøst-Asia
+496  Afrikanske språk
+497  Nordamerikanske urbefolkningers språk
+498  Søramerikanske urbefolkningers språk
+499  Austronesiske og diverse språk
+500  Naturvitenskap og matematikk
+501  Filosofi og teori
+502  Diverse
+503  Ordbøker og leksika
+505  Periodika
+506  Organisasjoner og ledelse
+507  Utdanning, forskning og lignende emner
+508  Naturhistorie
+509  Historisk eller geografisk behandling, personer
+510  Matematikk
+511  Generelle matematiske prinsipper
+512  Algebra
+513  Aritmetikk
+514  Topologi
+515  Matematisk analyse
+516  Geometri
+518  Numerisk analyse
+519  Sannsynlighetsregning og anvendt matematikk
+520  Astronomi og lignende vitenskaper
+521  Celest mekanikk
+522  Teknikker, utstyr og materialer
+523  Bestemte himmellegemer og fenomener
+525  Jorda (astronomisk geografi)
+526  Matematisk geografi
+527  Astronomisk navigasjon
+528  Efemerider
+529  Tidsregning
+530  Fysikk
+531  Klassisk mekanikk; faste legemers mekanikk
+532  Fluidmekanikk; væskemekanikk
+533  Gassers mekanikk
+534  Lyd og lignende svingninger
+535  Lys og infrarøde og ultrafiolette fenomener
+536  Varme
+537  Elektrisitet og elektronikk
+538  Magnetisme
+539  Moderne fysikk
+540  Kjemi og lignende vitenskaper
+541  Fysikalsk kjemi
+542  Teknikker, utstyr og materialer
+543  Analytisk kjemi
+546  Uorganisk kjemi
+547  Organisk kjemi
+548  Krystallografi
+549  Mineralogi
+550  Geovitenskapelige fag
+551  Geologi, hydrologi og meteorologi
+552  Petrologi
+553  Økonomisk geologi
+554  Europas geovitenskap
+555  Asias geovitenskap
+556  Afrikas geovitenskap
+557  Nord-Amerikas geovitenskap
+558  Sør-Amerikas geovitenskap
+559  Andre områders geovitenskap
+560  Paleontologi; paleozoologi
+561  Paleobotanikk; fossile mikroorganismer
+562  Fossile virvelløse dyr
+563  Fossile marine virvelløse dyr og fossile virvelløse dyr i fjæra
+564  Fossile bløtdyr og lignende dyr
+565  Fossile leddyr
+566  Fossile ryggstrengdyr
+567  Fossile vekselvarme virveldyr; fossile fisker
+568  Fossile fugler
+569  Fossile pattedyr
+570  Biologiske fag; biologi
+571  Fysiologi og lignende emner
+572  Biokjemi
+573  Bestemte fysiologiske systemer i dyr
+575  Bestemte deler av og systemer i planter
+576  Genetikk og evolusjon
+577  Økologi
+578  Organismers naturhistorie
+579  Mikroorganismer, sopper og alger
+580  Planter (Botanikk)
+581  Bestemte emner innen naturhistorie
+582  Planter som kjennetegnes ved karakteristika og blomster
+583  Tofrøbladete planter
+584  Enfrøbladete planter
+585  Nakenfrøete planter; bartrær
+586  Planter uten frø
+587  Karplanter uten frø
+588  Moser
+590  Dyr (Zoologi)
+591  Bestemte emner innen naturhistorie
+592  Virvelløse dyr
+593  Marine virvelløse dyr og virvelløse dyr i fjæra
+594  Bløtdyr og lignende dyr
+595  Leddyr
+596  Ryggstrengdyr
+597  Vekselvarme virveldyr; fisker
+598  Fugler
+599  Pattedyr
+600  Teknologi
+601  Filosofi og teori
+602  Diverse
+603  Ordbøker og leksika
+604  Spesielle emner
+605  Periodika
+606  Organisasjoner
+607  Utdanning, forskning og lignende emner
+608  Oppfinnelser og patenter
+609  Historisk eller geografisk behandling, personer
+610  Medisin og helse
+611  Menneskets anatomi, cellebiologi og vevsbiologi
+612  Menneskets fysiologi
+613  Personlig helse og sikkerhet
+614  Sykdomsforekomst og forebyggende medisin
+615  Farmakologi og terapi
+616  Sykdommer
+617  Kirurgi og beslektede medisinske områder
+618  Gynekologi, obstetrikk, pediatri og geriatri
+620  Teknikk og lignende fagområder
+621  Anvendt fysikk
+622  Gruvedrift og lignende operasjoner
+623  Militær og nautisk teknikk
+624  Sivil teknikk
+625  Teknikk for jernbaner og veier
+627  Vannbygging
+628  Sanitær- og kommunalteknikk
+629  Andre områder innen teknikk
+630  Landbruk og lignende fagområder
+631  Teknikker, utstyr og materialer
+632  Skader, sykdommer, skadedyrangrep på planter
+633  Jordbruksplanter
+634  Frukthager, frukt og skogbruk
+635  Hagebruk (hortikultur)
+636  Husdyrhold
+637  Meieridrift og lignende fagområder
+638  Insektavl
+639  Jakt, fiske og vern av biologiske ressurser
+640  Husholdning og familieliv
+641  Mat og drikke
+642  Måltider og servering
+643  Boliger og husholdningsutstyr
+644  Oppvarming, belysning, ventilasjon, vannforsyning
+645  Hjemmeinnredning
+646  Søm, klær og privatliv
+647  Offentlige husholdninger
+648  Husstell
+649  Oppfostring av barn og hjemmepleie
+650  Administrasjon og ledelse
+651  Kontorfunksjoner
+652  Arbeidsoperasjoner knyttet til skriftlig kommunikasjon
+653  Stenografi
+657  Regnskap
+658  Ledelse og bedriftsøkonomi
+659  Reklame og PR-virksomhet
+660  Kjemiteknikk
+661  Industrikjemikalier
+662  Eksplosiver, brennstoffer og lignende produkter
+663  Industriell drikkevareproduksjon
+664  Næringsmiddelteknologi
+665  Oljer, fettstoffer, voks og gasser
+666  Keramisk og lignende teknologi
+667  Rensing, farging og overflatebehandling
+668  Andre organiske produkters teknologi
+669  Metallurgi
+670  Industriell produksjon
+671  Metallindustri og primærprodukter av metall
+672  Jern, stål og andre jernlegeringer
+673  Ikke-jernholdige metaller
+674  Trelastproduksjon, treprodukter og kork
+675  Lær-, pels- og skinnindustri
+676  Cellulose- og papirteknologi
+677  Tekstiler
+678  Elastomerer og elastomerprodukter
+679  Produkter laget av andre bestemte råstoffer
+680  Produksjon med bestemte bruksområder
+681  Presisjonsinstrumenter og andre presisjonsapparater
+682  Smedhåndverk
+683  Jernvarer og husholdningsutstyr
+684  Innredning og hobbyverksteder
+685  Lær-, pels-, skinnvarer og lignende produkter
+686  Trykking og lignende virksomhet
+687  Klær og tilbehør
+688  Andre sluttprodukter og emballering
+690  Husbygging
+691  Byggematerialer
+692  Tilleggsaktiviteter ved bygging
+693  Bestemte materialer og formål
+694  Bygging med tre og bygningssnekring
+695  Taktekking
+696  VVS (varme-, ventilasjons- og sanitærteknikk)
+697  Oppvarming, ventilasjon og klimaanlegg
+698  Annet bygningsarbeid
+700  Kunst og underholdning
+701  Filosofi og teori innen arkitektur, bildende kunst, kunsthåndverk
+702  Diverse innen arkitektur, bildende kunst, kunsthåndverk
+703  Ordbøker, leksika innen arkitektur, bildende kunst, kunsthåndverk
+704  Spesielle emner innen arkitektur, bildende kunst, kunsthåndverk
+705  Periodika innen arkitektur, bildende kunst, kunsthåndverk
+706  Organisasjoner og ledelse
+707  Utdanning, forskning og lignende emner
+708  Gallerier, museer og private samlinger
+709  Historisk eller geografisk behandling, personer
+710  Arealplanlegging og landskapsarkitektur
+711  Arealplanlegging
+712  Landskapsarkitektur
+713  Landskapsarkitektur for trafikkårer
+714  Vann i landskapsarkitektur
+715  Vedplanter
+716  Urteplanter
+717  Struktur i landskapsarkitektur
+718  Landskapsutforming for kirkegårder
+719  Naturlandskap
+720  Arkitektur
+721  Arkitektoniske byggverk
+722  Oldtidens arkitektur fram til ca. 300
+723  Arkitektur fra ca. 300 til 1399
+724  Arkitektur fra 1400
+725  Offentlige byggverk
+726  Bygninger for religiøse formål
+727  Bygninger for utdannings- og forskningsformål
+728  Boliger og lignende bygninger
+729  Utforming og utsmykning
+730  Plastisk kunst; skulptur
+731  Arbeidsprosesser, former og motiver innen skulptur
+732  Skulptur til ca. 500
+733  Gresk, etruskisk og romersk skulptur
+734  Skulptur fra ca. 500 til 1399
+735  Skulptur fra 1400
+736  Utskjæring og utskjæringer
+737  Numismatikk og sigillografi
+738  Keramisk kunst
+739  Metallkunst
+740  Tegnekunst og kunsthåndverk
+741  Tegnekunst og tegninger
+742  Perspektiv i tegnekunst
+743  Tegning og tegninger inndelt etter motiv
+745  Kunsthåndverk
+746  Tekstilkunst
+747  Dekorativ innredning
+748  Glass
+749  Møbler og tilbehør
+750  Malerkunst og malerier
+751  Teknikker, utstyr, materialer og former
+752  Farger
+753  Symbolikk, allegorier, mytologi og legender
+754  Genremaleri
+755  Religion
+757  Menneskeskikkelser
+758  Andre motiver
+759  Historisk eller geografisk behandling, personer
+760  Grafiske kunstarter; grafikkframstilling og grafikk
+761  Høytrykk
+763  Litografi
+764  Fargelitografi og serigrafi
+765  Metallgravering
+766  Mezzotint, akvatint og lignende prosesser
+767  Etsing og kaldnålsradering
+769  Grafiske trykk
+770  Fotografi, fotografier og datakunst
+771  Teknikker, utstyr og materialer
+772  Metallsaltprosesser
+773  Pigmentprosesser for trykking
+774  Holografi
+775  Digitalt fotografi
+776  Datakunst (Digital kunst)
+778  Fagområder og typer fotografering
+779  Fotografier
+780  Musikk
+781  Generelle prinsipper og musikalske former
+782  Vokalmusikk
+783  Musikk for enkeltstemmer; stemmen
+784  Instrumenter og instrumentalensembler
+785  Ensembler med ett instrument på hver stemme
+786  Tasteinstrumenter og andre instrumenter
+787  Strengeinstrumenter
+788  Blåseinstrumenter
+790  Fritid, underholdning, sport
+791  Offentlige opptredener
+792  Scenekunst
+793  Innendørs spill og underholdning
+794  Innendørs ferdighetsspill
+795  Hasardspill
+796  Sport, idrett og friluftsliv
+797  Vannsport og luftsport
+798  Hestesport og konkurranser med dyr
+799  Fiske, jakt og skyttersport
+800  Litteratur og litteraturvitenskap
+801  Filosofi og teori
+802  Diverse
+803  Ordbøker og leksika
+805  Periodika
+806  Organisasjoner og ledelse
+807  Utdanning, forskning og lignende emner
+808  Litterær komposisjon og samlinger av litterære tekster
+809  Historie, beskrivelse og kritikk
+810  Amerikansk litteratur på engelsk
+811  Amerikanske dikt på engelsk
+812  Amerikansk drama på engelsk
+813  Amerikanske romaner og noveller på engelsk
+814  Amerikanske essayer på engelsk
+815  Amerikanske taler på engelsk
+816  Amerikanske brev på engelsk
+817  Amerikansk humor og satire på engelsk
+818  Annen amerikansk litteratur på engelsk
+820  Engelsk og gammelengelsk litteratur
+821  Engelske dikt
+822  Engelsk drama
+823  Engelske romaner og noveller
+824  Engelske essayer
+825  Engelske taler
+826  Engelske brev
+827  Engelsk humor og satire
+828  Annen engelsk litteratur
+829  Gammelengelsk (angelsaksisk)
+830  Germanske språks litteraturer
+831  Tyske dikt
+832  Tysk drama
+833  Tyske romaner og noveller
+834  Tyske essayer
+835  Tyske taler
+836  Tyske brev
+837  Tysk humor og satire
+838  Annen tysk litteratur
+839  Annen germansk litteratur
+840  Romanske språks litteraturer
+841  Franske dikt
+842  Fransk drama
+843  Franske romaner og noveller
+844  Franske essayer
+845  Franske taler
+846  Franske brev
+847  Fransk humor og satire
+848  Annen fransk litteratur
+849  Oksitanske og katalanske litteraturer
+850  Italiensk, rumensk og beslektede litteraturer
+851  Italienske dikt
+852  Italiensk drama
+853  Italienske romaner og noveller
+854  Italienske essayer
+855  Italienske taler
+856  Italienske brev
+857  Italiensk humor og satire
+858  Annen italiensk litteratur
+859  Rumensk og beslektede litteraturer
+860  Spansk og portugisisk litteratur
+861  Spanske dikt
+862  Spansk drama
+863  Spanske romaner og noveller
+864  Spanske essayer
+865  Spanske taler
+866  Spanske brev
+867  Spansk humor og satire
+868  Annen spansk litteratur
+869  Portugisisk litteratur
+870  Italiske språks litteraturer; latinsk litteratur
+871  Latinske dikt
+872  Latinske dramatiske dikt og drama
+873  Latinske episke dikt og fortellinger
+874  Latinske lyriske dikt
+875  Latinske taler
+876  Latinske brev
+877  Latinsk humor og satire
+878  Annen latinsk litteratur
+879  Andre italiske språks litteraturer
+880  Greske språks litteraturer; klassisk gresk litteratur
+881  Klassisk greske dikt
+882  Klassisk greske dramatiske dikt og drama
+883  Klassisk greske episke dikt og fortellinger
+884  Klassisk greske lyriske dikt
+885  Klassisk greske taler
+886  Klassisk greske brev
+887  Klassisk gresk humor og satire
+888  Annen klassisk gresk litteratur
+889  Nygresk litteratur
+890  Andre språks litteraturer
+891  Østindoeuropeiske og keltiske språks litteraturer
+892  Afroasiatiske språks litteraturer; semittiske språks litteraturer
+893  Ikke-semittiske afroasiatiske språks litteraturer
+894  Altaiske, uralske, hyperboreiske og dravidiske språks litteraturer
+895  Litteratur på språk i Øst- og Sørøst-Asia
+896  Afrikanske språks litteraturer
+897  Litteraturer på nordamerikanske urbefolkningers språk
+898  Litteraturer på søramerikanske urbefolkningers språk
+899  Litteraturer på austronesiske språk og andre språk
+900  Historie og geografi
+901  Filosofi og teori
+902  Diverse
+903  Ordbøker og leksika
+904  Samlede beretninger om ulike begivenheter
+905  Periodika
+906  Organisasjoner og ledelse
+907  Utdanning, forskning og lignende emner
+908  Bestemte kategorier personer
+909  Verdenshistorie
+910  Geografi og reiser
+911  Historisk geografi
+912  Atlas, kart, plansjer og planer
+913  Geografi og reiser i oldtidens stater og landområder
+914  Geografi og reiser i Europa
+915  Geografi og reiser i Asia
+916  Geografi og reiser i Afrika
+917  Geografi og reiser i Nord-Amerika
+918  Geografi og reiser i Sør-Amerika
+919  Geografi og reiser i andre områder
+920  Biografi, genealogi og insignier
+929  Genealogi, navn og insignier
+930  Oldtidens historie til ca. 499
+931  Kina til 420
+932  Egypt til 640
+933  Palestina til 70
+934  India til 647
+935  Mesopotamia og den iranske høyslette til 637
+936  Europa nord og vest for Italia til ca. 499
+937  Italia og tilgrensende områder til 476
+938  Hellas til 323
+939  Andre oldtidskulturer til ca. 640
+940  Europas historie
+941  Britiske øyer
+942  England og Wales
+943  Sentral Europa; Tyskland
+944  Frankrike og Monaco
+945  Italienske halvøy og omkringliggende øyer
+946  Iberiske halvøy og omkringliggende øyer
+947  Øst Europa; Russland
+948  Norden
+949  Andre europeiske stater
+950  Asias historie; Fjerne Østen
+951  Kina med tilgrensende områder
+952  Japan
+953  Arabiske halvøy med tilgrensende områder
+954  Sør-Asia; India
+955  Iran
+956  Midtøsten
+957  Sibir (asiatiske deler av Russland)
+958  Sentral-Asia
+959  Sørøst-Asia
+960  Afrikas historie
+961  Tunisia og Libya
+962  Egypt og Sudan
+963  Etiopia og Eritrea
+964  Nordvestafrikanske kyst og øyene utenfor
+965  Algerie
+966  Vest-Afrika og øyene utenfor kysten
+967  Sentral-Afrika og øyene utenfor kysten
+968  Sørlige Afrika; Republikken Sør-Afrika
+969  Øyene i det Sør-Indiske hav
+970  Nord-Amerikas historie
+971  Canada
+972  Midtre Amerika; Mexico
+973  Forente stater
+974  Nordøstlige stater
+975  Sørøstlige stater
+976  Sørlige sentralstater
+977  Nordlige sentralstater
+978  Veststatene
+979  Great Basin og statene langs Stillehavskysten
+980  Sør-Amerikas historie
+981  Brasil
+982  Argentina
+983  Chile
+984  Bolivia
+985  Peru
+986  Colombia og Ecuador
+987  Venezuela
+988  Guyana
+989  Paraguay og Uruguay
+990  Andre områders historie
+993  New Zealand
+994  Australia
+995  Melanesia; Ny Guinea
+996  Andre deler av Stillehavet; Polynesia
+997  Atlanterhavsøyene
+998  Arktiske øyer og Antarktis
+999  Himmellegemer utenfor jorda
