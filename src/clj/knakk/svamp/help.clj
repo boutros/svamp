@@ -20,9 +20,9 @@
     :re-index (let [file (:resource-file params)]
                 (if (= "All types" file)
                   (apply merge-with into
-                         (map index/update-mapping!
+                         (map index/update-mapping-and-reindex!
                               (for [t (resources/all-types)] (:file t))))
-                  (index/update-mapping! file)))
+                  (index/update-mapping-and-reindex! file)))
     ;; TODO messagcount disabled by default.
     ;; https://github.com/hornetq/hornetq/blob/master/examples/jms/message-counters/readme.html
     :indexing-queue (let [res {:results [] :errors []}]

@@ -2,6 +2,7 @@
   (:require [clojure.string :as string]
             [clojure.java.io :as io]
             [clojure.edn :as edn]
+            [immutant.messaging :as msg]
             [knakk.svamp.settings :refer [settings]]
             [knakk.svamp.resources :as resources]
             [knakk.svamp.sparql :as sparql]
@@ -80,17 +81,25 @@
 (defn reset-all!
   "Deletes, then re-creates given indexes.
 
-  Returns {:error [<errormessages>], :result [<successmessages>]"
+  Returns {:errosr [<errormessages>], :results [<successmessages>]"
   [indexes]
   (let [deleted (delete! indexes)
         created (create! indexes)]
     (merge-with into deleted created)))
 
+(defn index-all!
+  "Enqueues all resources of given type to be indexed."
+  [resource-file]
+  (let [uris (resources/all-by-type resource-file)]
+    (msg/with-connection {}
+      (doseq [u uris]
+        (msg/publish queue u)))
+    {:errors [] :results [(str "put " (count uris) " of type " resource-file " to indexing queue")]}))
 
 (defn update-mapping!
   "Updates the mapping for a given ressource-type.
 
-  Returns {:error [<errormessages>], :result [<successmessages>]"
+  Returns {:errors [<errormessages>], :results [<successmessages>]"
   [resource-file]
   ;; TODO error handling; missing file or syntax errors in file, use some->> ?
   (let [res (atom {:results [] :errors []})
@@ -102,6 +111,15 @@
         (catch Exception e
           (swap! res assoc :errors (conj (:errors @res) (.toString e))))))
     @res))
+
+(defn update-mapping-and-reindex!
+  "Updates mapping and queues all resources of type to be indexed.
+
+  Returns {:errors [<errormessages>], :results [<successmessages>]"
+  [resource-file]
+  (let [u (update-mapping! resource-file)
+        i (index-all! resource-file)]
+    (merge-with into u i)))
 
 (defn uri [s] (str "<" s ">"))
 

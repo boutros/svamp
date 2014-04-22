@@ -99,3 +99,14 @@
           (for [[k v] solution]
             [k (:value v)]))))
 
+(defn bindings
+  "Returns the bindings of a sparql/json response in a map with the binding
+  parameters as keys and results as sets:
+
+  {:binding1 #{value1, value2} :binding2 #{v1, v2}}"
+  [response]
+  (let [{{vars :vars} :head {solutions :bindings} :results}
+        response vars (map keyword vars)]
+    (into {}
+          (for [v vars]
+            [v (set (keep #(->> % v :value) solutions))]))))

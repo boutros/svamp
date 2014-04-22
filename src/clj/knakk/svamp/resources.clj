@@ -105,6 +105,15 @@
                     parse-or-nil) files)]
     (vec (map #(assoc %1 :file %2) types filenames))))
 
+(defn all-by-type
+  "Returns a vector of all URIs for a given type."
+  [type-file]
+  (let [r (sparql/select
+           (str "select ?uri where "
+                "{ ?uri <svamp://internal/resource/template> \""
+                type-file "\" . }"))]
+    (->> (:results r) sparql/bindings :uri (into []))))
+
 (defn create! [resource publish? template]
   (let [query (insert-query resource publish? template)
         res (sparql/insert (:query query))]
@@ -120,6 +129,6 @@
     (if (:error res)
       (error (str "failed to delete resource " (uri resource) ": " (:error res)))
       (info (str "resource deleted: " (uri resource))))
-    (println "Remove from index queue")
+    (println "Remove from index queue") ;; TODO
     res))
 
