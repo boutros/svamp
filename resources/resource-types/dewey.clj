@@ -10,7 +10,7 @@
  :label "Dewey"
  :desc "a location in the dewey decimal system"
  :uri-fn (fn [{:keys [location]}]
-           (str "<http://dewey.info/class/" (->> location first :value) ">"))
+           (str "<http://dewey.info/class/" (->> location first :value) "/>"))
  :inner-rules [(fn [{:keys [location uri-fn] :as all}]
                  (let [l (->> location first :value)]
                    (str (uri-fn all) " a <http://www.w3.org/2004/02/skos/core#Concept>")))
