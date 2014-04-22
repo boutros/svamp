@@ -23,14 +23,13 @@
                          (map index/update-mapping-and-reindex!
                               (for [t (resources/all-types)] (:file t))))
                   (index/update-mapping-and-reindex! file)))
-    ;; TODO messagcount disabled by default.
-    ;; https://github.com/hornetq/hornetq/blob/master/examples/jms/message-counters/readme.html
     :indexing-queue (let [res {:results [] :errors []}]
                       (try
                         (update-in res [:results]
-                                   #(conj % ;(json/parse-string
-                                          (.listMessageCounter
-                                           (hq/destination-controller index/queue))));)
+                                   #(conj % (str "MessageCount: "
+                                             (get (json/parse-string
+                                                  (.listMessageCounter
+                                                    (hq/destination-controller index/queue))) "messageCount"))))
                         (catch Exception e
                           (update-in res [:errors]
                                      #(conj % (.getMessage e))))))))
