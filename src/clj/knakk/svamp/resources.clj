@@ -76,13 +76,15 @@
                           (when publish? {:predicate "<svamp://internal/resource/published>" :value (now) :type :date})
                           ]))
         pred-vals (map (fn [v] (str (:predicate v) " " (literal v))) values)
-        inner (clojure.string/join " . " (map #(% r2) (:inner-rules resource)))]
+        inner (clojure.string/join " . " (map #(% r2) (:inner-rules resource)))
+        rules (into [] (map #(% g id) (:outer-rules resource)))]
     {:query
      (str "INSERT INTO GRAPH " g " { "
           id " a " (uri (:rdf-type resource)) " ; "
           (clojure.string/join " ; " pred-vals)
           " . " inner "}")
-     :uri id}))
+     :uri id
+     :rules rules}))
 
 (defn- delete-query
   [resource published?]
@@ -116,10 +118,13 @@
 
 (defn create! [resource publish? template]
   (let [query (insert-query resource publish? template)
-        res (sparql/insert (:query query))]
+        res (sparql/insert (:query query))
+        rules (:rules query)]
     (if (:error res)
       (error (str "failed to create resource: " (:error res)))
       (do
+        (doseq [q rules] ;; TODO error handling etc. Move to own fn? This is temporary!
+          (info (sparql/insert q)))
         (info (str "resource created: " (:uri query)))
         (msg/publish "/queue/indexing" (clean-uri (:uri query)))))
     res))

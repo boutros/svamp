@@ -14,10 +14,25 @@
  :uri-fn (fn [{:keys [scotId]}]
            (str "<http://vocabulary.curriculum.edu.au/scot/" (->> scotId first :value) ">"))
  :inner-rules []
- :outer-rules []
+ :outer-rules [(fn [graph uri]
+                 (str "WITH " graph "
+                        DELETE { " uri " <svamp://internal/resource/displayLabel> ?displayLabel }
+                        WHERE {
+                               " uri " <svamp://internal/resource/displayLabel> ?displayLabel ;
+                                 <svamp://internal/resource/template> \"subject.clj\" .
+                             }"))
+               (fn [graph uri]
+                 (str "INSERT INTO " graph "
+                          { " uri "<svamp://internal/resource/displayLabel> `bif:concat(if(bound(?broaderLabel), bif:concat(str(?broaderLabel), " > "), ""), str(?prefLabel))` }
+                       WHERE {
+                              " uri " <http://www.w3.org/2004/02/skos/core#prefLabel> ?prefLabel ;
+                                      <svamp://internal/resource/template> \"subject.clj\"
+                              OPTIONAL { " uri " <http://www.w3.org/2004/02/skos/core#broader> ?b .
+                                        ?b <http://www.w3.org/2004/02/skos/core#prefLabel> ?broaderLabel }
+                                       }"))]
  :search-label (fn [{:keys [prefLabel altLabel hiddenLabel]}]
                  (let [strip-tag (fn [s] (last (re-find #"(.*)@[a-zA-Z-]{2,5}$" s)))]
-                   (clojure.string/join " " (into [(->> prefLabel first :value)]
+                   (clojure.string/join " " (into [(->> prefLabel first :value strip-tag)]
                                                    (map (comp strip-tag :value) (into hiddenLabel altLabel))))))
  :display-label (fn [{:keys [prefLabel]}]
                  (->> prefLabel first :value))
