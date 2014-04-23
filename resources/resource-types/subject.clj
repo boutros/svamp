@@ -61,7 +61,7 @@
               :repeatable true
               :required false
               :value-template {:value "" :predicate "<http://www.w3.org/2004/02/skos/core#narrower>" :type :uri}}
-             {:id :borader
+             {:id :broader
               :label "Broader subject"
               :repeatable true
               :required false
