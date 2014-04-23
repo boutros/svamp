@@ -1,20 +1,29 @@
 {
  :rdf-type "http://www.w3.org/2004/02/skos/core#Concept"
  :index-type "subject"
+ :index-mappings { "<http://www.w3.org/2004/02/skos/core#narrower>" {"narrower" {:type "string" :index "not_analyzed"}}
+                   "<http://www.w3.org/2004/02/skos/core#broader>" {"broader" {:type "string" :index "not_analyzed"}}
+                   "<http://www.w3.org/2004/02/skos/core#prefLabel>" {"prefLabel" {:type "string"}}
+                   "<http://www.w3.org/2004/02/skos/core#altLabel>" {"altLabel" {:type "string"}}
+                   "<http://www.w3.org/2004/02/skos/core#hiddenLabel>" {"hiddenLabel" {:type "string"}}
+                   "<http://www.w3.org/2004/02/skos/core#scopeNote>" {"scopeNote" {:type "string"}}
+                   "<http://www.w3.org/2004/02/skos/core#exactMatch>" {"exactMatch" {:type "string" :index "not_analyzed"}}
+                   "<http://www.w3.org/2004/02/skos/core#closeMatch>" {"closeMatch" {:type "string" :index "not_analyzed"}}}
  :label "Subject"
  :desc "an area of study, or a concept"
- :uri-fn (fn [{:keys [scot-id]}]
-           (str "<http://vocabulary.curriculum.edu.au/scot/" (->> scot-id first :value) ">"))
+ :uri-fn (fn [{:keys [scotId]}]
+           (str "<http://vocabulary.curriculum.edu.au/scot/" (->> scotId first :value) ">"))
  :inner-rules []
  :outer-rules []
- :search-label (fn [{:keys [pref-label alt-label hidden-label]}]
-                 (clojure.string/join " " (into [(->> pref-label first :value)]
-                                                 (map :value (into hidden-label alt-label)))))
- :display-label (fn [{:keys [pref-label]}]
-                 (->> pref-label first :value))
+ :search-label (fn [{:keys [prefLabel altLabel hiddenLabel]}]
+                 (let [strip-tag (fn [s] (last (re-find #"(.*)@[a-zA-Z-]{2,5}$" s)))]
+                   (clojure.string/join " " (into [(->> prefLabel first :value)]
+                                                   (map (comp strip-tag :value) (into hiddenLabel altLabel))))))
+ :display-label (fn [{:keys [prefLabel]}]
+                 (->> prefLabel first :value))
  :groups [{:title "Identification"
            :elements
-           [{:id :scot-id
+           [{:id :scotId
              :desc "A number, used for generating the URI. Just pick one!"
              :unique true
              :label "ID"
@@ -23,12 +32,12 @@
              :value-template {:value "" :predicate "<svamp://internal/temporary>" :type :integer}}]}
           {:title "Description"
             :elements
-            [{:id :pref-label
+            [{:id :prefLabel
               :label "Preferred label"
               :repeatable true
               :required true
               :value-template {:value "" :predicate "<http://www.w3.org/2004/02/skos/core#prefLabel>" :type :string}}
-             {:id :alt-label
+             {:id :altLabel
               :label "Alternate label"
               :repeatable true
               :required false
@@ -39,7 +48,7 @@
               :repeatable true
               :required false
               :value-template {:value "" :predicate "<http://www.w3.org/2004/02/skos/core#hiddenLabel>" :type :string}}
-             {:id :definition
+             {:id :note
               :label "Note"
               :desc "subject scope"
               :repeatable true
@@ -64,13 +73,13 @@
               :value-template {:value "" :predicate "<http://www.w3.org/2004/02/skos/core#related>" :type :uri}}]}
            {:title "Links (external)"
             :elements
-            [{:id :exact-match
+            [{:id :exactMatch
               :label "Excact match"
               :desc "a link which maps exactly to this subject"
               :repeatable true
               :required false
               :value-template {:value "" :predicate "<http://www.w3.org/2004/02/skos/core#exactMatch>" :type :string}}
-             {:id :close-match
+             {:id :closeMatch
               :label "Close match"
               :desc "a link which maps roughly to this subject"
               :repeatable true

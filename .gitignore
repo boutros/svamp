@@ -11,3 +11,4 @@ pom.xml*
 .nrepl*
 *.js
 *.log
+*.rdf

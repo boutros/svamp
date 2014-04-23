@@ -44,7 +44,7 @@
   (catch Exception e
     (error (str "failed to parse file '" file "': " (.getMessage e))))))
 
-(defn- insert-query
+(defn insert-query
   "Takes a resource map and builds the SPARQL query to be inserted.
 
   Returns a map of the query string and the uri (id):
@@ -75,7 +75,7 @@
                           {:predicate "<svamp://internal/resource/updated>" :value (now) :type :date}
                           (when publish? {:predicate "<svamp://internal/resource/published>" :value (now) :type :date})
                           ]))
-        pred-vals (map (fn [v] (str (:predicate v) " " (literal v)) ) values)
+        pred-vals (map (fn [v] (str (:predicate v) " " (literal v))) values)
         inner (clojure.string/join " . " (map #(% r2) (:inner-rules resource)))]
     {:query
      (str "INSERT INTO GRAPH " g " { "
